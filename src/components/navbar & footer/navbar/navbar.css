@@ -1,0 +1,109 @@
+.navBg {
+  background-color: black;
+  color: white;
+}
+
+.navbar-toggler-icon {
+  background-image: url("../../assets/navbar/clip.png") !important;
+  color: white;
+}
+
+.nav-link {
+  color: white !important;
+}
+
+.brandName {
+  color: white !important;
+  font-weight: 500;
+}
+
+.navbar-collapse {
+  display: flex;
+  justify-content: space-between;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.brandName:hover {
+  font-weight: 500;
+  color: rgb(186, 255, 14) !important;
+}
+
+.dropdown-menu {
+  background-color: rgb(33, 37, 41) !important;
+}
+
+.navTitle:hover {
+  background-color: rgb(33, 37, 41) !important;
+  border-radius: 10px;
+}
+
+.navTitles:hover {
+  background-color: rgb(33, 37, 41) !important;
+  border-radius: 10px;
+}
+
+@media (max-width: 767.98px) {
+  .navTitles {
+    display: none;
+  }
+}
+
+.Btn {
+  width: 140px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(
+    to right,
+    #77530a,
+    #ffd277,
+    #77530a,
+    #77530a,
+    #ffd277,
+    #77530a
+  );
+  background-size: 250%;
+  background-position: left;
+  color: #ffd277;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition-duration: 1s;
+  overflow: hidden;
+}
+
+.Btn::before {
+  position: absolute;
+  content: "Login";
+  color: #ffd277;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 97%;
+  height: 90%;
+  border-radius: 8px;
+  transition-duration: 1s;
+  background-color: rgba(0, 0, 0, 0.842);
+  background-size: 200%;
+}
+
+.Btn:hover {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.Btn:hover::before {
+  background-position: right;
+  transition-duration: 1s;
+}
+
+.Btn:active {
+  transform: scale(0.95);
+}

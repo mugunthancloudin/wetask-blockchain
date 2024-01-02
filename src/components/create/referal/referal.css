@@ -1,0 +1,36 @@
+.ref-body{
+    background-color: rgb(29,33,35);
+    height: 100vh;
+}
+.ref-btn-1 button{
+  width: 200px;
+  padding: 10px;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.ref-btn-2 button{
+  width: 200px;
+  padding: 10px;
+  border-radius: 30px;
+  font-weight: bold;
+  margin-top: 6%;
+}
+
+  .ref-icon {
+    border: 2px solid black;
+    padding: 14px 16px;
+    border-radius: 50%;
+    left: -22%;
+    background-color: white;
+  }
+
+  .ref-icon2 {
+    border: 3px solid black;
+    padding: 14px 16px;
+    border-radius: 50%;
+    left: -25%;
+    background-color: white;
+  }
+  
+ 

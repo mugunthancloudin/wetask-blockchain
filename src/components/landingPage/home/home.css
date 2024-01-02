@@ -1,0 +1,78 @@
+/* .homeBg{
+  height: 130vh;
+} */
+
+.homeH1 {
+margin-top: 10% !important;
+/* font-size: 50px; */
+}
+
+.spanh1 {
+  font-weight: 400;
+  color: rgb(186,255,14);
+color: linear-gradient(90deg, rgba(186,255,14,1) 0%, rgba(5,188,113,1) 100%);
+} 
+
+.homeBg  h6{
+  line-height: 30px;
+  font-weight:lighter;
+  font-size: large;
+}
+.home-btn1{
+  height: 55px;
+  width: 140px;
+   border-radius: 10px;
+   background-color:rgb(186, 255, 14);
+   font-size: small;
+   font-weight: bolder;
+   color: black;
+}
+
+.home-btn2{
+   height: 55px;
+   width: 140px;
+   border-radius: 10px;
+   background-color:black;
+   font-size: small;
+   font-weight: bolder;
+   border-color:rgba(10, 255, 155, 1) ;
+   color: rgba(10, 255, 155, 1);
+   margin-left: 2%;
+}
+
+.rewardBg{
+  background-image: url("../../assets/home/rewardBg.svg");
+  background-repeat: no-repeat;
+  justify-content: center;
+  display: block;
+  align-items: center;
+  position:relative;
+  
+}
+
+.tokenBg{
+  height: 200px;
+  width: 200px;
+  background-color: rgb(21,26,1);
+  border-radius: 50%;
+  position: absolute;
+  left:20%;
+  rotate: -30deg;
+}
+
+.nftBg{
+  height: 150px;
+  width: 130px;
+  background-color: rgb(21,26,1);
+  border-radius: 50%;
+  position:relative;
+  left: 65%;
+  top: 10%;
+  rotate: 30deg;
+}
+
+.rewardText{
+  position: relative;
+ margin-left: 5%;
+ margin-top: 10%;
+}

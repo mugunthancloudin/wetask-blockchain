@@ -1,0 +1,20 @@
+.footer-body{
+    background-color: rgb(7,13,16);
+    
+}
+.footer-cont p{
+    color: rgb(61,66,68);
+    font-size: small;
+    font-weight: bold;
+}
+.footer-cont p:hover{
+    color: white;
+}
+
+.footerIcons{
+    color: rgb(61,66,68);
+}
+
+.footerIcons:hover{
+    color: greenyellow;
+}

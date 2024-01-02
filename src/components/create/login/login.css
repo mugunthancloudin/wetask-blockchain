@@ -1,0 +1,15 @@
+.model-box{
+    border: 1px solid ;
+    height: 70vh;
+    width: 500px;
+    
+}
+button{
+    padding: .5em;
+    width: 150px;
+    background-color: black;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 10%;
+
+}
