@@ -13,9 +13,9 @@ import { IoGiftSharp } from "react-icons/io5";
 
 function MyNavbar() {
   return (
-    <Navbar collapseOnSelect expand="lg" className="navBg py-3" position-sticky>
+    <Navbar collapseOnSelect expand="lg" className="navBg py-3" position-fixed>
       <Container fluid className="navBg">
-        <Navbar.Brand href="#home" className="brandName">
+        <Navbar.Brand href="/" className="brandName">
           <img src={logo} alt="logo"  className="pb-1 me-2"/>
           TaskOn
         </Navbar.Brand>
@@ -24,7 +24,7 @@ function MyNavbar() {
 
         <Navbar.Collapse id="responsive-navbar-nav" className="navtop">
           <Nav className="center">
-            <Nav.Link href="#features" className="text-white  navTitle">
+            <Nav.Link href="#features" className="text-white ms-3 navTitle">
               Campaign
             </Nav.Link>
             <Nav.Link href="#pricing" className="text-white ms-3 navTitle">

@@ -14,13 +14,13 @@ export default function Tasks() {
                 animationData={homeanime}
                 loop={true}
                 autoplay={true}
-                style={{ width: "150%" }}
-                className="me-5"
+                // style={{ width: "100%" }}
+                className="taskLootie"
               />
             </div>
           </div>
           <div className="col-lg-6 text-light ">
-            <h3 className="mt-5 pt-4">Verified Projects</h3>
+            <h3 className="mt-5 ">Verified Projects</h3>
             <p className="mt-3 fw-bold">Discover 1600 + Notable Project Spaces Trustable and Pledged Rewards</p>
             <p className="fw-bold ">Web3 Login</p>
             <p className="fw-bold">Automatic Verification</p>

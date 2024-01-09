@@ -3,6 +3,14 @@
   color: white;
 }
 
+/* navbar-toggler{
+
+} */
+button.navbar-toggler {
+  display: flex;
+  align-items: center;
+ justify-content: end !important;
+}
 .navbar-toggler-icon {
   background-image: url("../../assets/navbar/clip.png") !important;
   color: white;
