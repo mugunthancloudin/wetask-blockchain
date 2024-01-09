@@ -52,7 +52,7 @@ function MyNavbar() {
                   </div>
                 </div>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2" className="bg-dark">
+              <NavDropdown.Item href="/camp" className="bg-dark">
                 <div className="d-flex text-white">
                   <div>
                     <FaGlobe size={25} className="mt-3 me-3" />

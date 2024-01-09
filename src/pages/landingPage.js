@@ -7,6 +7,7 @@ import Referal from "../components/create/referal/referal";
 import Login from "../components/create/login/login";
 import Data from "../components/landingPage/data/data";
 import Card from "../components/landingPage/card/card";
+import Tasks from "../components/landingPage/tasks/tasks";
 
 
 export default function LandingPage() {
@@ -16,10 +17,11 @@ export default function LandingPage() {
         <div className="">
           <MyNavbar />
           <Home />
-          {/* <Data/>
-          <Card/> */}
+          <Data/>
+          <Tasks/>
+          <Card/>
           {/* <Referal/> */}
-          {/* <Footer /> */}
+          <Footer />
           {/* <Login/> */}
         </div>
       </div>

@@ -3,11 +3,15 @@ import "./home.css";
 import token from "../../assets/home/token.svg";
 import nft from "../../assets/home/nft.svg";
 
+
 export default function Home() {
   return (
     <>
       <div className="container homeBg ">
         <div className="row">
+         
+          
+         
           <div className="col-lg-6 text-white">
             <h1 className="homeH1 ">
               <span className="spanh1">TaskOn</span> - Web3 Collaboration
