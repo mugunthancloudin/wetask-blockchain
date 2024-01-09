@@ -1,0 +1,234 @@
+.campDash {
+  background-color: black;
+  color: white;
+}
+.campignNav {
+  display: flex;
+  flex-direction: column; /* Stack nav items vertically */
+  align-items: flex-start; /* Align items to the left */
+  padding: 20px; /* Add some padding around the nav */
+  height: 100vh; /* Full height of the viewport */
+}
+
+.iconDiv {
+  height: 50px;
+  width: 50px;
+  background-color: rgb(59, 61, 61);
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-align: center;
+  border-radius: 50%;
+  margin-right: 10px;
+  position: absolute;
+  left: 35px;
+}
+
+.SidenavButton {
+  background: none;
+  border: none;
+  width: 60%;
+  text-align: center; /* Align text to the left */
+  padding: 5px 5px; /* Padding top and bottom */
+  transition: background-color 0.3s; /* Smooth transition for hover effect */
+  border-radius: 30px;
+}
+
+.SidenavButton .icon {
+  padding-right: 10px;
+}
+
+.SidenavButton .label .active {
+  font-size: 16px; /* Label font size */
+  color: white; /* Light grey color for the label */
+  margin-left: 10px;
+}
+
+/* Add this to your existing campaign.css without removing your current styles */
+
+.SidenavButton a.active .iconDiv {
+  background-color: white; /* Changes the iconDiv background to white when active */
+  border: 2px solid black;
+  /* Optional: Changes the border color to white when active */
+}
+
+.SidenavButton a.active .icon {
+  color: black; /* Change the icon color to black to ensure visibility against the white background */
+}
+
+/* Styles for the NavLink */
+.SidenavButton a {
+  display: flex;
+  align-items: center; /* Center items vertically */
+  width: 100%; /* Full width to the button */
+  padding: 10px; /* Padding inside the link */
+  color: white; /* Light grey color for the link */
+  text-decoration: none; /* Remove underline from link */
+  border-radius: 30px;
+}
+
+.SidenavButton a.active {
+  color: black; /* White color for active link */
+  background-color: white;
+  border-radius: 30px; /* Darker background for active link */
+}
+
+/* Add hover effect for buttons */
+.SidenavButton:hover,
+.SidenavButton:hover a {
+  background-color: rgb(82, 83, 83); /* Lighter background color on hover */
+  color: white; /* White color text on hover */
+}
+
+.fixed-column {
+  position: fixed; /* This will make the side navigation fixed */
+  top: 5%; /* Align to the top */
+  left: 0; /* Align to the left */
+  bottom: 0; /* Stretch to the bottom */
+  width: 25%; /* Set the width for the side nav */
+}
+
+.scrollable-column {
+  margin-left: 25%; /* This should be the same as the width of the fixed-column */
+  overflow-y: auto; /* Enable vertical scroll */
+  height: 100vh; /* Set to full viewport height */
+}
+
+.scrollable-column::-webkit-scrollbar {
+  display: none;
+}
+
+/* rewards component */
+
+/* .network-dropdown {
+  margin: 0;
+  padding: 0;
+} */
+
+/* .network-dropdown h5 {
+  margin-bottom: 0.5rem;
+} */
+
+/* .custom-select-wrapper {
+  position: relative;
+} */
+
+.custom-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: #333;
+  border: none;
+  padding: 10px 10px 10px 15px;
+  border-radius: 4px;
+  color: white;
+  font-size: 15px;
+  position: relative;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="50" viewBox="0 0 24 24" width="50" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 30px;
+  width: 100%;
+}
+
+.custom-select:focus {
+  outline: none;
+  border: 1px solid #ffc107; /* Style focus state */
+}
+
+.form-control {
+  background-color: #333;
+  padding: 10px 10px 10px 15px;
+  border-radius: 4px;
+  background-size: 30px;
+  width: 100%;
+  position: relative; 
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  color: white;
+}
+
+.form-control:focus{
+  background-color: #333 ;
+  color: white;
+  border-color: #ffc107;
+}
+
+.token-type-badge {
+  position: absolute;
+  right: 10px; /* Or however far from the right you want it */
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #333; /* Match your form control's style */
+  color: white;
+  padding: 0 8px;
+  border-radius: 4px; /* Optional, for rounded corners */
+}
+
+.dropdown-container {
+  position: relative;
+  font-family: Arial, sans-serif;
+}
+
+.dropdown-label {
+  color: #fff;
+}
+
+.dropdown {
+  background-color: #333;
+  color: #fff;
+  position: relative;
+  border-radius: 4px;
+  
+  
+}
+
+.dropdown-header {
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid transparent; /* Adjust color as needed */
+  user-select: none;
+  border-radius: 4px;
+}
+
+.dropdown-header:focus{
+  border-color: #ffc107;
+}
+
+.arrow {
+  float: right;
+  width: 0; 
+  height: 0; 
+  margin-left: 5px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #fff; /* Arrow down */
+}
+
+.arrow.up {
+  border-top: none;
+  border-bottom: 5px solid #fff; /* Arrow up */
+}
+
+.dropdown-list {
+  position: absolute;
+  margin-top: 2%;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  border: 1px solid #ffc107; /* Adjust color as needed */
+  z-index: 1000;
+  border-radius: 4px;
+}
+
+.dropdown-item {
+  padding: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown-item:hover,
+.dropdown-header:hover {
+  background-color: #555;
+}

@@ -13,7 +13,7 @@ import { IoGiftSharp } from "react-icons/io5";
 
 function MyNavbar() {
   return (
-    <Navbar collapseOnSelect expand="lg" className="navBg py-3">
+    <Navbar collapseOnSelect expand="lg" className="navBg py-3" position-sticky>
       <Container fluid className="navBg">
         <Navbar.Brand href="#home" className="brandName">
           <img src={logo} alt="logo"  className="pb-1 me-2"/>

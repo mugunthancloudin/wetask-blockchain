@@ -1,0 +1,10 @@
+button{
+    padding: .5em;
+    width: 150px;
+    background-color: black;
+    color: white;
+    border: 1px solid gray;
+    border-radius: 10px;
+    display: block; /* Ensures buttons are stacked vertically */
+  width: 100%; 
+}

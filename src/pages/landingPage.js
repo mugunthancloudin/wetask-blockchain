@@ -16,10 +16,10 @@ export default function LandingPage() {
         <div className="">
           <MyNavbar />
           <Home />
-          <Data/>
-          <Card/>
+          {/* <Data/>
+          <Card/> */}
           {/* <Referal/> */}
-          <Footer />
+          {/* <Footer /> */}
           {/* <Login/> */}
         </div>
       </div>

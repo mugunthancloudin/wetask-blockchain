@@ -6,7 +6,7 @@ import nft from "../../assets/home/nft.svg";
 export default function Home() {
   return (
     <>
-      <div className="container-fluid  homeBg ">
+      <div className="container homeBg ">
         <div className="row">
           <div className="col-lg-6 text-white">
             <h1 className="homeH1 ">
@@ -18,6 +18,8 @@ export default function Home() {
               tasks in a decentralized way. It helps task initiators and
               implementers to collaborate efficiently and better align mutual
               interests. Make full use of TaskOn and start earning now!
+
+
             </h6>
             <div className="d-flex mt-3 ">
               <button className="home-btn1">Explore</button>
@@ -31,7 +33,7 @@ export default function Home() {
                   Rewards Are Only Tasks Away
                 </span>
               </div>
-
+            
               <div className="tokenBg py-5 mt-3  ps-4">
                 <img src={token} alt="token" className="pt-3 ps-4" />
                 <h3 className="ms-2 mt-2 text-success">$2.49M +</h3>
