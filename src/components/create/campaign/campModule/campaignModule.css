@@ -7,6 +7,12 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: for a slight shadow */
 }
 
+.upload-box{
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-top: 3%;
+}
+
 .upload-instructions {
   background-color: rgb(29, 33, 35);
   padding: 5%;
@@ -164,4 +170,50 @@ button {
   align-items: center;
   justify-content: center;
   margin: 5% 5%;
+}
+
+/* eligiblity module.css */
+.eligiblityClose{
+  position: relative;
+  left: 45%;
+}
+
+.eligiblityLevelClose{
+  position: relative;
+  left: 65%;
+}
+
+.eligiblityBtn{
+  border : 1px solid rgb(128, 126, 126)
+}
+
+.eligiblityBtn:hover{
+  border: 2px solid white;
+}
+
+.titleImg{
+  width: 7%;
+}
+
+.eligiblityLevelCard{
+  background-color: #000;
+  color: white;
+}
+
+.lableWarp{
+  margin-top: 4%;
+  background-color: rgb(29,33,35);
+  border-radius: 10px;
+}
+
+.lableField{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid gray;
+  background-color: rgb(67,75,78) ;
+  border-radius: 10px;
+}
+.eligiblityLevelCard{
+  border-top-right-radius: 70px;
 }
