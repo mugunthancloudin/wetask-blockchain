@@ -16,6 +16,7 @@ export default function LandingPage() {
       <div className="container-fluid landingBg">
         <div className="">
           <MyNavbar />
+          <w3m-button/>
           <Home />
           <Data/>
           <Tasks/>
