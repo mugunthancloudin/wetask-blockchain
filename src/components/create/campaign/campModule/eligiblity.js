@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./campaignModule.css";
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import balance from "../../../assets/campaign/balance.svg";
 import level from "../../../assets/campaign/level.svg";
 
@@ -22,8 +23,8 @@ export default function Eligiblity() {
 
   // Handlers for showing cards
   const handleBalanceClick = () => {
-    setShowBalanceCard(true);
-  };
+    setShowBalanceCard(true);                
+  };                                                    
 
   const handleLevelClick = () => {
     setShowLevelCard(true);
@@ -35,12 +36,12 @@ export default function Eligiblity() {
   };
 
   const closeLevelCard = () => {
-    setShowLevelCard(false);
+    setShowLevelCard(false);          
   };
-
 
   return (
     <>
+    <DragDropContext onDragEnd={onDragEnd}>
       <div className="row">
         <div className="col-lg-8">
           <h6>Who are eligible for this Campaign?</h6>
@@ -174,9 +175,12 @@ export default function Eligiblity() {
             <button className="save-draft ms-3">Previous</button>
             <button className="next">Next</button>
           </div>
+
+
         </div>
         <div className="col-lg-4">&nbsp;</div>
       </div>
+      </DragDropContext>
     </>
   );
 }

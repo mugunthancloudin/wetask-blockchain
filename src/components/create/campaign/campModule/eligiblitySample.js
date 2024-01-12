@@ -1,135 +1,112 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./campaignModule.css";
-import balance from "../../../assets/campaign/balance.svg";
-import level from "../../../assets/campaign/level.svg";
+import twitter from "../../../assets/campaign/twitter.svg";
+import { FaPlus } from "react-icons/fa";
+export default function Task() {
+  const [tasks, setTasks] = useState([]);
+  const [inputValues, setInputValues] = useState({});
 
-export default function Eligiblity() {
+  // Function to add tasks
+  const addTask = (taskName) => {
+    setTasks((prevTasks) => [
+      ...prevTasks,
+      { id: prevTasks.length + 1, name: taskName, content: "" },
+    ]);
+  };
 
-  const [formDetails, setFormDetails] = useState({
-    network: '',
-    tokenList: '',
-    minBalance: ''
-  });
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setFormDetails((prevState) => ({
-      ...prevState,
-      [name]: value,
+  // Function to handle input change
+  const handleInputChange = (id, value) => {
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      [id]: value,
     }));
   };
 
+  // Function to save the content of a task
+  const saveTaskContent = (id) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === id ? { ...task, content: inputValues[id] || "" } : task
+      )
+    );
+  };
 
   return (
     <>
       <div className="row">
-        <div className="col-lg-8">
-          <h6>Who are eligible for this Campaign?</h6>
-          <div className="row ">
-            <div className="col-lg-6">
-              <button className="eligiblityBtn text-nowrap w-100 ">
-                <img src={balance} className="me-2" alt="balance" />
-                Minimum Token Balance
-              </button>
-            </div>
-            <div className="col-lg-6 ps-lg-5">
-              <button className="eligiblityBtn w-100 text-nowrap ">
-                <img src={level} alt="level" /> TaskOn Level
-              </button>
-            </div>
-          </div>
-          <hr />
-          <div className="card eligiblityLevelCard">
-            <div className="card-body">
-              <div className="row">
-                <div className="d-flex">
-                  <img src={level} alt="level" className="titleImg" />{" "}
-                  <h5 className="mt-2 ms-2">Taskon Level</h5>
+        <div className="col-lg-8 taskRightSide">
+          {tasks.map((task) => (
+            <div key={task.id} className="task-container">
+              <div className="sub-box mt-3 col-lg-12">Task {task.id}</div>
+              <div className="main-box">
+                <div className="d-flex my-2 ps-2">
+                  <img src={twitter} alt="Twitter" />
+                  <h6 className="pt-2 ms-2">{task.name}</h6>
                 </div>
 
-                <div className="baseCardContent">
-                  <div className="lableWarp p-4">
-                    <div className="row d-flex lableField">
-                      <div className=" col-lg-3 lableFieldLable ">
-                        Task On Level
-                      </div>
-                      <div className="col-lg-9 lableFieldInput">
-                        <input type="number" className="form-control ms-3" />
-                      </div>
-                    </div>
+                {task.content === "" && (
+                  <div className="task-input-container d-flex">
+                    <p className="text-nowrap mt-3 me-3 fs-6">Handle Twitter</p>
+                    <input
+                      type="text"
+                      placeholder="Enter content"
+                      value={inputValues[task.id] || ""}
+                      onChange={(e) =>
+                        handleInputChange(task.id, e.target.value)
+                      }
+                      className="form-control"
+                    />
+                    {/* <button onClick={() => saveTaskContent(task.id)}>Save</button> */}
                   </div>
-                </div>
+                )}
+                {task.content !== "" && <p>Content: {task.content}</p>}
               </div>
             </div>
-          </div>
+          ))}
 
-          <div className="card mt-3 eligiblityLevelCard">
-            <div className="card-body">
-              <div className="row">
-                <div className="d-flex">
-                  <img src={balance} alt="balance" className="titleImg" />{" "}
-                  <h5 className="mt-2 ms-2">Minimum Token Balance</h5>
-                </div>
-
-                <div className="baseCardContent">
-                  <div className="labelWrap p-4">
-                    {/* Network Field */}
-                    <div className="row d-lg-flex labelField">
-                      <div className="col-lg-3 labelFieldLabel">Network</div>
-                      <div className="col-lg-9 labelFieldInput">
-                        <select
-                          name="network"
-                          className="form-control ms-3"
-                          value={formDetails.network}
-                          onChange={handleInputChange}
-                        >
-                          <option className="" value="Ethereum">Ethereum</option>
-                          <option value="Binance Smart Chain">
-                            Binance Smart Chain
-                          </option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Token List Field */}
-                    <div className="row d-flex labelField mt-3">
-                      <div className="col-lg-3 labelFieldLabel">
-                        Pick From List
-                      </div>
-                      <div className="col-lg-9 labelFieldInput">
-                        <select
-                          name="tokenList"
-                          className="form-control ms-3"
-                          value={formDetails.tokenList}
-                          onChange={handleInputChange}
-                        >
-                          <option className="" value="Eth">Eth</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    {/* Minimum Balance Field */}
-                    <div className="row d-flex labelField mt-3">
-                      <div className="col-lg-3 labelFieldLabel">
-                        Min.Balance
-                      </div>
-                      <div className="col-lg-9 labelFieldInput">
-                        <input
-                          type="number"
-                          name="minBalance"
-                          className="form-control ms-3"
-                          value={formDetails.minBalance}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <div className="buttons my-4 ">
+            <button className="save-draft text-nowrap">Save as Draft</button>
+            <button className="save-draft ms-3">Previous</button>
+            <button className="next">Next</button>
           </div>
         </div>
-        <div className="col-lg-4">&nbsp;</div>
+
+        <div className="col-lg-4 ">
+          <h5>platform</h5>
+          <button className="task-button">
+            <img src={twitter} alt="Twitter" /> Twitter
+          </button>
+          <hr />
+          <div>
+            <button
+              className="task-box1 mt-2"
+              onClick={() => addTask("Post a Tweet With Specified Content")}
+            >
+              Post a Tweet With Specified Content{" "}
+              <div className="but-box">
+                <FaPlus />
+              </div>
+            </button>
+            <button
+              className="task-box1 mt-2"
+              onClick={() => addTask("Follow a Twitter")}
+            >
+              Follow Twitter{" "}
+              <div className="but-box">
+                <FaPlus />
+              </div>
+            </button>
+            <button
+              className="task-box1 mt-2"
+              onClick={() => addTask("Like a Tweet")}
+            >
+              Like a Tweet{" "}
+              <div className="but-box">
+                <FaPlus />
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );
