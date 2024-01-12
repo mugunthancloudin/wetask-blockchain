@@ -46,11 +46,14 @@ export default function Task() {
 
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
- 
+
   const removeTask = (taskId) => {
-    const updatedTasks = tasks.filter(task => task.id !== taskId);
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
     // Optionally update task IDs to keep them sequential
-    const renumberedTasks = updatedTasks.map((task, index) => ({ ...task, id: index + 1 }));
+    const renumberedTasks = updatedTasks.map((task, index) => ({
+      ...task,
+      id: index + 1,
+    }));
     setTasks(renumberedTasks);
   };
 
@@ -59,15 +62,14 @@ export default function Task() {
       <div className="row taskLeft">
         <div className="col-lg-8 task-scroll">
           {tasks.length === 0 ? (
-            <div className="no-tasks-template my-5" >
-            <p>No tasks added. Add a task from the platform.</p>
-          </div>
-          )
-          :(
+            <div className="no-tasks-template my-5">
+              <p>No tasks added. Add a task from the platform.</p>
+            </div>
+          ) : (
             tasks.map((task) => (
               <div key={task.id} className="task-container">
                 <div className="sub-box mt-3 col-lg-12">Task {task.id}</div>
-  
+
                 <div className="main-box">
                   <div
                     className={`row taskdiv d-flex my-2 ps-2 ${
@@ -84,7 +86,10 @@ export default function Task() {
                       />
                       <h6 className="pt-1 ms-2">{task.details.title}</h6>
                     </div>
-                    <div className="taskCloseDiv col-lg-2 text-center" onClick={() => removeTask(task.id)}>
+                    <div
+                      className="taskCloseDiv col-lg-2 text-center"
+                      onClick={() => removeTask(task.id)}
+                    >
                       <h5 className="taskClose">x</h5>
                     </div>
                   </div>
@@ -94,7 +99,9 @@ export default function Task() {
                       type="text"
                       placeholder={task.details.placeholder}
                       value={inputValues[task.id] || ""}
-                      onChange={(e) => handleInputChange(task.id, e.target.value)}
+                      onChange={(e) =>
+                        handleInputChange(task.id, e.target.value)
+                      }
                       className="form-control text-white"
                     />
                   </div>
@@ -102,7 +109,6 @@ export default function Task() {
               </div>
             ))
           )}
-          
 
           <div className="buttons my-4 ">
             <button className="save-draft text-nowrap">Save as Draft</button>
