@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./campaignModule.css";
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import balance from "../../../assets/campaign/balance.svg";
 import level from "../../../assets/campaign/level.svg";
 
@@ -23,8 +22,8 @@ export default function Eligiblity() {
 
   // Handlers for showing cards
   const handleBalanceClick = () => {
-    setShowBalanceCard(true);                
-  };                                                    
+    setShowBalanceCard(true);
+  };
 
   const handleLevelClick = () => {
     setShowLevelCard(true);
@@ -36,12 +35,11 @@ export default function Eligiblity() {
   };
 
   const closeLevelCard = () => {
-    setShowLevelCard(false);          
+    setShowLevelCard(false);
   };
 
   return (
     <>
-    <DragDropContext onDragEnd={onDragEnd}>
       <div className="row">
         <div className="col-lg-8">
           <h6>Who are eligible for this Campaign?</h6>
@@ -66,27 +64,32 @@ export default function Eligiblity() {
           </div>
           <hr />
 
-          {showLevelCard &&  (
+          {showLevelCard && (
             <div className="card eligiblityLevelCard">
               <div className="card-body">
                 <div className="row">
                   <div className="d-flex">
                     <img src={level} alt="level" className="titleImg" />{" "}
                     <h5 className="mt-2 ms-2">Taskon Level</h5>
-                    <h3 className="eligiblityLevelClose" onClick={closeLevelCard}>x</h3>
+                    <h3
+                      className="eligiblityLevelClose"
+                      onClick={closeLevelCard}
+                    >
+                      x
+                    </h3>
                   </div>
 
                   <div className="baseCardContent">
                     <div className="lableWarp p-4">
                       <div className="row d-flex lableField">
-                        <div className=" col-lg-3 lableFieldLable ">
+                        <div className=" col-lg-4 lableFieldLable ">
                           Task On Level
                         </div>
-                        <div className="col-lg-9 lableFieldInput">
+                        <div className="col-lg-8 lableFieldInput">
                           <input type="number" className="form-control ms-3" />
                         </div>
                       </div>
-                    </div>
+                    </div>  
                   </div>
                 </div>
               </div>
@@ -98,21 +101,19 @@ export default function Eligiblity() {
               <div className="card-body">
                 <div className="row">
                   <div className="d-flex">
-                    
-
                     <img src={balance} alt="balance" className="titleImg" />{" "}
                     <h5 className="mt-2 ms-2">Minimum Token Balance</h5>
-                    
-                    
-                    <h3 className="eligiblityClose" onClick={closeBalanceCard}>x</h3>
+                    <h3 className="eligiblityClose" onClick={closeBalanceCard}>
+                      x
+                    </h3>
                   </div>
 
                   <div className="baseCardContent">
                     <div className="lableWarp p-4">
                       {/* Network Field */}
                       <div className="row d-lg-flex lableField">
-                        <div className="col-lg-3 lableFieldLable ">Network</div>
-                        <div className="col-lg-9 lableFieldInput">
+                        <div className="col-lg-4 lableFieldLable ">Network</div>
+                        <div className="col-lg-8 lableFieldInput">
                           <select
                             name="network"
                             className="form-control ms-3"
@@ -129,10 +130,10 @@ export default function Eligiblity() {
 
                       {/* Token List Field */}
                       <div className="row d-flex lableField mt-3">
-                        <div className="col-lg-3 lableFieldLable ">
+                        <div className="col-lg-4 lableFieldLable ">
                           Pick From List
                         </div>
-                        <div className="col-lg-9 lableFieldInput">
+                        <div className="col-lg-8 lableFieldInput">
                           <select
                             name="tokenList"
                             className="form-control ms-3"
@@ -148,10 +149,10 @@ export default function Eligiblity() {
 
                       {/* Minimum Balance Field */}
                       <div className="row d-flex lableField mt-3">
-                        <div className="col-lg-3 lableFieldLable ">
+                        <div className="col-lg-4 lableFieldLable ">
                           Min.Balance
                         </div>
-                        <div className="col-lg-9 lableFieldInput">
+                        <div className="col-lg-8 lableFieldInput">
                           <input
                             type="number"
                             name="minBalance"
@@ -160,9 +161,7 @@ export default function Eligiblity() {
                             onChange={handleInputChange}
                           />
                         </div>
-                      </div> 
-
-
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -174,13 +173,10 @@ export default function Eligiblity() {
             <button className="save-draft text-nowrap">Save as Draft</button>
             <button className="save-draft ms-3">Previous</button>
             <button className="next">Next</button>
-          </div>
-
-
+            </div>
         </div>
         <div className="col-lg-4">&nbsp;</div>
       </div>
-      </DragDropContext>
     </>
   );
 }

@@ -218,12 +218,19 @@ button {
   border-top-right-radius: 70px;
 }
 
+.lableFieldLable{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
 
 /* task module.css */
 
 .taskRightSide{
-  border-right:1px solid gray ;
+  border-left:1px solid gray ;
   height: 100%;
+  
 }
 
 .task-button{
@@ -297,3 +304,39 @@ button {
   padding: 5%;
   border-radius: 10px;
 }
+
+
+.taskCloseDiv{
+  height: 25px;
+  width: 25px;
+  background-color: red;
+  position: relative;
+  top: -20px;
+  left: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  visibility: hidden;
+  transition: visibility 0.3s ease-in-out;
+}
+
+.taskdiv.hovered .taskCloseDiv {
+  visibility: visible;
+  cursor: pointer;
+}
+
+.task-Morebutton{
+  margin-top: 35vh;
+  background-color:rgb(52,58,61);
+  font-size: 14px;
+  width: 120px;
+  display: flex;
+  font-weight:500;
+  align-items: start;
+  gap: 5px;
+  padding: 2%;
+}
+
+
+

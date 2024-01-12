@@ -11,15 +11,15 @@ import MyNavbar from "../../../navbar & footer/navbar/navbar";
 export default function CampDashboard() {
   return (
     <div className="container-fluid campDash">
-    <MyNavbar/>
+      <MyNavbar />
       <div className="row d-flex">
-        <div className="col-lg-3 col-md-2 ">
-        {/* fixed-column */}
+        <div className="col-lg-3 col-md-2  ">
+          {/* fixed-column */}
           <CampSideNav />
         </div>
         <div className="col-lg-9 col-md-10 w-75 ">
-        {/* scrollable-column */}
-          <CampDocument/>
+          {/* scrollable-column */}
+          <CampDocument />
         </div>
       </div>
     </div>

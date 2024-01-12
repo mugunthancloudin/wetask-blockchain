@@ -2,6 +2,18 @@
   background-color: rgb(29,33,35);
   color: white;
 }
+
+.campDash .col-lg-9 {
+  height: 100vh;
+  overflow-y: auto;
+  /* overflow: hidden; */
+}
+
+.campDash .col-lg-9::-webkit-scrollbar {
+  display: none;
+}
+
+
 .campignNav {
   display: flex;
   flex-direction: column; 
