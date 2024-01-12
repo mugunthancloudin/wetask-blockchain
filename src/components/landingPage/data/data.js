@@ -13,12 +13,12 @@ export default function Data() {
             <h1>Data Across The Entire Platform</h1>
             <h5 className="mt-5">Campaigns</h5>
             <h1 className="mt-3">
-              <CountUp end={14228} enableScrollSpy scrollSpyDelay={500} /> <span className="text-success">+</span>
+              <CountUp end={14228} enableScrollSpy scrollSpyDelay={500} /> <span className="dataCountColor">+</span>
             </h1>
 
             <h5 className="mt-5">Projects/DAOs</h5>
             <h1 className="mt-3">
-              <CountUp end={8732} enableScrollSpy scrollSpyDelay={500} /> <span className="text-success">+</span>
+              <CountUp end={8732} enableScrollSpy scrollSpyDelay={500} /> <span className="dataCountColor">+</span>
             </h1>
           </div>
 

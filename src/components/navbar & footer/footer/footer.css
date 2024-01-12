@@ -8,8 +8,7 @@
     font-weight: bold;
 }
 .footer-cont p:hover{
-    color: white;
-}
+    color: palevioletred;}
 
 .footerIcons{
     color: rgb(61,66,68);
@@ -17,4 +16,12 @@
 
 .footerIcons:hover{
     color: greenyellow;
+}
+
+.footerTitle:hover{
+    color: rgb(232,38,102);
+}
+.footerH4{
+    color: rgb(232,38,102);
+color: linear-gradient(4deg, rgba(232,38,102,1) 0%, rgba(61,56,141,1) 100%);
 }

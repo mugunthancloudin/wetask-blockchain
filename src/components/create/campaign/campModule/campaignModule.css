@@ -1,12 +1,16 @@
 .image-preview {
-  max-width: 100%; /* Responsive width */
-  max-height: 300px; /* Max height */
-  margin-top: 20px;
-  border: 1px solid #ddd; /* Optional: for better visibility */
-  border-radius: 4px; /* Optional: for rounded corners */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: for a slight shadow */
+  max-width: 100%;
+  /* max-height: 300px; */
+  /* margin-top: 20px; */
+  border: 1px solid #ddd; 
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
+.form-control::placeholder {
+  color: #909090; 
+  opacity: 1; 
+}
 .upload-box{
   border: 1px solid gray;
   border-radius: 10px;
@@ -24,7 +28,7 @@
 }
 
 .editor-container {
-  border: 1px solid #333;
+  border: 1px solid gray;
   border-radius: 4px;
   color: white;
   background: #1a1a1a;
@@ -119,7 +123,7 @@
 
 .buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 button {

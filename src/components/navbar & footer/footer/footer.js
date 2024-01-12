@@ -9,11 +9,11 @@ export default function Footer() {
       <div className="container-fluid text-white py-5 footer-body">
         <div className="row footer-cont justify-content-between ">
           <div className="col-lg-4 ps-5 align-self-center mb-5">
-            <h5 className="">
+            <h3 className="">
               <img src={logo} alt="logo" className="pb-1 me-2" />
-              TaskOn
-            </h5>
-            <h6>Boosts Web3 Collaboration</h6>
+              <span className="footerTitle">TaskOn</span>
+            </h3>
+            <h4 className="footerH4">Boosts Web3 Colaboration</h4>
           </div>
           <div className="col-lg-2">
             <h5>TaskOn</h5>

@@ -1,4 +1,7 @@
 import React, { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
@@ -71,6 +74,7 @@ export default function Basicinfo() {
 
   return (
     <div className="container">
+      <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row mb-5">
         <div className="col-lg-10 col-md-12">
           <h5>Campaign Name</h5>
@@ -185,6 +189,7 @@ export default function Basicinfo() {
           </div>
         </div>
       </div>
+      </form>
     </div>
   );
 }
