@@ -8,7 +8,7 @@ export default function Data() {
   return (
     <>
       <div className="container text-white">
-        <div className="row py-5">
+        <div className="row pt-5">
         <div className="col-lg-7">
             <h1>Data Across The Entire Platform</h1>
             <h5 className="mt-5">Campaigns</h5>
