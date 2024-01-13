@@ -1,0 +1,68 @@
+.ecoHome{
+    background-color:linear-gradient(128deg, #3f133b, #17173d 25%, #192d48 50%, #1b7c6c);;
+    /* height: 100vh;  */
+    padding-top: 3%;
+}
+
+.ecoH1{
+    color: rgb(206,0,92);
+}
+
+.ecoButton {
+    /* height: 2.8em; */
+    width: 200px;
+    background: transparent;
+    -webkit-animation: jello-horizontal 0.9s both;
+    animation: jello-horizontal 0.9s both;
+    border: 3px solid rgb(206,0,92);
+    outline: none;
+    color: rgb(206,0,92);
+    cursor: pointer;
+    font-weight: 900;
+    border-radius: 20px;
+    
+  }
+  
+  .ecoButton:hover {
+    background: rgb(206,0,92);
+    color: #ffffff;
+    animation: squeeze3124 0.9s both;
+  }
+  
+  @keyframes squeeze3124 {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  
+    30% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+      transform: scale3d(1.25, 0.75, 1);
+    }
+  
+    40% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+      transform: scale3d(0.75, 1.25, 1);
+    }
+  
+    50% {
+      -webkit-transform: scale3d(1.15, 0.85, 1);
+      transform: scale3d(1.15, 0.85, 1);
+    }
+  
+    65% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+      transform: scale3d(0.95, 1.05, 1);
+    }
+  
+    75% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+      transform: scale3d(1.05, 0.95, 1);
+    }
+  
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+      transform: scale3d(1, 1, 1);
+    }
+  }
+  

@@ -37,8 +37,8 @@ button.navbar-toggler {
 }
 
 .brandName:hover {
-  font-weight: 500;
-  color: rgb(186, 255, 14) !important;
+  font-weight: 900;
+  color: rgb(206,0,92) !important;
 }
 
 .dropdown-menu {

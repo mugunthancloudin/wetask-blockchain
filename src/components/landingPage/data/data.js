@@ -1,7 +1,7 @@
 import React from "react";
 import "./data.css";
 import Lottie from "lottie-react";
-import data from "../../assets/data/data.json";
+import data from "../../assets/data/anouncements.json";
 import CountUp, { useCountUp } from "react-countup";
 
 export default function Data() {
@@ -27,8 +27,8 @@ export default function Data() {
               animationData={data}
               loop={true}
               autoplay={true}
-              style={{ width: "100%" }}
-              className="me-5"
+              style={{ width: "80%" }}
+              className="mb-5"
             />
           </div>
         </div>
