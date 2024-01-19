@@ -8,6 +8,8 @@ import Login from "../components/create/login/login";
 import Data from "../components/landingPage/data/data";
 import Card from "../components/landingPage/card/card";
 import Tasks from "../components/landingPage/tasks/tasks";
+import Ecosystem from "../components/landingPage/ecoSystem/ecosystem";
+import Comunity from "../components/landingPage/comunity/comunity";
 
 
 export default function LandingPage() {
@@ -18,10 +20,14 @@ export default function LandingPage() {
           <MyNavbar />
           <w3m-button/>
           <Home />
-          <Data/>
+         
           <Tasks/>
+          <Ecosystem/>
+          <Data/>
+          
           <Card/>
           {/* <Referal/> */}
+          <Comunity/>
           <Footer />
           {/* <Login/> */}
         </div>

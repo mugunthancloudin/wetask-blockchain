@@ -1,24 +1,24 @@
 import React from "react";
 import "./data.css";
 import Lottie from "lottie-react";
-import data from "../../assets/data/data.json";
+import data from "../../assets/data/anouncements.json";
 import CountUp, { useCountUp } from "react-countup";
 
 export default function Data() {
   return (
     <>
       <div className="container text-white">
-        <div className="row py-5">
+        <div className="row pt-5">
         <div className="col-lg-7">
             <h1>Data Across The Entire Platform</h1>
             <h5 className="mt-5">Campaigns</h5>
             <h1 className="mt-3">
-              <CountUp end={14228} enableScrollSpy scrollSpyDelay={500} /> <span className="text-success">+</span>
+              <CountUp end={14228} enableScrollSpy scrollSpyDelay={500} /> <span className="dataCountColor">+</span>
             </h1>
 
             <h5 className="mt-5">Projects/DAOs</h5>
             <h1 className="mt-3">
-              <CountUp end={8732} enableScrollSpy scrollSpyDelay={500} /> <span className="text-success">+</span>
+              <CountUp end={8732} enableScrollSpy scrollSpyDelay={500} /> <span className="dataCountColor">+</span>
             </h1>
           </div>
 
@@ -27,8 +27,8 @@ export default function Data() {
               animationData={data}
               loop={true}
               autoplay={true}
-              style={{ width: "100%" }}
-              className="me-5"
+              style={{ width: "80%" }}
+              className="mb-5"
             />
           </div>
         </div>

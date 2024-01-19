@@ -1,0 +1,12 @@
+
+.comunityModule{
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.comunityGradient{
+    background: linear-gradient(101deg, #5c4df1 4%, #ea52f0 55%, #eb9f5c 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 900;
+}

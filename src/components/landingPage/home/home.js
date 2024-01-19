@@ -40,12 +40,12 @@ export default function Home() {
             
               <div className="tokenBg py-5 mt-3  ps-4">
                 <img src={token} alt="token" className="pt-3 ps-4" />
-                <h3 className="ms-2 mt-2 text-success">$2.49M +</h3>
+                <h3 className="ms-2 mt-2 tokenData">$2.49M +</h3>
               </div>
 
               <div className="nftBg pt-5 ps-4">
                 <img src={nft} alt="nft" className="pt-2 ps-4" />
-                <h6 className="ms-2 mt-2 text-warning">$2.49M +</h6>
+                <h6 className="ms-2 mt-2 tokenData">$2.49M +</h6>
               </div>
 
               <div className="text-center  py-3 rewardText ">

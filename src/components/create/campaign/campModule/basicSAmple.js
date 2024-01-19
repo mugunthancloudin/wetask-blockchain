@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
-import axios from 'axios';
-import FormData from 'form-data';
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
@@ -19,9 +20,6 @@ import { IoEyeSharp } from "react-icons/io5";
 import "./campaignModule.css";
 import "draft-js/dist/Draft.css";
 
-const JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U'; // Replace with your actual JWT token
-
-
 export default function Basicinfo() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [previewSrc, setPreviewSrc] = useState("");
@@ -29,44 +27,14 @@ export default function Basicinfo() {
   const [visibility, setVisibility] = useState("public");
   const fileInputRef = useRef();
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => setPreviewSrc(reader.result);
       reader.readAsDataURL(file);
-      // Upload to IPFS
-      const formData = new FormData();
-      formData.append('file', file);
-
-      const pinataMetadata = JSON.stringify({
-        name: file.name,
-      });
-      formData.append('pinataMetadata', pinataMetadata);
-
-      const pinataOptions = JSON.stringify({
-        cidVersion: 0,
-      });
-      formData.append('pinataOptions', pinataOptions);
-
-      try {
-        const res = await axios.post(
-          'https://api.pinata.cloud/pinning/pinFileToIPFS',
-          formData,
-          {
-            maxBodyLength: 'Infinity',
-            headers: {
-              'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-              Authorization: `Bearer ${JWT}`,
-            },
-          }
-        );
-        console.log(`Uploaded to IPFS:`, res.data);
-      } catch (error) {
-        console.error(`Error uploading to IPFS:`, error);
-        }
-      }
-    };
+    }
+  };
 
   const openFileDialog = () => {
     fileInputRef.current.click();
@@ -106,6 +74,7 @@ export default function Basicinfo() {
 
   return (
     <div className="container">
+      <form onSubmit={handleSubmit(onSubmit)}>
       <div className="row mb-5">
         <div className="col-lg-10 col-md-12">
           <h5>Campaign Name</h5>
@@ -220,6 +189,7 @@ export default function Basicinfo() {
           </div>
         </div>
       </div>
+      </form>
     </div>
   );
 }

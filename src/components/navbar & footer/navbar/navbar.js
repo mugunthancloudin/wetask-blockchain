@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./navbar.css";
-import logo from "../../assets/navbar/logo.svg";
+import logo from "../../assets/navbar/Logo.png";
 import { FaUser } from "react-icons/fa";
 import { FaGlobe } from "react-icons/fa6";
 import { FaNoteSticky } from "react-icons/fa6";
@@ -13,10 +13,10 @@ import { IoGiftSharp } from "react-icons/io5";
 
 function MyNavbar() {
   return (
-    <Navbar collapseOnSelect expand="lg" className="navBg py-3" position-fixed>
+    <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
       <Container fluid className="navBg">
         <Navbar.Brand href="/" className="brandName">
-          <img src={logo} alt="logo"  className="pb-1 me-2"/>
+          <img src={logo} alt="logo" width={50}  className="pb-1 me-2"/>
           TaskOn
         </Navbar.Brand>
 
@@ -24,13 +24,13 @@ function MyNavbar() {
 
         <Navbar.Collapse id="responsive-navbar-nav" className="navtop">
           <Nav className="center">
-            <Nav.Link href="#features" className="text-white ms-3 navTitle">
+            <Nav.Link href="/campaign" className="text-white ms-3 navTitle">
               Campaign
             </Nav.Link>
-            <Nav.Link href="#pricing" className="text-white ms-3 navTitle">
+            <Nav.Link href="/event" className="text-white ms-3 navTitle">
               Event
             </Nav.Link>
-            <Nav.Link href="#pricing" className="text-white ms-3 navTitle">
+            <Nav.Link href="/space" className="text-white ms-3 navTitle">
               Space
             </Nav.Link>
 
