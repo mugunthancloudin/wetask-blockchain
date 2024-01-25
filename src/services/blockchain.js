@@ -6,7 +6,15 @@ const contractDetails = {
   address: '0x4728F9C0C473787575718Fa6F076557F5Eb3A235',
   abi: abi.abi,
 };
- 
+
+function IfConnected() {
+  const { isConnected } = useAccount();
+
+  if (!isConnected) {
+    return <div>Please connect your wallet.</div>;
+  }
+}
+
 export function CreateCampaign() { // Assuming default is public
 
   const { data, isLoading, isSuccess, write } = useContractWrite({
@@ -33,3 +41,33 @@ export function CreateSpace() { // Assuming default is public
     args: [],
   });
 }
+
+export function JoinCampaign() { // Assuming default is public
+
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    ...contractDetails,
+    functionName: 'createSpace',
+    args: [],
+  });
+}
+
+export function JoinEvent() { // Assuming default is public
+
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    ...contractDetails,
+    functionName: 'createSpace',
+    args: [],
+  });
+}
+
+export function JoinSpace() { // Assuming default is public
+
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    ...contractDetails,
+    functionName: 'createSpace',
+    args: [],
+  });
+}
+
+
+

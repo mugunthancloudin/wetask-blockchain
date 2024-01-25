@@ -10,7 +10,7 @@ import Card from "../components/landingPage/card/card";
 import Tasks from "../components/landingPage/tasks/tasks";
 import Ecosystem from "../components/landingPage/ecoSystem/ecosystem";
 import Comunity from "../components/landingPage/comunity/comunity";
-import {CreateCampaign} from "../services/blockchain";
+// import {CreateCampaign} from "../services/blockchain";
 
 
 export default function LandingPage() {
@@ -20,7 +20,7 @@ export default function LandingPage() {
         <div className="">
           <MyNavbar />
           <w3m-button/>
-          <CreateCampaign/>
+          {/* <CreateCampaign/> */}
           <Home />
          
           <Tasks/>
