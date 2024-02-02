@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import axios from 'axios';
-import Basicinfo from "../campModule/basicInfo";
+import Basicinfo from "../campModule/basicinfo";
 import Eligiblity from "../campModule/eligiblity";
 import Rewards from "../campModule/rewards";
 import Task from "../campModule/task";

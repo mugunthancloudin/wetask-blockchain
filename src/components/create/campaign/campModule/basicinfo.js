@@ -31,7 +31,7 @@ const BasicInfoSchema = yup.object().shape({
     .required("*Please enter your Campaign description."),
 });
 
-export default function Basicinfo(onUpdate) {
+export default function BasicInfo(onUpdate) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [campaignDescription, setCampaignDescription] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
