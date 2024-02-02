@@ -10,11 +10,11 @@ export default function Ecosystem() {
       <div className="container ecoHome">
         <div className="row text-white">
           <h3 className="fw-bold text-center ">
-            THE TASKON ECOSYSTEM SUPPORTS WEB3 PROJECTS AT THEIR EARLIEST STAGES.
+            THE WeTask ECOSYSTEM SUPPORTS WEB3 PROJECTS AT THEIR EARLIEST STAGES.
           </h3>
           <div className="col-lg-7 mt-5">
             {/* <h5>COMING SOON</h5> */}
-            <h1 className="mt-2 ecoH1">TaskOn</h1>
+            <h1 className="mt-2 ecoH1">WeTask</h1>
             <p className="mt-4 fs-5 fw-light">
               A web3 native crowdfunding protocol. We give you access to the
               best early stage web3 products and communities. You support them

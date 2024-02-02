@@ -5,7 +5,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./navbar.css";
-import logo from "../../assets/navbar/Logo.png";
+import logo from "../../assets/navbar/wetask - logo.png";
 import { FaUser } from "react-icons/fa";
 import { FaGlobe } from "react-icons/fa6";
 import { FaNoteSticky } from "react-icons/fa6";
@@ -16,8 +16,8 @@ function MyNavbar() {
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
       <Container fluid className="navBg">
         <Navbar.Brand href="/" className="brandName">
-          <img src={logo} alt="logo" width={50}  className="pb-1 me-2"/>
-          TaskOn
+          <img src={logo} alt="logo" width={30}  className="pb-1 me-2"/>
+          WeTask
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
