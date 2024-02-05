@@ -8,14 +8,14 @@ export default function CampSideNav() {
   console.log(navItems);
   return (
     <>
-      <div className="campignNav">
+      <div className="campignNav ">
         {navItems.map(({ link, label, Icon }) => (
           <button key={label} className="SidenavButton mt-4">
             <NavLink to={link} activeClassName="active">
               <span className="iconDiv">
-                <Icon className="icon ms-3" size={100} />
+                <Icon className="icon ms-2" size={75} />
               </span>
-              <span className="label ms-5 ">{label}</span>{" "}
+              <span className="label ms-5">{label}</span>{" "}
             </NavLink>
           </button>
         ))}

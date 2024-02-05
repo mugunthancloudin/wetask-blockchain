@@ -1,5 +1,5 @@
 .navBg {
-  background-color: rgb(29,33,35);
+  background-color: black;
   color: white;
 }
 
@@ -41,7 +41,12 @@ button.navbar-toggler {
   color: rgb(206,0,92) !important;
 }
 
+.dropdown-toggle nav-link{
+  background-color: black !important;
+}
+
 .dropdown-menu {
+  margin-top: 10px !important;
   background-color: rgb(33, 37, 41) !important;
 }
 

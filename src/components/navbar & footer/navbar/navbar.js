@@ -37,7 +37,7 @@ function MyNavbar() {
             <NavDropdown
               title="Create"
               id="collapsible-nav-dropdown"
-              className="navTitles ms-3"
+              className=" ms-3"
             >
               <NavDropdown.Item href="#action/3.1" className="bg-dark ">
                 <div className="d-flex text-white">

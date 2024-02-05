@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import axios from 'axios';
-import FormData from 'form-data';
+import axios from "axios";
+import FormData from "form-data";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
@@ -12,7 +12,8 @@ import {
   MdFormatAlignCenter,
   MdFormatAlignRight,
   MdFormatAlignJustify,
-} from "react-icons/md";import { useForm, Controller } from "react-hook-form";
+} from "react-icons/md";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -21,10 +22,8 @@ import { IoEyeSharp } from "react-icons/io5";
 import "./campaignModule.css";
 import "draft-js/dist/Draft.css";
 
-
-const JWT = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U'; // Replace with your actual JWT token
-
-
+const JWT =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U"; // Replace with your actual JWT token
 
 const BasicInfoSchema = yup.object().shape({
   campaignName: yup.string().required("*Please enter your Campaign name."),
@@ -40,7 +39,13 @@ const BasicInfoSchema = yup.object().shape({
       if (!value) {
         return false; // Disallow empty value
       }
-      const supportedFormats = ["image/jpeg", "image/png", "image/svg+xml", "image/webp", "image/gif"];
+      const supportedFormats = [
+        "image/jpeg",
+        "image/png",
+        "image/svg+xml",
+        "image/webp",
+        "image/gif",
+      ];
       return supportedFormats.includes(value[0].type);
     })
     .test("fileSize", "File size too large", (value) => {
@@ -57,52 +62,23 @@ export default function BasicInfo(onUpdate) {
   const [previewSrc, setPreviewSrc] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [visibility, setVisibility] = useState("public");
-  const [fileInputKey, setFileInputKey] = useState(Date.now()); 
-  const fileInputRef = useRef();
+  const [fileInputKey, setFileInputKey] = useState(Date.now());
+  const fileInputRef = useRef(null);
   const navigate = useNavigate();
   // const history = useHistory();
 
-  const handleFileChange = async (event) => {
+  const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => setPreviewSrc(reader.result);
       reader.readAsDataURL(file);
-      // Upload to IPFS
-      const formData = new FormData();
-      formData.append('file', file);
+    }
+  };
 
-      const pinataMetadata = JSON.stringify({
-        name: file.name,
-      });
-      formData.append('pinataMetadata', pinataMetadata);
-
-      const pinataOptions = JSON.stringify({
-        cidVersion: 0,
-      });
-      formData.append('pinataOptions', pinataOptions);
-
-      try {
-        const res = await axios.post(
-          'https://api.pinata.cloud/pinning/pinFileToIPFS',
-          formData,
-          {
-            maxBodyLength: 'Infinity',
-            headers: {
-              'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-              Authorization: `Bearer ${JWT}`,
-            },
-          }
-        );
-        console.log(`Uploaded to IPFS:`, res.data);
-      } catch (error) {
-        console.error(`Error uploading to IPFS:`, error);
-        }
-      }
-    };
-
+ 
   const openFileDialog = () => {
-    setFileInputKey(Date.now());
+    fileInputRef.current.click();
   };
 
   const handleEditorChange = (newEditorState) => {
@@ -216,39 +192,37 @@ export default function BasicInfo(onUpdate) {
             </div>
 
             <div>
-            <h5 className="mt-3">Campaign Cover Image</h5>
-            <div className="upload-container">
-              <div className="upload-box" onClick={() => fileInputRef.current.click()}>
-                {previewSrc ? (
-                  <img src={previewSrc} alt="Preview" className="image-preview" />
-                ) : (
-                  <div className="upload-instructions text-center">
-                    <MdOutlineCloudUpload size={50} className="mb-3" />
-                    <br />
-                    JPG, PNG, SVG, WEBP, GIF. MAX 10MB.
-                    <br />
-                    THE SIZE OF THE COVER IMAGE: 1360PX*680PX
-                    <br />
-                    Click to select an image
-                  </div>
-                )}
+              <h5 className="mt-3">Campaign Cover Image</h5>
+              <div className="upload-container">
+                <div className="upload-box" onClick={openFileDialog}>
+                  {previewSrc ? (
+                    <img
+                      src={previewSrc}
+                      alt="Preview"
+                      className="image-preview"
+                    />
+                  ) : (
+                    <div className="upload-instructions text-center">
+                      <MdOutlineCloudUpload size={50} className="mb-3" />
+                      <br />
+                      JPG, PNG, SVG, WEBP, GIF. MAX 10MB.
+                      <br />
+                      THE SIZE OF THE COVER IMAGE: 1360PX*680PX
+                      <br />
+                      Click to select an image
+                    </div>
+                  )}
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    style={{ display: "none" }}
+                    accept=".jpg,.png,.svg,.webp,.gif"
+                    required
+                  />
+                </div>
               </div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                onChange={(event) => handleFileChange(event)}
-                style={{ display: "none" }}
-                accept=".jpg,.png,.svg,.webp,.gif"
-                required
-                {...register("campaignCoverImage")}
-              />
-              {campaignError.campaignCoverImage && (
-                <p className="text-danger fw-bold">
-                  {campaignError.campaignCoverImage.message}
-                </p>
-              )}
             </div>
-          </div>
 
             <div>
               <h5 className="mt-3">Campaign Description</h5>
@@ -292,7 +266,6 @@ export default function BasicInfo(onUpdate) {
                 </p>
               )}
             </div>
-            
 
             <div className="mt-3">
               <h5>Who can see this Campaign</h5>
