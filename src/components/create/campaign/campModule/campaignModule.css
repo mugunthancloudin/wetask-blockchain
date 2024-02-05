@@ -168,13 +168,16 @@ button {
   border-color: white;
 }
 
-.CampDescription {
+.CampMode {
   color: #555;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 5% 5%;
 }
+
+/* reward module.css */
+
 
 /* eligiblity module.css */
 .eligiblityClose{
@@ -226,7 +229,6 @@ button {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 
 /* task module.css */

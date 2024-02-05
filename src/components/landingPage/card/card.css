@@ -1,5 +1,5 @@
 
-.card {
+.mainCard {
   overflow: visible;
   width: 500px;
   /* height: auto !important; */
@@ -38,9 +38,9 @@
   justify-content: center;
   display: flex;
   align-items: center;
-  overflow: hidden;
-  background: rgb(232,38,102);
-  background: linear-gradient(140deg, rgba(232,38,102,1) 0%, rgba(61,56,141,1) 100%); 
+  overflow: hidden;   
+  /* background: rgb(232,38,102); */
+  /* background: linear-gradient(140deg, rgba(232,38,102,1) 0%, rgba(61,56,141,1) 100%);  */
 }
 
 .back::before {
@@ -73,7 +73,7 @@
 
 @keyframes rotation_481 {
   0% {
-    transform: rotateZ(0deg);
+    transform: rotateZ(0deg);  
   }
 
   0% {

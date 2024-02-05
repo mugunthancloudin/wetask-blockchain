@@ -14,14 +14,14 @@ export default function Home() {
          
           <div className="col-lg-6 text-white">
             <h1 className="homeH1 ">
-              <span className="spanh1">TaskOn</span> - Web3 Collaboration
+              <span className="spanh1">WeTask</span> - Web3 Collaboration
               Platform
             </h1>
             <h6 className="mt-4">
-              TaskOn is a platform that boosts the completion for various Web3
+              WeTask is a platform that boosts the completion for various Web3
               tasks in a decentralized way. It helps task initiators and
               implementers to collaborate efficiently and better align mutual
-              interests. Make full use of TaskOn and start earning now!
+              interests. Make full use of WeTask and start earning now!
 
 
             </h6>

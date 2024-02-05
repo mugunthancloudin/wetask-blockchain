@@ -1,6 +1,6 @@
 import React from "react";
 import "./footer.css";
-import logo from "../../assets/navbar/Logo.png";
+import logo from "../../assets/navbar/wetask - logo.png";
 import { FaDiscord, FaTelegram, FaXTwitter } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 export default function Footer() {
@@ -10,13 +10,13 @@ export default function Footer() {
         <div className="row footer-cont justify-content-between ">
           <div className="col-lg-4 ps-5 align-self-center mb-5">
             <h3 className="">
-              <img src={logo} alt="logo" width={50} className="pb-1 me-2" />
-              <span className="footerTitle">TaskOn</span>
+              <img src={logo} alt="logo" width={40} className="pb-1 me-2" />
+              <span className="footerTitle">WeTask</span>
             </h3>
             <h4 className="footerH4">Boosts Web3 Colaboration</h4>
           </div>
           <div className="col-lg-2">
-            <h5>TaskOn</h5>
+            <h5>WeTask</h5>
             <p className="mt-4">Explore</p>
             <p>Create campaign</p>
             <p>Entity Hub</p>

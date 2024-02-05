@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
 import "./campaignModule.css";
 import twitter from "../../../assets/campaign/twitter.svg";
 import { FaPlus } from "react-icons/fa";
@@ -7,12 +6,20 @@ import { FaPlus } from "react-icons/fa";
 export default function Task() {
   const [tasks, setTasks] = useState([]);
   const [inputValues, setInputValues] = useState({});
+  const [isHovered, setIsHovered] = useState(false);
+
+  const handleInputChange = (id, value) => {
+    setInputValues((prevValues) => ({
+      ...prevValues,
+      [id]: value,
+    }));
+  };
 
   // Function to add tasks with detailed content
   const addTask = (taskType) => {
     const taskDetails = {
       Post: {
-        title: "Post a Tweet",
+        title: "Post a tweet with specified content",
         description: "Write your tweet content.",
         placeholder: "What's happening?",
         url: "Content",
@@ -40,79 +47,93 @@ export default function Task() {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
-  const handleInputChange = (id, value) => {
-    setInputValues((prevValues) => ({
-      ...prevValues,
-      [id]: value,
+
+
+  const removeTask = (taskId) => {
+    const updatedTasks = tasks.filter((task) => task.id !== taskId);
+    setTasks(updatedTasks);
+    setInputValues((prevValues) => {
+      const newValues = { ...prevValues };
+      delete newValues[taskId];
+      return newValues;
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const submittedData = tasks.map((task) => ({
+      taskNumber: task.id,
+      value: inputValues[task.id] || "",
     }));
+    console.log("Form Submitted with tasks", submittedData);
+    // Process the submitted data as required
   };
 
-  // Function to handle the drag end event
-  const onDragEnd = (result) => {
-    if (!result.destination) {
-      return;
-    }
-
-    const items = Array.from(tasks);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-
-    setTasks(items);
-  };
 
   return (
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="row">
-        <div className="col-lg-8 taskRightSide">
-          <Droppable droppableId="tasks">
-            {(provided) => (
-              <div {...provided.droppableProps} ref={provided.innerRef}>
-                {tasks.map((task, index) => (
-                  <Draggable key={task.id} draggableId={task.id.toString()} index={index}>
-                    {(provided) => (
-                      <div
-                        ref={provided.innerRef}
-                        {...provided.draggableProps}
-                        {...provided.dragHandleProps}
-                        className="task-container"
-                      >
-                        <div className="sub-box mt-3 col-lg-12">
-                          Task {task.id}
-                        </div>
-                        <div className="main-box">
-                          <div className="d-flex my-2 ps-2">
-                            <img src={twitter} alt="Twitter" />
-                            <h6 className="pt-2 ms-2">{task.details.title}</h6>
-                          </div>
-                          <div className="mainDiv">
-                            <p>{task.details.url}</p>
-                            <input
-                              type="text"
-                              placeholder={task.details.placeholder}
-                              value={inputValues[task.id] || ""}
-                              onChange={(e) => handleInputChange(task.id, e.target.value)}
-                              className="form-control text-white"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </Draggable>
-                ))}
-                {provided.placeholder}
+    <>
+      <div className="row taskLeft">
+        <div className="col-lg-8 task-scroll">
+        <form onSubmit={handleSubmit}>
+            {tasks.length === 0 ? (
+              <div className="no-tasks-template my-5">
+                <p>No tasks added. Add a task from the platform.</p>
               </div>
-            )}
-          </Droppable>
+            ) : (
+              tasks.map((task) => (
+                <div key={task.id} className="task-container">
+                  <div className="sub-box mt-3 col-lg-12">Task {task.id}</div>
 
-          <div className="buttons my-4 ">
-            <button className="save-draft text-nowrap">Save as Draft</button>
-            <button className="save-draft ms-3">Previous</button>
-            <button className="next">Next</button>
-          </div>
+                  <div className="main-box">
+                    <div
+                      className={`row taskdiv d-flex my-2 ps-2 ${
+                        isHovered ? "hovered" : ""
+                      }`}
+                      onMouseEnter={() => setIsHovered(true)}
+                      onMouseLeave={() => setIsHovered(false)}
+                    >
+                      <div className=" col-lg-10 d-flex">
+                        <img
+                          src={twitter}
+                          alt="Twitter"
+                          style={{ width: "30px", height: "30px" }}
+                        />
+                        <h6 className="pt-1 ms-2">{task.details.title}</h6>
+                      </div>
+                      <div
+                        className="taskCloseDiv col-lg-2 text-center"
+                        onClick={() => removeTask(task.id)}
+                      >
+                        <h5 className="taskClose">x</h5>
+                      </div>
+                    </div>
+                    <div className="mainDiv">
+                      <p>{task.details.url}</p>
+                      <input
+                        type="text"
+                        placeholder={task.details.placeholder}
+                        value={inputValues[task.id] || ""}
+                        onChange={(e) =>
+                          handleInputChange(task.id, e.target.value)
+                        }
+                        className="form-control text-white"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ))
+            )}
+
+            <div className="buttons my-4 ">
+              <button className="save-draft text-nowrap">Save as Draft</button>
+              <button className="save-draft ms-3">Previous</button>
+              <button className="next" type="submit">Next</button>
+            </div>
+          </form>
         </div>
 
-        <div className="col-lg-4 ">
-          <h5>platform</h5>
+        <div className="col-lg-4 taskRightSide">
+          <h5>Platform</h5>
           <button className="task-button">
             <img src={twitter} alt="Twitter" /> Twitter
           </button>
@@ -124,7 +145,10 @@ export default function Task() {
                 <FaPlus />
               </div>
             </button>
-            <button className="task-box1 mt-2" onClick={() => addTask("Follow")}>
+            <button
+              className="task-box1 mt-2"
+              onClick={() => addTask("Follow")}
+            >
               Follow Twitter{" "}
               <div className="but-box">
                 <FaPlus />
@@ -137,8 +161,13 @@ export default function Task() {
               </div>
             </button>
           </div>
+          <div className="mt-5">
+            <button className="task-Morebutton ">More Info...!</button>
+          </div>
         </div>
       </div>
-    </DragDropContext>
+    </>
   );
 }
+
+
