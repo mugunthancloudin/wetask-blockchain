@@ -18,9 +18,7 @@ import "draft-js/dist/Draft.css";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-// import { useHistory } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 
 const BasicInfoSchema = yup.object().shape({
   campaignName: yup.string().required("*Please enter your Campaign name."),
@@ -29,6 +27,22 @@ const BasicInfoSchema = yup.object().shape({
   campDescription: yup
     .string()
     .required("*Please enter your Campaign description."),
+  campaignCoverImage: yup
+    .mixed()
+    .required("*Please upload a campaign cover image")
+    .test("fileType", "Invalid file format", (value) => {
+      if (!value) {
+        return false; // Disallow empty value
+      }
+      const supportedFormats = ["image/jpeg", "image/png", "image/svg+xml", "image/webp", "image/gif"];
+      return supportedFormats.includes(value[0].type);
+    })
+    .test("fileSize", "File size too large", (value) => {
+      if (!value) {
+        return false; // Disallow empty value
+      }
+      return value[0].size <= 10 * 1024 * 1024; // 10 MB
+    }),
 });
 
 export default function BasicInfo(onUpdate) {
@@ -37,9 +51,9 @@ export default function BasicInfo(onUpdate) {
   const [previewSrc, setPreviewSrc] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [visibility, setVisibility] = useState("public");
+  const [fileInputKey, setFileInputKey] = useState(Date.now()); 
   const fileInputRef = useRef();
-
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
   // const history = useHistory();
 
   const handleFileChange = (event) => {
@@ -51,8 +65,9 @@ export default function BasicInfo(onUpdate) {
     }
   };
 
+ 
   const openFileDialog = () => {
-    fileInputRef.current.click();
+    setFileInputKey(Date.now());
   };
 
   const handleEditorChange = (newEditorState) => {
@@ -60,6 +75,7 @@ export default function BasicInfo(onUpdate) {
 
     const plainText = newEditorState.getCurrentContent().getPlainText("");
     setCampaignDescription(plainText);
+
     const charCount = plainText.length;
     setWordCount(charCount);
   };
@@ -87,42 +103,28 @@ export default function BasicInfo(onUpdate) {
     resolver: yupResolver(BasicInfoSchema),
   });
 
-    const onSubmitOfCampaignDetails = (data) => {
-      console.log("Function called with data:", data);
+  const onSubmitOfCampaignDetails = (data) => {
+    console.log("Function called with data:", data);
 
-      try {
-        const submittedData = {
-          ...data,// Ensure campaignDescription is defined somewhere accessible
-          campaignDescription, // This needs to be defined somewhere in your component
-          visibility, // Make sure this is the state variable you're intending to use
-        };
+    try {
+      const submittedData = {
+        ...data, // Ensure campaignDescription is defined somewhere accessible
+        campaignDescription, // This needs to be defined somewhere in your component
+        visibility, // Make sure this is the state variable you're intending to use
+      };
 
-        // console.log("onSubmitOfCampaignDetails triggered", submittedData);
-        // alert("Submitted Data: " + JSON.stringify(submittedData, null, 2));
-        // navigate(`/campaigneligibility?submittedData=${encodedData}`);
-        // navigate(`/campaigneligibility?submittedData=${encodeURIComponent(submittedData)}`);
+      // console.log("onSubmitOfCampaignDetails triggered", submittedData);
+      alert("Submitted Data: " + JSON.stringify(submittedData, null, 2));
+      // navigate(`/campaigneligibility?submittedData=${encodedData}`);
+      // navigate(`/campaigneligibility?submittedData=${encodeURIComponent(submittedData)}`);
 
-        console.log("onSubmitOfCampaignDetails triggered", submittedData);
-        // const encodedData = encodeURIComponent(JSON.stringify(submittedData));
-        navigate(`/camp/campaigntasks`);
-        // onUpdate(submittedData);
-        // console.log("mugunth");
-        // console.log("checkonUpdate",onUpdate);
-        
-        
-      } catch (error) {
-        console.error("Error in onSubmitOfCampaignDetails:", error);
-      }
-    };
-
-
-  // const onSubmitOfCampaignDetails =(data) => {
-  //   console.log("onSubmitOfCampaignDetails triggered");
-  //   alert("Submitted Data: " + JSON.stringify(data, null, 2));
-
-  //   const doctorDetails = await blockchain.addDoctorDetails(data);
-  //   console.log(data);
-  // };
+      console.log("onSubmitOfCampaignDetails triggered", submittedData);
+      // const encodedData = encodeURIComponent(JSON.stringify(submittedData));
+      navigate(`/camp/campaignrewards`);
+    } catch (error) {
+      console.error("Error in onSubmitOfCampaignDetails:", error);
+    }
+  };
 
   return (
     <div className="container">
@@ -174,42 +176,44 @@ export default function BasicInfo(onUpdate) {
                       {campaignError.campaignExpairyDate.message}
                     </p>
                   )}
-                          </div>
+                </div>
               </div>
             </div>
 
             <div>
-              <h5 className="mt-3">Campaign Cover Image</h5>
-              <div className="upload-container">
-                <div className="upload-box" onClick={openFileDialog}>
-                  {previewSrc ? (
-                    <img
-                      src={previewSrc}
-                      alt="Preview"
-                      className="image-preview"
-                    />
-                  ) : (
-                    <div className="upload-instructions text-center">
-                      <MdOutlineCloudUpload size={50} className="mb-3" />
-                      <br />
-                      JPG, PNG, SVG, WEBP, GIF. MAX 10MB.
-                      <br />
-                      THE SIZE OF THE COVER IMAGE: 1360PX*680PX
-                      <br />
-                      Click to select an image
-                    </div>
-                  )}
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handleFileChange} 
-                    style={{ display: "none" }}
-                    accept=".jpg,.png,.svg,.webp,.gif"
-                    required
-                  />
-                </div>
+            <h5 className="mt-3">Campaign Cover Image</h5>
+            <div className="upload-container">
+              <div className="upload-box" onClick={() => fileInputRef.current.click()}>
+                {previewSrc ? (
+                  <img src={previewSrc} alt="Preview" className="image-preview" />
+                ) : (
+                  <div className="upload-instructions text-center">
+                    <MdOutlineCloudUpload size={50} className="mb-3" />
+                    <br />
+                    JPG, PNG, SVG, WEBP, GIF. MAX 10MB.
+                    <br />
+                    THE SIZE OF THE COVER IMAGE: 1360PX*680PX
+                    <br />
+                    Click to select an image
+                  </div>
+                )}
               </div>
+              <input
+                ref={fileInputRef}
+                type="file"
+                onChange={(event) => handleFileChange(event)}
+                style={{ display: "none" }}
+                accept=".jpg,.png,.svg,.webp,.gif"
+                required
+                {...register("campaignCoverImage")}
+              />
+              {campaignError.campaignCoverImage && (
+                <p className="text-danger fw-bold">
+                  {campaignError.campaignCoverImage.message}
+                </p>
+              )}
             </div>
+          </div>
 
             <div>
               <h5 className="mt-3">Campaign Description</h5>
@@ -247,7 +251,13 @@ export default function BasicInfo(onUpdate) {
                 />
                 <div className="word-count">{wordCount} words</div>
               </div>
+              {campaignError.campDescription && (
+                <p className="text-danger fw-bold">
+                  {campaignError.campDescription.message}
+                </p>
+              )}
             </div>
+            
 
             <div className="mt-3">
               <h5>Who can see this Campaign</h5>
@@ -283,7 +293,7 @@ export default function BasicInfo(onUpdate) {
 
             <div className="buttons mt-5">
               <button className="save-draft">Save as Draft</button>
-              <button type="submit" className="next" >
+              <button type="submit" className="next">
                 Next
               </button>
             </div>
@@ -293,4 +303,3 @@ export default function BasicInfo(onUpdate) {
     </div>
   );
 }
-  
