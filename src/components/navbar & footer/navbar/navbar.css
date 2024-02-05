@@ -62,7 +62,7 @@ button.navbar-toggler {
 }
 
 .Btn {
-  width: 140px;
+  width: 140px !important;
   height: 40px;
   border: none;
   border-radius: 10px;

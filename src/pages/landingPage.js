@@ -19,7 +19,9 @@ export default function LandingPage() {
       <div className="container-fluid landingBg">
         <div className="">
           <MyNavbar />
-          <w3m-button/>
+
+          {/* <w3m-button className="wagmiBtn"/> */}
+
           {/* <CreateCampaign/> */}
           <Home />
          

@@ -95,7 +95,9 @@ function MyNavbar() {
 
           <Nav className="">
             <Nav.Link>
-              <button className="Btn"></button>
+            <w3m-button className="Btn"/>
+
+              {/* <button className="Btn"></button> */}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>
