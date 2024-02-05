@@ -10,7 +10,7 @@ export default function Card() {
       <div className="container-fluid carditems">
         <div className="row justify-content-center">
           <div className="col-lg-6 mt-5 justify-content-center d-flex align-content-center ">
-            <div className="card">
+            <div className="card mainCard">
               <div className="content">
                 <div className="back">
                   <div className="back-content px-5">
@@ -43,7 +43,7 @@ export default function Card() {
           </div>
 
           <div className="col-lg-6 mt-5 justify-content-center d-flex align-content-center ">
-            <div className="card">
+            <div className="card mainCard">
               <div className="content">
                 <div className="back">
                   <div className="back-content">

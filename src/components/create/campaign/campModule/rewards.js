@@ -1,53 +1,150 @@
 import React, { useState } from "react";
 import "./campaignModule.css";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { PiWarningCircleBold } from "react-icons/pi";
+import { useNavigate } from 'react-router-dom';
+
+
+const TokenSchema = yup.object().shape({
+  networkType: yup.string().required("Please select the Network type"),
+  tokenType: yup.string().required("Please select the Token type"),
+
+  rewardToken: yup
+    .number()
+    .typeError("Reward Amount must be a number")
+    .required("Reward Amount is required")
+    .positive("Reward Amount must be a positive number"),
+
+  totalReward: yup
+    .number()
+    .typeError("Number of Winners must be a number")
+    .required("Number of Winners is required")
+    .integer("Number of Winners must be an integer")
+    .min(1, "Number of Winners must be at least 1"),
+
+  drawnMethod: yup.string().required("Please select a drawing method"),
+
+  winnerSelection: yup
+    .string()
+    .required("Please select a winner selection method"),
+
+  distributionType: yup
+    .string()
+    .required("Please select a Distribution method"),
+
+  distributedBy: yup.string().required("Please select a Distribution method"),
+
+  rewardPoint: yup
+    .number()
+    .typeError("Reward Amount must be a number")
+    .required("Reward Amount is required")
+    .positive("Reward Amount must be a positive number"),
+});
+
+const PointSchema = yup.object().shape({
+  totalReward: yup
+    .number()
+    .typeError("Number of Winners must be a number")
+    .required("Number of Winners is required")
+    .integer("Number of Winners must be an integer")
+    .min(1, "Number of Winners must be at least 1"),
+
+  rewardPoint: yup
+    .number()
+    .typeError("Reward Amount must be a number")
+    .required("Reward Amount is required")
+    .positive("Reward Amount must be a positive number"),
+
+  drawnMethod: yup.string().required("Please select a drawing method"),
+
+  winnerSelection: yup
+    .string()
+    .required("Please select a winner selection method"),
+});
 
 export default function Rewards() {
   const [rewardVisibility, setRewardVisibility] = useState("Token");
-  const [network, setNetwork] = useState("Ethereum");
   const [token, setToken] = useState("Eth");
-  const [isOpen, setIsOpen] = useState(false);
-  const [winnerSelectionisOpen, setwinnerSelectionisOpen] = useState(false);
-  const [rewardDistributionOpen, setRewardDistributionOpen] = useState(false);
+
+  const [networkTypeIsOpen, setNetworkTypeIsOpen] = useState(false);
+  const [tokenTypeIsOpen, setTokenTypeIsOpen] = useState(false);
+  const [drawWinnersIsOpen, setDrawWinnersIsOpen] = useState(false);
+  const [winnerSelectionIsOpen, setWinnerSelectionIsOpen] = useState(false);
+  // const [distributedSectionisOpen, setDistributedSectionisOpen] =
+  //   useState(false);
+  const [rewardDistributionIsOpen, setRewardDistributionIsOpen] =
+    useState(false);
   const [distributedByisOpen, setDistributedByisOpen] = useState(false);
 
-  const [selection, setSelection] = useState("Automatically");
-  const [winnerSelection, setwinnerSelection] = useState(
-    "Select the first N users as winners"
-  );
-  const [distributionType, setDistributionType] = useState("Equally");
-  const [distributedBy, setDistributionBy] = useState("Taskon");
+  const navigate  = useNavigate();
+
 
   const toggleVisibility = (choice) => {
     setRewardVisibility(choice);
   };
 
-  const toggleOpen = () => setIsOpen(!isOpen);
-  const makeSelection = (choice) => {
-    setSelection(choice);
-    setIsOpen(false);
+  const toggleNetworkSelectionOpen = () => {
+    setNetworkTypeIsOpen(!networkTypeIsOpen);
   };
 
-  const toggleWinnerOpen = () =>
-    setwinnerSelectionisOpen(!winnerSelectionisOpen);
-  const winnerSelect = (choice) => {
-    setwinnerSelection(choice);
-    setwinnerSelectionisOpen(false);
+  const toggleTokenSelectionOpen = () => {
+    setTokenTypeIsOpen(!tokenTypeIsOpen);
   };
 
-  const rewardDistribution = () =>
-    setRewardDistributionOpen(!rewardDistributionOpen);
-  const makeDistributionType = (choice) => {
-    setDistributionType(choice);
-    setRewardDistributionOpen(false);
+  const toggleDrawWinnersOpen = () => {
+    setDrawWinnersIsOpen(!drawWinnersIsOpen);
+  };
+
+  const toggleWinnerSelectionOpen = () => {
+    setWinnerSelectionIsOpen(!winnerSelectionIsOpen);
+  };
+
+  const toggleRewardDistributionSelectionOpen = () => {
+    setRewardDistributionIsOpen(!rewardDistributionIsOpen);
   };
 
   const toogleDistributedBy = () =>
     setDistributedByisOpen(!distributedByisOpen);
-  const distributionByChoise = (choice) => {
-    setDistributionBy(choice);
-    setDistributedByisOpen(false);
+
+  const {
+    control: controlToken,
+    register: registerToken,
+    handleSubmit: handleSubmitOfToken,
+    formState: { errors: tokenErrors },
+  } = useForm({
+    resolver: yupResolver(TokenSchema),
+  });
+
+  const onSubmitOfToken = (data) => {
+    try {
+      alert("Token\nSubmitted Data: " + JSON.stringify(data, null, 2));
+      navigate(`/camp/campaigneligibility`);
+    } catch (error) {
+      console.error("Error in onSubmitOfPoints:", error);
+    }
   };
+
+  const {
+    control: controlPoints,
+    register: registerPoints,
+    handleSubmit: handleSubmitOfPoints,
+    formState: { errors: pointsErrors },
+  } = useForm({
+    resolver: yupResolver(PointSchema),
+  });
+
+
+  const onSubmitOfPoints = (data) => {
+    try {
+      alert("points\nSubmitted Data: " + JSON.stringify(data, null, 2));
+      navigate(`/camp/campaigneligibility`);
+    } catch (error) {
+      console.error("Error in onSubmitOfPoints:", error);
+    }
+  };
+
 
   return (
     <>
@@ -74,371 +171,615 @@ export default function Rewards() {
           <div id="campaign-description" className="">
             {rewardVisibility === "Token" ? (
               <div>
-                <div>
-                  <h6>Network</h6>
-                  <div className="custom-select-wrapper">
-                    <select
-                      name="network"
-                      id="network"
-                      className="custom-select"
-                      value={token}
-                      onChange={(e) => setNetwork(e.target.value)}
-                    >
-                      <option value="mugunthan" className="rewardNetwork">
-                        Mugunthan
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <h6 className="mt-3">Token Type</h6>
-                  <div className="custom-select-wrapper">
-                    <select
-                      name="tokenType"
-                      id="tokenType"
-                      className="custom-select"
-                      value={network}
-                      onChange={(e) => setToken(e.target.value)}
-                    >
-                      <option value="Eth" className="rewardNetwork">
-                        Eth
-                      </option>
-                    </select>
-                  </div>
-                </div>
-
-                <div>
-                  <h6 className="mt-3">
-                    Total Reward Amount <PiWarningCircleBold />
-                  </h6>
-                  <p>
-                    *More rewards deposited, more credits you will get and
-                    higher ranking the campaign will get
-                  </p>
-                  <div className="position-relative">
-                    <input
-                      type="number"
-                      name="totalReward"
-                      id="total-reward"
-                      className="form-control"
-                    />
-                    <span className="token-type-badge">{token}</span>``
-                  </div>
-                </div>
-
-                <div>
-                  <h6 className="mt-3">Number of Winners</h6>
-
-                  <div className="">
-                    <input
-                      type="number"
-                      name="totalReward"
-                      id="total-reward"
-                      className="form-control"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <div className="dropdown-container mt-3">
-                    <h6>
-                      How to Draw Winners <PiWarningCircleBold />
-                    </h6>
-                    <div
-                      className={`dropdown mt-3 ${isOpen ? "open" : ""}`}
-                      tabIndex="0"
-                      onBlur={() => setIsOpen(false)}
-                    >
-                      <div className="dropdown-header" onClick={toggleOpen}>
-                        {selection}
-                        <span
-                          className={`arrow mt-2 ${isOpen ? "up" : "down"}`}
-                        ></span>
-                      </div>
-                      {isOpen && (
-                        <div className="dropdown-list ">
-                          <div
-                            className="dropdown-item"
-                            onClick={() => makeSelection("Automatically")}
-                          >
-                            Automatically
-                          </div>
-                          <div
-                            className="dropdown-item"
-                            onClick={() => makeSelection("Manually")}
-                          >
-                            Manually
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div>
-                  <div className="dropdown-container mt-3">
-                    <h6>
-                      Automatic Winner Selection <PiWarningCircleBold />
-                    </h6>
-                    <div
-                      className={`dropdown mt-3 ${
-                        winnerSelectionisOpen ? "open" : ""
-                      }`}
-                      tabIndex="0"
-                      onBlur={() => setwinnerSelectionisOpen(false)}
-                    >
+            <form onSubmit={handleSubmitOfToken(onSubmitOfToken)}>   
+               <div>
+                    <div className="dropdown-container mt-3">
+                      <h6>Network</h6>
                       <div
-                        className="dropdown-header"
-                        onClick={toggleWinnerOpen}
+                        className={`dropdown mt-3 ${
+                          networkTypeIsOpen ? "open" : ""
+                        }`}
+                        tabIndex="0"
+                        onBlur={() => setNetworkTypeIsOpen(false)}
                       >
-                        {winnerSelection}
-                        <span
-                          className={`arrow mt-2 ${
-                            winnerSelectionisOpen ? "up" : "down"
-                          }`}
-                        ></span>
+                        <Controller
+                          name="networkType"
+                          control={controlToken}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <>
+                              <div
+                                className="dropdown-header"
+                                onClick={toggleNetworkSelectionOpen}
+                              >
+                                {field.value || "Select Network Type"}
+                                <span
+                                  className={`arrow mt-2 ${
+                                    networkTypeIsOpen ? "up" : "down"
+                                  }`}
+                                ></span>
+                              </div>
+                              {networkTypeIsOpen && (
+                                <div className="dropdown-list">
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange("Etherium");
+                                      toggleNetworkSelectionOpen();
+                                    }}
+                                  >
+                                    Etherium
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          )}
+                        />
+
+                        {tokenErrors.networkType && (
+                          <p className="text-danger fw-bold">
+                            {tokenErrors.networkType.message}
+                          </p>
+                        )}
                       </div>
-
-                      {winnerSelectionisOpen && (
-                        <div className="dropdown-list ">
-                          <div
-                            className="dropdown-item"
-                            onClick={() =>
-                              winnerSelect(
-                                "Select the first N users as winners"
-                              )
-                            }
-                          >
-                            Select the first N users as winners
-                          </div>
-
-                          <div
-                            className="dropdown-item"
-                            onClick={() =>
-                              winnerSelect("Select N users randomly as winners")
-                            }
-                          >
-                            Select N users randomly as winners
-                          </div>
-                        </div>
-                      )}
                     </div>
-                  </div>
-                </div>
 
-                <div>
-                  <div className="dropdown-container mt-3">
-                    <h6>
-                      How to Draw Winners <PiWarningCircleBold />
-                    </h6>
-                    <div
-                      className={`dropdown mt-3 ${
-                        rewardDistributionOpen ? "open" : ""
-                      }`}
-                      tabIndex="0"
-                      onBlur={() => setRewardDistributionOpen(false)}
-                    >
+                    <div className="dropdown-container mt-3">
+                      <h6>Token Type</h6>
                       <div
-                        className="dropdown-header"
-                        onClick={rewardDistribution}
+                        className={`dropdown mt-3 ${
+                          tokenTypeIsOpen ? "open" : ""
+                        }`}
+                        tabIndex="0"
+                        onBlur={() => setTokenTypeIsOpen(false)}
                       >
-                        {distributionType}
-                        <span
-                          className={`arrow mt-2 ${
-                            rewardDistributionOpen ? "up" : "down"
-                          }`}
-                        ></span>
+                        <Controller
+                          name="tokenType"
+                          control={controlToken}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <>
+                              <div
+                                className="dropdown-header"
+                                onClick={toggleTokenSelectionOpen}
+                              >
+                                {field.value || "Select Network Type"}
+                                <span
+                                  className={`arrow mt-2 ${
+                                    tokenTypeIsOpen ? "up" : "down"
+                                  }`}
+                                ></span>
+                              </div>
+                              {tokenTypeIsOpen && (
+                                <div className="dropdown-list">
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange("Eth");
+                                      toggleTokenSelectionOpen();
+                                    }}
+                                  >
+                                    Eth
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          )}
+                        />
+
+                        {tokenErrors.tokenType && (
+                          <p className="text-danger fw-bold">
+                            {tokenErrors.tokenType.message}
+                          </p>
+                        )}
                       </div>
-                      {rewardDistributionOpen && (
-                        <div className="dropdown-list ">
-                          <div
-                            className="dropdown-item"
-                            onClick={() => makeDistributionType("Equally")}
-                          >
-                            Equally
-                          </div>
+                    </div>
 
-                          <div
-                            className="dropdown-item"
-                            onClick={() => makeDistributionType("Randomly")}
-                          >
-                            Randomly
-                          </div>
+                    <div>
+                      <h6 className="mt-3">
+                        Total Reward Amount <PiWarningCircleBold />
+                      </h6>
+                      <p className="fs-6">
+                        *More rewards deposited, more credits you will get and
+                        higher ranking the campaign will get
+                      </p>
+                      <div className="position-relative">
+                        <input
+                          type="number"
+                          name="rewardToken"
+                          id="RewardToken"
+                          className={`form-control ${
+                            tokenErrors.rewardToken ? "is-invalid" : ""
+                          }`}
+                          {...registerToken("rewardToken")}
+                        />
+                        <span className="token-type-badge">{token}</span>
+                      </div>
 
-                          <div
-                            className="dropdown-item"
-                            onClick={() => makeDistributionType("Customised")}
-                          >
-                            Customised
-                          </div>
-                        </div>
+                      {tokenErrors.rewardToken && (
+                        <p className="text-danger fw-bold">
+                          {tokenErrors.rewardToken.message}
+                        </p>
                       )}
                     </div>
-                  </div>
-                </div>
 
-                <div>
-                  <div className="dropdown-container mt-3">
-                    <h6>
-                      Reward Distributed by <PiWarningCircleBold />
-                    </h6>
-                    <div
-                      className={`dropdown mt-3 ${isOpen ? "open" : ""}`}
-                      tabIndex="0"
-                      onBlur={() => distributedByisOpen(false)}
-                    >
+                    <div>
+                      <h6 className="mt-3">Number of Winners</h6>
+
+                      <div className="">
+                        <input
+                          type="number"
+                          name="totalReward"
+                          id="total-reward"
+                          className={`form-control ${
+                            tokenErrors.totalReward ? "is-invalid" : ""
+                          }`}
+                          {...registerToken("totalReward")}
+                        />
+                      </div>
+
+                      {tokenErrors.totalReward && (
+                        <p className="text-danger fw-bold">
+                          {tokenErrors.totalReward.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="">
+                      <h6 className="mt-3">
+                        How to Draw Winners <PiWarningCircleBold />
+                      </h6>
+
                       <div
-                        className="dropdown-header"
-                        onClick={toogleDistributedBy}
+                        className={`dropdown mt-3 ${
+                          drawWinnersIsOpen ? "open" : ""
+                        }`}
+                        tabIndex="0"
+                        onBlur={() => setDrawWinnersIsOpen(false)}
                       >
-                        {distributedBy}
-                        <span
-                          className={`arrow mt-2 ${
-                            distributedByisOpen ? "up" : "down"
-                          }`}
-                        ></span>
+                        <Controller
+                          name="drawnMethod"
+                          control={controlToken}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <>
+                              <div
+                                className="dropdown-header"
+                                onClick={toggleDrawWinnersOpen}
+                              >
+                                {field.value || "Select Method"}
+                                <span
+                                  className={`arrow mt-2 ${
+                                    drawWinnersIsOpen ? "up" : "down"
+                                  }`}
+                                ></span>
+                              </div>
+                              {drawWinnersIsOpen && (
+                                <div className="dropdown-list">
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange("Automatic");
+                                      toggleDrawWinnersOpen();
+                                    }}
+                                  >
+                                    Automatic
+                                  </div>
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange("Manual");
+                                      toggleDrawWinnersOpen();
+                                    }}
+                                  >
+                                    Manual
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          )}
+                        />
+                        {tokenErrors.drawnMethod && (
+                          <p className="text-danger fw-bold">
+                            {tokenErrors.drawnMethod.message}
+                          </p>
+                        )}
                       </div>
-                      {distributedByisOpen && (
-                        <div className="dropdown-list ">
-                          <div
-                            className="dropdown-item"
-                            onClick={() => distributionByChoise("Taskon")}
-                          >
-                            Taskon
-                          </div>
-                          <div
-                            className="dropdown-item"
-                            onClick={() => distributionByChoise("Yourself")}
-                          >
-                            Yourself
-                          </div>
+                    </div>
+
+                    <div>
+                      <div className="dropdown-container mt-3">
+                        <h6>
+                          Automatic Winner Selection <PiWarningCircleBold />
+                        </h6>
+                        <div
+                          className={`dropdown mt-3 ${
+                            winnerSelectionIsOpen ? "open" : ""
+                          }`}
+                          tabIndex="0"
+                          onBlur={() => setWinnerSelectionIsOpen(false)}
+                        >
+                          <Controller
+                            name="winnerSelection"
+                            control={controlToken}
+                            defaultValue=""
+                            render={({ field }) => (
+                              <>
+                                <div
+                                  className="dropdown-header"
+                                  onClick={toggleWinnerSelectionOpen}
+                                >
+                                  {field.value || "Select Method"}
+                                  <span
+                                    className={`arrow mt-2 ${
+                                      winnerSelectionIsOpen ? "up" : "down"
+                                    }`}
+                                  ></span>
+                                </div>
+                                {winnerSelectionIsOpen && (
+                                  <div className="dropdown-list">
+                                    <div
+                                      className="dropdown-item"
+                                      onClick={() => {
+                                        field.onChange(
+                                          "Select the first N users as winners"
+                                        );
+                                        toggleWinnerSelectionOpen();
+                                      }}
+                                    >
+                                      Select the first N users as winners
+                                    </div>
+                                    <div
+                                      className="dropdown-item"
+                                      onClick={() => {
+                                        field.onChange(
+                                          "Select N users randomly as winners"
+                                        );
+                                        toggleWinnerSelectionOpen();
+                                      }}
+                                    >
+                                      Select N users randomly as winners
+                                    </div>
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          />
+                          {tokenErrors.winnerSelection && (
+                            <p className="text-danger fw-bold">
+                              {tokenErrors.winnerSelection.message}
+                            </p>
+                          )}
                         </div>
-                      )}
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="dropdown-container mt-3">
+                        <h6>
+                          How to distribute rewards <PiWarningCircleBold />
+                        </h6>
+                        <div
+                          className={`dropdown mt-3 ${
+                            rewardDistributionIsOpen ? "open" : ""
+                          }`}
+                          tabIndex="0"
+                          onBlur={() => setRewardDistributionIsOpen(false)}
+                        >
+                          <Controller
+                            name="distributionType"
+                            control={controlToken}
+                            defaultValue=""
+                            render={({ field }) => (
+                              <>
+                                <div
+                                  className="dropdown-header"
+                                  onClick={
+                                    toggleRewardDistributionSelectionOpen
+                                  }
+                                >
+                                  {field.value || "Select Distribution Type"}
+                                  <span
+                                    className={`arrow mt-2 ${
+                                      rewardDistributionIsOpen ? "up" : "down"
+                                    }`}
+                                  ></span>
+                                </div>
+                                {rewardDistributionIsOpen && (
+                                  <div className="dropdown-list">
+                                    <div
+                                      className="dropdown-item"
+                                      onClick={() => {
+                                        field.onChange("Equally");
+                                        toggleRewardDistributionSelectionOpen();
+                                      }}
+                                    >
+                                      Equally
+                                    </div>
+                                    <div
+                                      className="dropdown-item"
+                                      onClick={() => {
+                                        field.onChange("Randomly");
+                                        toggleRewardDistributionSelectionOpen();
+                                      }}
+                                    >
+                                      Randomly
+                                    </div>
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          />
+                          {tokenErrors.distributionType && (
+                            <p className="text-danger fw-bold">
+                              {tokenErrors.distributionType.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="dropdown-container mt-3">
+                        <h6>
+                          Reward Distributed by <PiWarningCircleBold />
+                        </h6>
+
+                        <div
+                          className="dropdown mt-3"
+                          tabIndex="0"
+                          onBlur={() => setDistributedByisOpen(false)}
+                        >
+                          <Controller
+                            name="distributedBy"
+                            control={controlToken}
+                            defaultValue=""
+                            render={({ field }) => (
+                              <>
+                                <div
+                                  className="dropdown-header"
+                                  onClick={toogleDistributedBy}
+                                >
+                                  {field.value || "Select Method"}
+                                  <span
+                                    className={`arrow mt-2 ${
+                                      distributedByisOpen ? "up" : "down"
+                                    }`}
+                                  ></span>
+                                </div>
+
+                                {distributedByisOpen && (
+                                  <div className="dropdown-list">
+                                    <div
+                                      className="dropdown-item"
+                                      onClick={() => {
+                                        field.onChange("Taskon");
+                                        toogleDistributedBy();
+                                      }}
+                                    >
+                                      Taskon
+                                    </div>
+                                    <div
+                                      className="dropdown-item"
+                                      onClick={() => {
+                                        field.onChange("Yourself");
+                                        toogleDistributedBy();
+                                      }}
+                                    >
+                                      Yourself
+                                    </div>
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          />
+                          {tokenErrors.distributedBy && (
+                            <p className="text-danger fw-bold">
+                              {tokenErrors.distributedBy.message}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div>
+                      <div className="buttons my-4 ">
+                        <button className="save-draft text-nowrap">
+                          Save as Draft
+                        </button>
+                        <button className="save-draft ms-3">Previous</button>
+                        {/* <button  type="submit">
+                          Next
+                        </button> */}
+                        <button className="next" type="submit">Next</button>
+                      </div>
                     </div>
                   </div>
-                </div>
-
-                <div>
-                  <div className="buttons my-4 ">
-                    <button className="save-draft text-nowrap">
-                      Save as Draft
-                    </button>
-                    <button className="save-draft ms-3">Previous</button>
-                    <button className="next">Next</button>
-                  </div>
-                </div>
+                </form>
               </div>
             ) : (
               <div>
-                <div>
-                  <h6 className="mt-3">
-                    Reward Amount <PiWarningCircleBold />
-                  </h6>
-
-                  <div className="position-relative">
-                    <input
-                      type="number"
-                      name="RewardPoint"
-                      id="RewardPoint"
-                      className="form-control"
-                    />
-                    <span className="token-type-badge">Points/Winner</span>
-                  </div>
-
-                  <h6 className="mt-3">Number of Winners</h6>
-
-                  <div className="">
-                    <input
-                      type="number"
-                      name="totalReward"
-                      id="total-reward"
-                      className="form-control"
-                    />
-                  </div>
-
-                  <h6 className="mt-3">
-                    How to Draw Winners <PiWarningCircleBold />
-                  </h6>
-                  <div
-                    className={`dropdown mt-3 ${isOpen ? "open" : ""}`}
-                    tabIndex="0"
-                    onBlur={() => setIsOpen(false)}
-                  >
-                    <div className="dropdown-header" onClick={toggleOpen}>
-                      {selection}
-                      <span
-                        className={`arrow mt-2 ${isOpen ? "up" : "down"}`}
-                      ></span>
-                    </div>
-                    {isOpen && (
-                      <div className="dropdown-list ">
-                        <div
-                          className="dropdown-item"
-                          onClick={() => makeSelection("Automatically")}
-                        >
-                          Automatically
-                        </div>
-                        <div
-                          className="dropdown-item"
-                          onClick={() => makeSelection("Manually")}
-                        >
-                          Manually
-                        </div>
+                <form onSubmit={handleSubmitOfPoints(onSubmitOfPoints)}>
+                  <div>
+                    <div>
+                      <h6 className="mt-3">
+                        Reward Amount <PiWarningCircleBold />
+                      </h6>
+                      <div className="position-relative">
+                        <input
+                          type="number"
+                          name="RewardPoint"
+                          id="RewardPoint"
+                          className={`form-control ${
+                            pointsErrors.rewardPoint ? "is-invalid" : ""
+                          }`}
+                          {...registerPoints("rewardPoint")}
+                        />
+                        <span className="token-type-badge">Points/Winner</span>
                       </div>
-                    )}
-                  </div>
+                      {pointsErrors.rewardPoint && (
+                        <p className="text-danger fw-bold">
+                          {pointsErrors.rewardPoint.message}
+                        </p>
+                      )}
+                    </div>
 
-                  <h6 className="mt-3">
-                    Automatic Winner Selection <PiWarningCircleBold />
-                  </h6>
-                  <div
-                    className={`dropdown mt-3 ${
-                      winnerSelectionisOpen ? "open" : ""
-                    }`}
-                    tabIndex="0"
-                    onBlur={() => setwinnerSelectionisOpen(false)}
-                  >
-                    <div className="dropdown-header" onClick={toggleWinnerOpen}>
-                      {winnerSelection}
-                      <span
-                        className={`arrow mt-2 ${
-                          winnerSelectionisOpen ? "up" : "down"
+                    <div>
+                      <h6 className="mt-3">Number of Winners</h6>
+                      <div className="">
+                        <input
+                          type="number"
+                          name="totalReward"
+                          id="total-reward"
+                          className={`form-control ${
+                            pointsErrors.totalReward ? "is-invalid" : ""
+                          }`}
+                          {...registerPoints("totalReward")}
+                        />
+                      </div>
+                      {pointsErrors.totalReward && (
+                        <p className="text-danger fw-bold">
+                          {pointsErrors.totalReward.message}
+                        </p>
+                      )}
+                    </div>
+                    <div>
+                      <h6 className="mt-3">
+                        How to Draw Winners <PiWarningCircleBold />
+                      </h6>
+                      <div
+                        className={`dropdown mt-3 ${
+                          drawWinnersIsOpen ? "open" : ""
                         }`}
-                      ></span>
+                        tabIndex="0"
+                        onBlur={() => setDrawWinnersIsOpen(false)}
+                      >
+                        <Controller
+                          name="drawnMethod"
+                          control={controlPoints}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <>
+                              <div
+                                className="dropdown-header"
+                                onClick={toggleDrawWinnersOpen}
+                              >
+                                {field.value || "Select Method"}
+                                <span
+                                  className={`arrow mt-2 ${
+                                    drawWinnersIsOpen ? "up" : "down"
+                                  }`}
+                                ></span>
+                              </div>
+                              {drawWinnersIsOpen && (
+                                <div className="dropdown-list">
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange("Automatic");
+                                      toggleDrawWinnersOpen();
+                                    }}
+                                  >
+                                    Automatic
+                                  </div>
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange("Manual");
+                                      toggleDrawWinnersOpen();
+                                    }}
+                                  >
+                                    Manual
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          )}
+                        />
+                        {pointsErrors.drawnMethod && (
+                          <p className="text-danger fw-bold">
+                            {pointsErrors.drawnMethod.message}
+                          </p>
+                        )}
+                      </div>
                     </div>
 
-                    {winnerSelectionisOpen && (
-                      <div className="dropdown-list ">
-                        <div
-                          className="dropdown-item"
-                          onClick={() =>
-                            winnerSelect("Select the first N users as winners")
-                          }
-                        >
-                          Select the first N users as winners
-                        </div>
-
-                        <div
-                          className="dropdown-item"
-                          onClick={() =>
-                            winnerSelect("Select N users randomly as winners")
-                          }
-                        >
-                          Select N users randomly as winners
-                        </div>
+                    <div>
+                      <h6 className="mt-3">
+                        Automatic Winner Selection <PiWarningCircleBold />
+                      </h6>
+                      <div
+                        className={`dropdown mt-3 ${
+                          winnerSelectionIsOpen ? "open" : ""
+                        }`}
+                        tabIndex="0"
+                        onBlur={() => setWinnerSelectionIsOpen(false)}
+                      >
+                        <Controller
+                          name="winnerSelection"
+                          control={controlPoints}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <>
+                              <div
+                                className="dropdown-header"
+                                onClick={toggleWinnerSelectionOpen}
+                              >
+                                {field.value || "Select Method"}
+                                <span
+                                  className={`arrow mt-2 ${
+                                    winnerSelectionIsOpen ? "up" : "down"
+                                  }`}
+                                ></span>
+                              </div>
+                              {winnerSelectionIsOpen && (
+                                <div className="dropdown-list">
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange(
+                                        "Select the first N users as winners"
+                                      );
+                                      toggleWinnerSelectionOpen();
+                                    }}
+                                  >
+                                    Select the first N users as winners
+                                  </div>
+                                  <div
+                                    className="dropdown-item"
+                                    onClick={() => {
+                                      field.onChange(
+                                        "Select N users randomly as winners"
+                                      );
+                                      toggleWinnerSelectionOpen();
+                                    }}
+                                  >
+                                    Select N users randomly as winners
+                                  </div>
+                                </div>
+                              )}
+                            </>
+                          )}
+                        />
+                        {pointsErrors.winnerSelection && (
+                          <p className="text-danger fw-bold">
+                            {pointsErrors.winnerSelection.message}
+                          </p>
+                        )}
                       </div>
-                    )}
-                  </div>
+                    </div>
 
-                  <div className="buttons my-4 ">
-                    <button className="save-draft text-nowrap">
-                      Save as Draft
-                    </button>
-                    <button className="save-draft ms-3">Previous</button>
-                    <button className="next">Next</button>
+                    <div className="buttons my-4 ">
+                      <button className="save-draft text-nowrap">
+                        Save as Draft
+                      </button>
+                      <button className="save-draft ms-3">Previous</button>
+                      <button className="next" type="submit">
+                        Next
+                      </button>
+                    </div>
                   </div>
-                </div>
+                </form>
               </div>
             )}
           </div>

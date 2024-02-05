@@ -1,5 +1,5 @@
 import React from "react";
-import Basicinfo from "../campModule/basicinfo";
+// import Basicinfo from "../campModule/basicinfo";
 import Eligiblity from "../campModule/eligiblity";
 import Rewards from "../campModule/rewards";
 import Task from "../campModule/task";

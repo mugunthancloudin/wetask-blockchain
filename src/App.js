@@ -8,7 +8,7 @@ import "./App.css";
 import Eligiblity from "./components/create/campaign/campModule/eligiblity";
 import Rewards from "./components/create/campaign/campModule/rewards";
 import Task from "./components/create/campaign/campModule/task";
-import Basicinfo from "./components/create/campaign/campModule/basicinfo";
+// import Basicinfo from "./components/create/campaign/campModule/basicinfo";
 import PageRoute from "./routes/pageRoute";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 

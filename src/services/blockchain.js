@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import abi from '../abis/src/contracts/Taskon.sol/Taskon.json';
 
 const contractDetails = {
-  address: '0x4728F9C0C473787575718Fa6F076557F5Eb3A235',
+  address: '0xec5E5b240d64BB4Ab6F346C98cb38f91881Bc162',
   abi: abi.abi,
 };
 
@@ -68,6 +68,3 @@ export function JoinSpace() { // Assuming default is public
     args: [],
   });
 }
-
-
-
