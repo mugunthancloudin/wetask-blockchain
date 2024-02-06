@@ -13,8 +13,8 @@
   display: none;
 }
 
-@media (min-width: 768px) {
-  .hide-md {
+@media (max-width: 1050px) {
+  .labelmodule {
     display: none;
   }
 }

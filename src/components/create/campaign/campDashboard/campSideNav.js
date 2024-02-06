@@ -15,7 +15,7 @@ export default function CampSideNav() {
               <span className="iconDiv">
                 <Icon className="icon ms-2" size={75} />
               </span>
-              <span className="label ms-5">{label}</span>{" "}
+              <span className="labelmodule ms-5 ">{label}</span>{" "}
             </NavLink>
           </button>
         ))}
