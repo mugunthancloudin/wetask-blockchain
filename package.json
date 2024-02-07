@@ -2,6 +2,9 @@
   "name": "taskon-blockchain",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": ">=6.14.0"
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
     "@testing-library/jest-dom": "^5.17.0",
