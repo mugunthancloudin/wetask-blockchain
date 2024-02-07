@@ -56,13 +56,13 @@ const BasicInfoSchema = yup.object().shape({
   //   }),
 });
 
-export default function BasicInfo(onUpdate) {
+export default function BasicInfo() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [campaignDescription, setCampaignDescription] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [visibility, setVisibility] = useState("public");
-  const [fileInputKey, setFileInputKey] = useState(Date.now());
+  // const [fileInputKey, setFileInputKey] = useState(Date.now());
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
   const { updateFormData } = useFormContext();
@@ -108,6 +108,7 @@ export default function BasicInfo(onUpdate) {
   // const { control, register, handleSubmit, formState: { errors } } = useForm({
   //   resolver: yupResolver(BasicInfoSchema),
   // });
+
   const {
     control,
     register,
@@ -130,7 +131,8 @@ export default function BasicInfo(onUpdate) {
       alert("Submitted Data: " + JSON.stringify(submittedData, null, 2));
 
       console.log("onSubmitOfCampaignDetails triggered", submittedData);
-      updateFormData({ BasicInfo: submittedData });
+      const newData = { BasicInfo: submittedData };
+      updateFormData(newData);
       navigate(`/camp/campaignrewards`);
     } catch (error) {
       console.error("Error in onSubmitOfCampaignDetails:", error);
