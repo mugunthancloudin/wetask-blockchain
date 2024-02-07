@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import "./campaignModule.css";
+import { useFormContext } from "./formprovider";
 import twitter from "../../../assets/campaign/twitter.svg";
 import { FaPlus } from "react-icons/fa";
 
 export default function Task() {
   const [tasks, setTasks] = useState([]);
-  console.log(tasks);
+  // console.log(tasks);
   const [inputValues, setInputValues] = useState({});
-  console.log(inputValues);
+  // console.log(inputValues);
   const [isHovered, setIsHovered] = useState(false);
+  const { formData } = useFormContext();  
+  const { updateFormData } = useFormContext();
+
+  // const [finalFormData, setFinalFormData] = useState({});
 
   const handleInputChange = (id, value) => {
     setInputValues((prevValues) => ({
@@ -75,14 +80,18 @@ export default function Task() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     const submittedData = tasks.map((task) => ({
       taskNumber: task.id,
       taskTitle:task.type,
       value: inputValues[task.id] || "",
     }));
+    
+    updateFormData({ ...formData, submittedData });
     console.log("Form Submitted with tasks", submittedData);
-    // Process the submitted data as required
+    console.log(formData);
   };
+
 
   return (
     <>
