@@ -22,39 +22,40 @@ import { IoEyeSharp } from "react-icons/io5";
 import "./campaignModule.css";
 import "draft-js/dist/Draft.css";
 
+
 const JWT =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U"; // Replace with your actual JWT token
 
-const BasicInfoSchema = yup.object().shape({
-  campaignName: yup.string().required("*Please enter your Campaign name."),
-  campaignStartDate: yup.date().required("*Please select a start date."),
-  campaignExpairyDate: yup.date().required("*Please select an expiry date."),
-  campDescription: yup
-    .string()
-    .required("*Please enter your Campaign description."),
-  campaignCoverImage: yup
-    .mixed()
-    .required("*Please upload a campaign cover image")
-    .test("fileType", "Invalid file format", (value) => {
-      if (!value) {
-        return false; // Disallow empty value
-      }
-      const supportedFormats = [
-        "image/jpeg",
-        "image/png",
-        "image/svg+xml",
-        "image/webp",
-        "image/gif",
-      ];
-      return supportedFormats.includes(value[0].type);
-    })
-    .test("fileSize", "File size too large", (value) => {
-      if (!value) {
-        return false; // Disallow empty value
-      }
-      return value[0].size <= 10 * 1024 * 1024; // 10 MB
-    }),
-});
+// const BasicInfoSchema = yup.object().shape({
+//   campaignName: yup.string().required("*Please enter your Campaign name."),
+//   campaignStartDate: yup.date().required("*Please select a start date."),
+//   campaignExpairyDate: yup.date().required("*Please select an expiry date."),
+//   campDescription: yup
+//     .string()
+//     .required("*Please enter your Campaign description."),
+//   campaignCoverImage: yup
+//     .mixed()
+//     .required("*Please upload a campaign cover image")
+//     .test("fileType", "Invalid file format", (value) => {
+//       if (!value) {
+//         return false; // Disallow empty value
+//       }
+//       const supportedFormats = [
+//         "image/jpeg",
+//         "image/png",
+//         "image/svg+xml",
+//         "image/webp",
+//         "image/gif",
+//       ];
+//       return supportedFormats.includes(value[0].type);
+//     })
+//     .test("fileSize", "File size too large", (value) => {
+//       if (!value) {
+//         return false; // Disallow empty value
+//       }
+//       return value[0].size <= 10 * 1024 * 1024; // 10 MB
+//     }),
+// });
 
 export default function BasicInfo(onUpdate) {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
@@ -111,7 +112,7 @@ export default function BasicInfo(onUpdate) {
     handleSubmit: handleSubmitCampaignDetails,
     formState: { errors: campaignError },
   } = useForm({
-    resolver: yupResolver(BasicInfoSchema),
+    // resolver: yupResolver(BasicInfoSchema),
   });
 
   const onSubmitOfCampaignDetails = (data) => {

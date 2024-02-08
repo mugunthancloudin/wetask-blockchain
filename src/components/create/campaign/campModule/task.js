@@ -1,13 +1,12 @@
 import React, { useState } from "react";
+import axios from 'axios'; // Ensure axios is imported
 import "./campaignModule.css";
-import twitter from "../../../assets/campaign/twitter.svg";
+import twitter from "../../../assets/campaign/twitter.svg"; // Adjust the import path as necessary
 import { FaPlus } from "react-icons/fa";
 
 export default function Task() {
   const [tasks, setTasks] = useState([]);
-  console.log(tasks);
   const [inputValues, setInputValues] = useState({});
-  console.log(inputValues);
   const [isHovered, setIsHovered] = useState(false);
 
   const handleInputChange = (id, value) => {
@@ -17,7 +16,6 @@ export default function Task() {
     }));
   };
 
-  // Function to add tasks with detailed content
   const addTask = (taskType) => {
     const newTaskId = tasks.length + 1;
     const taskDetails = {
@@ -48,7 +46,6 @@ export default function Task() {
     };
 
     setTasks((prevTasks) => [...prevTasks, newTask]);
-
     setInputValues((prevValues) => ({
       ...prevValues,
       [newTaskId]: "",
@@ -56,32 +53,44 @@ export default function Task() {
   };
 
   const removeTask = (taskId) => {
-    // Remove the task from the tasks array and reassign IDs
     const updatedTasks = tasks.filter((task) => task.id !== taskId)
                               .map((task, index) => ({ ...task, id: index + 1 }));
     setTasks(updatedTasks);
-  
-    // Create a new inputValues object based on the updated tasks
-    const newInputValues = updatedTasks.reduce((acc, task, index) => {
-      // If the original task array had a task at this index (or greater), use its value
-      if (tasks[index] && tasks[index].id !== taskId) {
-        acc[task.id] = inputValues[tasks[index].id];
-      }
+
+    const newInputValues = updatedTasks.reduce((acc, task) => {
+      acc[task.id] = inputValues[task.id] || "";
       return acc;
     }, {});
-  
+
     setInputValues(newInputValues);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const submittedData = tasks.map((task) => ({
       taskNumber: task.id,
-      taskTitle:task.type,
+      taskTitle: task.type,
       value: inputValues[task.id] || "",
     }));
-    console.log("Form Submitted with tasks", submittedData);
-    // Process the submitted data as required
+
+    const blob = new Blob([JSON.stringify(submittedData, null, 2)], { type: 'application/json' });
+    const formData = new FormData();
+    formData.append('file', blob, 'tasksData.json');
+
+    try {
+      const response = await axios.post(
+        'https://api.pinata.cloud/pinning/pinFileToIPFS',
+        formData,
+        {
+          headers: {
+            'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U`, // Replace YOUR_PINATA_JWT with your actual JWT
+          },
+        }
+      );
+      console.log('File uploaded to IPFS with CID:', response.data.IpfsHash);
+    } catch (error) {
+      console.error('Error uploading to IPFS:', error);
+    }
   };
 
   return (
