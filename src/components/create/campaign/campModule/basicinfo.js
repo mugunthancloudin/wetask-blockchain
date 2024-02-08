@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-// import { useFormContext } from "./formprovider";
+import { useFormContext } from "./formprovider";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
@@ -69,7 +69,7 @@ export default function BasicInfo() {
   // const [fileInputKey, setFileInputKey] = useState(Date.now());
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  // const { updateFormData } = useFormContext();
+  const { updateFormData } = useFormContext();
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -172,7 +172,7 @@ export default function BasicInfo() {
   
       // Assuming updateFormData is a function to update the context or perform an API call
       const newData = { BasicInfo: submittedData };
-      // updateFormData(newData);
+      updateFormData(newData);
   
       navigate(`/camp/campaignrewards`);
     } catch (error) {
