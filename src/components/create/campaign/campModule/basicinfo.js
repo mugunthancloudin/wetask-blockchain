@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useFormContext } from "./formprovider";
+// import { useFormContext } from "./formprovider";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
@@ -66,7 +66,7 @@ export default function BasicInfo() {
   // const [fileInputKey, setFileInputKey] = useState(Date.now());
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const { updateFormData } = useFormContext();
+  // const { updateFormData } = useFormContext();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -106,39 +106,43 @@ export default function BasicInfo() {
     setEditorState(RichUtils.toggleInlineStyle(editorState, style));
   };
 
-  // const { control, register, handleSubmit, formState: { errors } } = useForm({
-  //   resolver: yupResolver(BasicInfoSchema),
-  // });
-
   const {
     control,
     register,
     handleSubmit: handleSubmitCampaignDetails,
     formState: { errors: campaignError },
   } = useForm({
-    // resolver: yupResolver(BasicInfoSchema),
-  });
+    resolver: yupResolver(BasicInfoSchema),
+  }); 
 
   const onSubmitOfCampaignDetails = (data) => {
-    console.log("Function called with data:", data);
-
     try {
+      // Convert campaign start and expiry dates from ISO string to epoch time (milliseconds)
+      const campaignStartDateEpoch = new Date(data.campaignStartDate).getTime();
+      const campaignExpairyDateEpoch = new Date(data.campaignExpairyDate).getTime();
+  
       const submittedData = {
         ...data,
         campaignDescription,
         visibility,
+        campaignStartDate: campaignStartDateEpoch,
+        campaignExpairyDate: campaignExpairyDateEpoch,
       };
-
+  
+      // Log or handle the submitted data as needed
       alert("Submitted Data: " + JSON.stringify(submittedData, null, 2));
-
       console.log("onSubmitOfCampaignDetails triggered", submittedData);
+  
+      // Assuming updateFormData is a function to update the context or perform an API call
       const newData = { BasicInfo: submittedData };
-      updateFormData(newData);
+      // updateFormData(newData);
+  
       navigate(`/camp/campaignrewards`);
     } catch (error) {
       console.error("Error in onSubmitOfCampaignDetails:", error);
     }
   };
+  
 
   useEffect(() => {
     // Perform actions after state updates
@@ -317,6 +321,6 @@ export default function BasicInfo() {
           </form>
         </div>
       </div>
-    </div>
+    </div>    
   );
 }
