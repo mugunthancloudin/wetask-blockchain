@@ -15,6 +15,8 @@ import {
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import axios from "axios";
+import FormData from 'form-data';
 import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
@@ -61,6 +63,7 @@ export default function BasicInfo() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [campaignDescription, setCampaignDescription] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
+  const [ipfsHash, setIpfsHash] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [visibility, setVisibility] = useState("public");
   // const [fileInputKey, setFileInputKey] = useState(Date.now());
@@ -68,12 +71,45 @@ export default function BasicInfo() {
   const navigate = useNavigate();
   // const { updateFormData } = useFormContext();
 
-  const handleFileChange = (event) => {
+  const handleFileChange = async (event) => {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => setPreviewSrc(reader.result);
       reader.readAsDataURL(file);
+
+      // Upload the file to IPFS
+      const formData = new FormData();
+      formData.append('file', file);
+
+      const pinataMetadata = JSON.stringify({
+        name: `Campaign Cover Image - ${file.name}`,
+      });
+      formData.append('pinataMetadata', pinataMetadata);
+
+      const pinataOptions = JSON.stringify({
+        cidVersion: 0,
+      });
+      formData.append('pinataOptions', pinataOptions);
+
+      try {
+        const response = await axios.post(
+          'https://api.pinata.cloud/pinning/pinFileToIPFS',
+          formData,
+          {
+            maxBodyLength: 'Infinity',
+            headers: {
+              'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+              Authorization: `Bearer ${JWT}`,
+            },
+          }
+        );
+        console.log('IPFS Upload Response:', response.data);
+        setIpfsHash(response.data.IpfsHash);
+        // Handle the response, e.g., saving the IPFS hash to state or form
+      } catch (error) {
+        console.error('Error uploading file to IPFS:', error);
+      }
     }
   };
 
@@ -127,6 +163,7 @@ export default function BasicInfo() {
         visibility,
         campaignStartDate: campaignStartDateEpoch,
         campaignExpairyDate: campaignExpairyDateEpoch,
+        coverImageIpfsCid: ipfsHash,
       };
   
       // Log or handle the submitted data as needed
