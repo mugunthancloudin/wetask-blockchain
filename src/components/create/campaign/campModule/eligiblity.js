@@ -5,8 +5,8 @@ import * as yup from "yup";
 import "./campaignModule.css";
 import balance from "../../../assets/campaign/balance.svg";
 import level from "../../../assets/campaign/level.svg";
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
+import { useFormContext } from "./formprovider";
 
 const EligiblitySchema = yup
   .object({
@@ -26,7 +26,8 @@ const EligiblitySchema = yup
 export default function Eligiblity() {
   const [showBalanceCard, setShowBalanceCard] = useState(false);
   const [showLevelCard, setShowLevelCard] = useState(false);
-  const navigate  = useNavigate();
+  const navigate = useNavigate();
+  const { updateFormData } = useFormContext();
 
   // Handlers for showing cards
   const handleBalanceClick = () => {
@@ -62,9 +63,16 @@ export default function Eligiblity() {
     defaultValues: formDetails,
   });
 
-  const onSubmit = (data) => {
-    console.log("Form Submitted with Data:", data);
-    navigate(`/camp/campaigneligibility`);  
+  const onSubmit = async (data) => {
+    try {
+      console.log("Form Submitted with Data:", data);
+      updateFormData({ eligiblity: data });
+      // Add any asynchronous operations here
+      // await someAsyncOperation();
+      navigate(`/camp/campaigntasks`);
+    } catch (error) {
+      console.error("Error during form submission:", error);
+    }
   };
 
   const handleInputChange = (event) => {

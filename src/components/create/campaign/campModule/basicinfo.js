@@ -1,6 +1,5 @@
-import React, { useRef, useState } from "react";
-import axios from "axios";
-import FormData from "form-data";
+import React, { useRef, useState, useEffect } from "react";
+import { useFormContext } from "./formprovider";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
@@ -26,47 +25,48 @@ import "draft-js/dist/Draft.css";
 const JWT =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U"; // Replace with your actual JWT token
 
-// const BasicInfoSchema = yup.object().shape({
-//   campaignName: yup.string().required("*Please enter your Campaign name."),
-//   campaignStartDate: yup.date().required("*Please select a start date."),
-//   campaignExpairyDate: yup.date().required("*Please select an expiry date."),
-//   campDescription: yup
-//     .string()
-//     .required("*Please enter your Campaign description."),
-//   campaignCoverImage: yup
-//     .mixed()
-//     .required("*Please upload a campaign cover image")
-//     .test("fileType", "Invalid file format", (value) => {
-//       if (!value) {
-//         return false; // Disallow empty value
-//       }
-//       const supportedFormats = [
-//         "image/jpeg",
-//         "image/png",
-//         "image/svg+xml",
-//         "image/webp",
-//         "image/gif",
-//       ];
-//       return supportedFormats.includes(value[0].type);
-//     })
-//     .test("fileSize", "File size too large", (value) => {
-//       if (!value) {
-//         return false; // Disallow empty value
-//       }
-//       return value[0].size <= 10 * 1024 * 1024; // 10 MB
-//     }),
-// });
+const BasicInfoSchema = yup.object().shape({
+  campaignName: yup.string().required("*Please enter your Campaign name."),
+  // campaignStartDate: yup.date().required("*Please select a start date."),
+  // campaignExpairyDate: yup.date().required("*Please select an expiry date."),
+  // campDescription: yup
+  //   .string()
+  //   .required("*Please enter your Campaign description."),
 
-export default function BasicInfo(onUpdate) {
+  // campaignCoverImage: yup
+  //   .mixed()
+  //   .required("*Please upload a campaign cover image")
+  //   .test("fileType", "Invalid file format", (value) => {
+  //     if (!value) {
+  //       return false;
+  //     }
+  //     const supportedFormats = [
+  //       "image/jpeg",
+  //       "image/png",
+  //       "image/svg+xml",
+  //       "image/webp",
+  //       "image/gif",
+  //     ];
+  //     return supportedFormats.includes(value[0].type);
+  //   })
+  //   .test("fileSize", "File size too large", (value) => {
+  //     if (!value) {
+  //       return false;
+  //     }
+  //     return value[0].size <= 10 * 1024 * 1024;
+  //   }),
+});
+
+export default function BasicInfo() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [campaignDescription, setCampaignDescription] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
   const [wordCount, setWordCount] = useState(0);
   const [visibility, setVisibility] = useState("public");
-  const [fileInputKey, setFileInputKey] = useState(Date.now());
+  // const [fileInputKey, setFileInputKey] = useState(Date.now());
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  // const history = useHistory();
+  const { updateFormData } = useFormContext();
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
@@ -77,7 +77,6 @@ export default function BasicInfo(onUpdate) {
     }
   };
 
- 
   const openFileDialog = () => {
     fileInputRef.current.click();
   };
@@ -107,7 +106,12 @@ export default function BasicInfo(onUpdate) {
     setEditorState(RichUtils.toggleInlineStyle(editorState, style));
   };
 
+  // const { control, register, handleSubmit, formState: { errors } } = useForm({
+  //   resolver: yupResolver(BasicInfoSchema),
+  // });
+
   const {
+    control,
     register,
     handleSubmit: handleSubmitCampaignDetails,
     formState: { errors: campaignError },
@@ -120,23 +124,26 @@ export default function BasicInfo(onUpdate) {
 
     try {
       const submittedData = {
-        ...data, // Ensure campaignDescription is defined somewhere accessible
-        campaignDescription, // This needs to be defined somewhere in your component
-        visibility, // Make sure this is the state variable you're intending to use
+        ...data,
+        campaignDescription,
+        visibility,
       };
 
-      // console.log("onSubmitOfCampaignDetails triggered", submittedData);
       alert("Submitted Data: " + JSON.stringify(submittedData, null, 2));
-      // navigate(`/campaigneligibility?submittedData=${encodedData}`);
-      // navigate(`/campaigneligibility?submittedData=${encodeURIComponent(submittedData)}`);
 
       console.log("onSubmitOfCampaignDetails triggered", submittedData);
-      // const encodedData = encodeURIComponent(JSON.stringify(submittedData));
+      const newData = { BasicInfo: submittedData };
+      updateFormData(newData);
       navigate(`/camp/campaignrewards`);
     } catch (error) {
       console.error("Error in onSubmitOfCampaignDetails:", error);
     }
   };
+
+  useEffect(() => {
+    // Perform actions after state updates
+    console.log("campaignDescription updated:", campaignDescription);
+  }, [campaignDescription]);
 
   return (
     <div className="container">
@@ -261,6 +268,7 @@ export default function BasicInfo(onUpdate) {
                 />
                 <div className="word-count">{wordCount} words</div>
               </div>
+
               {campaignError.campDescription && (
                 <p className="text-danger fw-bold">
                   {campaignError.campDescription.message}
@@ -273,7 +281,7 @@ export default function BasicInfo(onUpdate) {
               <div className="toggle-switches justify-content-around my-4">
                 <div
                   className={`text-center toggle-option ${
-                    visibility === "public" ? "active" : ""
+                    visibility === "public" ? "active" : " "
                   }`}
                   onClick={() => toggleVisibility("public")}
                 >

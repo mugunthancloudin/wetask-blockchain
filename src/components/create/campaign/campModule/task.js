@@ -1,13 +1,20 @@
 import React, { useState } from "react";
 import axios from 'axios'; // Ensure axios is imported
 import "./campaignModule.css";
-import twitter from "../../../assets/campaign/twitter.svg"; // Adjust the import path as necessary
+import { useFormContext } from "./formprovider";
+import twitter from "../../../assets/campaign/twitter.svg";
 import { FaPlus } from "react-icons/fa";
 
 export default function Task() {
   const [tasks, setTasks] = useState([]);
+  // console.log(tasks);
   const [inputValues, setInputValues] = useState({});
+  // console.log(inputValues);
   const [isHovered, setIsHovered] = useState(false);
+  const { formData } = useFormContext();  
+  const { updateFormData } = useFormContext();
+
+  // const [finalFormData, setFinalFormData] = useState({});
 
   const handleInputChange = (id, value) => {
     setInputValues((prevValues) => ({
@@ -67,6 +74,7 @@ export default function Task() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     const submittedData = tasks.map((task) => ({
       taskNumber: task.id,
       taskTitle: task.type,
@@ -91,7 +99,12 @@ export default function Task() {
     } catch (error) {
       console.error('Error uploading to IPFS:', error);
     }
+    
+    updateFormData({ ...formData, submittedData });
+    console.log("Form Submitted with tasks", submittedData);
+    console.log(formData);
   };
+
 
   return (
     <>

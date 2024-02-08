@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./campaignModule.css";
+import { useFormContext } from "./formprovider";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -79,6 +80,8 @@ export default function Rewards() {
   const [distributedByisOpen, setDistributedByisOpen] = useState(false);
 
   const navigate  = useNavigate();
+  const { updateFormData } = useFormContext();
+
 
 
   const toggleVisibility = (choice) => {
@@ -120,10 +123,11 @@ export default function Rewards() {
   const onSubmitOfToken = (data) => {
     try {
       alert("Token\nSubmitted Data: " + JSON.stringify(data, null, 2));
+      updateFormData({ tokenReward: data });
       navigate(`/camp/campaigneligibility`);
     } catch (error) {
       console.error("Error in onSubmitOfPoints:", error);
-    }
+    }  
   };
 
   const {
@@ -139,6 +143,7 @@ export default function Rewards() {
   const onSubmitOfPoints = (data) => {
     try {
       alert("points\nSubmitted Data: " + JSON.stringify(data, null, 2));
+      updateFormData({ pointReward: data });
       navigate(`/camp/campaigneligibility`);
     } catch (error) {
       console.error("Error in onSubmitOfPoints:", error);
