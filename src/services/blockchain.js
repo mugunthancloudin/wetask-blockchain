@@ -1,6 +1,6 @@
 import { useContractReads, useContractWrite  } from 'wagmi';
 import React, { useState } from 'react';
-import { ethers } from 'ethers';
+import { ethers, isError } from 'ethers';
 import abi from '../abis/src/contracts/Taskon.sol/Taskon.json';
 
 const contractDetails = {
@@ -8,27 +8,37 @@ const contractDetails = {
   abi: abi.abi,
 };
 
-export function CreateCampaign(BasicInfo,eligibility,pointReward,submittedData) { // Assuming default is public
+export function CreateCampaign(campaignData) { // Assuming default is public
+  const campaignDatas=campaignData.campaignData;
+  // console.log(campaignDatas.BasicInfo.campaignName);
 
-  const { data, isLoading, isSuccess, write } = useContractWrite({
+  const { data, isLoading, isSuccess,isError, write } = useContractWrite({
     ...contractDetails,
     functionName: 'createCampaign',
     args: [
-      BasicInfo.campaignName,       // name,
-      BasicInfo.campaignStartDate,  // startTimestamp,
-      BasicInfo.campaignEndDate,    // endTimestamp,
-      BasicInfo.coverImageIpfsCid,  // imageCID,
-      BasicInfo.campaignDescription,// description : BasicInfo.description,
-      pointReward.totalReward,      // tokenReward,
-      pointReward.rewardPoint,      // points,
-      eligibility.minbalance,       // minimumLevel,
-      eligibility.taskOnLevel,      // minimumBalance,
-      pointReward.totalReward,      // numberOfWinners,
-      BasicInfo.visibility,         // visibility,
-      submittedData.cid,            // tasksCID,
+      campaignDatas.BasicInfo.campaignName,       // name,
+      campaignDatas.BasicInfo.campaignStartDate,  // startTimestamp,
+      campaignDatas.BasicInfo.campaignEndDate,    // endTimestamp,
+      campaignDatas.BasicInfo.coverImageIpfsCid,  // imageCID,
+      campaignDatas.BasicInfo.campaignDescription,// description : BasicInfo.description,
+      campaignDatas.pointReward.totalReward,      // tokenReward,
+      campaignDatas.pointReward.rewardPoint,      // points,
+      campaignDatas.eligibility.minbalance,       // minimumLevel,
+      campaignDatas.eligibility.taskOnLevel,      // minimumBalance,
+      campaignDatas.pointReward.totalReward,      // numberOfWinners,
+      campaignDatas.BasicInfo.visibility,         // visibility,
+      campaignDatas.submittedData.cid,            // tasksCID,
     ],
   });
-}
+    return (
+      <div>
+        {write}
+        {isLoading && <div>Check Wallet</div>}
+        {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+        {isError && alert("error in creating campaign")}
+      </div>
+     ) 
+ }
 
 export function CreateEvent() { // Assuming default is public
 
