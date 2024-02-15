@@ -1,9 +1,4 @@
 import React from "react";
-// import Basicinfo from "../campModule/basicinfo";
-import Eligiblity from "../campModule/eligiblity";
-import Rewards from "../campModule/rewards";
-import Task from "../campModule/task";
-import { Route, Routes } from "react-router-dom";
 import CampSideNav from "./campSideNav";
 import CampDocument from "./campDocument";
 import MyNavbar from "../../../navbar & footer/navbar/navbar";

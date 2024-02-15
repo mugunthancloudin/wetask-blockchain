@@ -84,7 +84,7 @@
       createEligibilitySchema(showBalanceCard, showLevelCard)
     );
 
-    // Update the validation schema when the state changes
+      // Update the validation schema when the state changes
     useState(() => {
       reset(); // Reset form state to trigger re-validation
     }, [showBalanceCard, showLevelCard, reset]); useEffect(() => {

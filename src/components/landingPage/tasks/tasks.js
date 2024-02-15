@@ -13,7 +13,8 @@ export default function Tasks() {
             <div className="taskDiv">
             <img src={share} alt="share" width="100%"/>
             </div>
-            
+
+
             {/* <Lottie
                 animationData={homeanime}
                 loop={true}
@@ -21,6 +22,8 @@ export default function Tasks() {
                 style={{ width: "100%" }}
                 className="taskLootie"
               /> */}
+
+
           </div>
           <div className="col-lg-6 text-light ">
             <h3 className="fw-bold mt-5 pt-5">Web3 Login</h3>
@@ -32,8 +35,12 @@ export default function Tasks() {
               play games, or do quick 3-5 minute tasks – turn spare moments into
               valuable earnings.
             </p>
+
+
             {/* <p className="fw-bold ">Web3 Login</p>
             <p className="fw-bold">Automatic Verification</p> */}
+
+
           </div>
         </div>
       </div>

@@ -3,18 +3,14 @@ import "./home.css";
 import token from "../../assets/home/token.svg";
 import nft from "../../assets/home/nft.svg";
 
-
 export default function Home() {
   return (
     <>
       <div className="container homeBg ">
-        <div className="row">
-         
-          
-         
+        <div className="row">         
           <div className="col-lg-6 text-white">
             <h1 className="homeH1 ">
-              <span className="spanh1">WeTask</span> - Web3 Collaboration
+                <span className="spanh1">WeTask</span> - Web3 Collaboration
               Platform
             </h1>
             <h6 className="mt-4">
@@ -22,8 +18,6 @@ export default function Home() {
               tasks in a decentralized way. It helps task initiators and
               implementers to collaborate efficiently and better align mutual
               interests. Make full use of WeTask and start earning now!
-
-
             </h6>
             <div className="d-flex mt-3 ">
               <button className="home-btn1">Explore</button>
@@ -32,7 +26,7 @@ export default function Home() {
           </div>
           <div className="col-lg-6 d-none d-sm-block">
             <div className="position-relative">
-              <div className="rewardBg mt-5 ms-5 p-4">
+               <div className="rewardBg mt-5 ms-5 p-4">
                 <span className="ps-5  text-center text-white">
                   Rewards Are Only Tasks Away
                 </span>

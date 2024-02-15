@@ -23,13 +23,3 @@ export default function CampDocument() {
   );
 }
 
-{
-  /* <Route index element={<Basicinfo/>} />
-        <Route path="/basicinfo" element={<Basicinfo/>} />
-        <Route path="/campaigneligibility" element={<Eligiblity />} />
-        <Route path="/campaignrewards" element={<Rewards/>} />
-        <Route path="/campaigntasks" element={<Task />} />
-        <Route path="/" exact>
-        <Navigate to="/basicinfo" />
-        </Route> */
-}
