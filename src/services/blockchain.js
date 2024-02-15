@@ -1,5 +1,6 @@
 import { useContractReads, useContractWrite  } from 'wagmi';
 import React, { useState } from 'react';
+import { ethers } from 'ethers';
 import abi from '../abis/src/contracts/Taskon.sol/Taskon.json';
 
 const contractDetails = {
@@ -7,20 +8,25 @@ const contractDetails = {
   abi: abi.abi,
 };
 
-function IfConnected() {
-  const { isConnected } = useAccount();
-
-  if (!isConnected) {
-    return <div>Please connect your wallet.</div>;
-  }
-}
-
-export function CreateCampaign() { // Assuming default is public
+export function CreateCampaign(BasicInfo,eligibility,pointReward,submittedData) { // Assuming default is public
 
   const { data, isLoading, isSuccess, write } = useContractWrite({
     ...contractDetails,
     functionName: 'createCampaign',
-    args: [],
+    args: [
+      BasicInfo.campaignName,       // name,
+      BasicInfo.campaignStartDate,  // startTimestamp,
+      BasicInfo.campaignEndDate,    // endTimestamp,
+      BasicInfo.coverImageIpfsCid,  // imageCID,
+      BasicInfo.campaignDescription,// description : BasicInfo.description,
+      pointReward.totalReward,      // tokenReward,
+      pointReward.rewardPoint,      // points,
+      eligibility.minbalance,       // minimumLevel,
+      eligibility.taskOnLevel,      // minimumBalance,
+      pointReward.totalReward,      // numberOfWinners,
+      BasicInfo.visibility,         // visibility,
+      submittedData.cid,            // tasksCID,
+    ],
   });
 }
 
