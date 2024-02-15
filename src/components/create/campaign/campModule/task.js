@@ -96,14 +96,18 @@ export default function Task() {
         }
       );
       console.log('File uploaded to IPFS with CID:', response.data.IpfsHash);
-    } catch (error) {
-      console.error('Error uploading to IPFS:', error);
-    }
-    
-    updateFormData({ ...formData, submittedData });
-    console.log("Form Submitted with tasks", submittedData);
-    console.log(formData);
-  };
+    // Include the CID in your submitted data
+    const submittedDataWithCid = {
+      tasks: submittedData,
+      cid: response.data.IpfsHash
+    };
+
+    updateFormData({ ...formData, submittedData: submittedDataWithCid });
+    console.log("Form Submitted with tasks and CID", submittedDataWithCid);
+  } catch (error) {
+    console.error('Error uploading to IPFS:', error);
+  }
+};
 
 
   return (
