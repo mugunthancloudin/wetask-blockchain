@@ -25,7 +25,7 @@ export default function Data() {
           <div className="col-lg-5">
             <Lottie
               animationData={data}
-              loop={true}
+               loop={true}
               autoplay={true}
               style={{ width: "80%" }}
               className="mb-5"
@@ -36,3 +36,4 @@ export default function Data() {
     </>
   );
 }
+ 
