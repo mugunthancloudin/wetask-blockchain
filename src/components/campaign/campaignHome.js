@@ -22,7 +22,7 @@ const CampaignHome = () => {
 
   return (
     <>
-      <div className="container-fluid">
+      <div className="container-fluid bg-black text-white">
         <div className="container">
           <div className="row">
             {products.map((product) => (
