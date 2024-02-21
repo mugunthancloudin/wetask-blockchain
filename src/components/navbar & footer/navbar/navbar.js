@@ -37,7 +37,7 @@ function MyNavbar() {
             <NavDropdown
               title="Create"
               id="collapsible-nav-dropdown"
-              className="navTitles ms-3"
+              className=" ms-3"
             >
               <NavDropdown.Item href="#action/3.1" className="bg-dark ">
                 <div className="d-flex text-white">
@@ -52,7 +52,7 @@ function MyNavbar() {
                   </div>
                 </div>
               </NavDropdown.Item>
-              <NavDropdown.Item href="/camp" className="bg-dark">
+              <NavDropdown.Item href="/camp/basicinfo" className="bg-dark">
                 <div className="d-flex text-white">
                   <div>
                     <FaGlobe size={25} className="mt-3 me-3" />

@@ -1,5 +1,5 @@
 // navConfig.js
-import { FaHome, FaCog, FaUser } from 'react-icons/fa'; // Example icons
+import { FaHome, FaCog, FaUser,FaTasks  } from 'react-icons/fa'; // Example icons
 
 const navItems = [
   {
@@ -15,12 +15,14 @@ const navItems = [
   {
     link: '/camp/campaigneligibility', 
     label: 'Eligibility',
-    Icon: FaHome, 
+    Icon: FaUser,
+    size:"50%",
+     
   },
   {
     link: '/camp/campaigntasks', 
     label: 'Tasks',
-    Icon: FaCog,
+    Icon: FaTasks ,
   },
 ];
 

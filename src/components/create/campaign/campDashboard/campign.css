@@ -1,5 +1,5 @@
 .campDash {
-  background-color: rgb(29,33,35);
+  background-color: black;
   color: white;
 }
 
@@ -11,6 +11,12 @@
 
 .campDash .col-lg-9::-webkit-scrollbar {
   display: none;
+}
+
+@media (max-width: 1050px) {
+  .labelmodule {
+    display: none;
+  }
 }
 
 

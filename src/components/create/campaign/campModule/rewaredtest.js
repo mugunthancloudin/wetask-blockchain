@@ -10,25 +10,37 @@ import { useNavigate } from "react-router-dom";
 const TokenSchema = yup.object().shape({
   networkType: yup.string().required("Please select the Network type"),
   tokenType: yup.string().required("Please select the Token type"),
+
   rewardToken: yup
     .number()
     .typeError("Reward Amount must be a number")
     .required("Reward Amount is required")
     .positive("Reward Amount must be a positive number"),
+
   totalReward: yup
     .number()
     .typeError("Number of Winners must be a number")
     .required("Number of Winners is required")
     .integer("Number of Winners must be an integer")
     .min(1, "Number of Winners must be at least 1"),
+
   drawnMethod: yup.string().required("Please select a drawing method"),
+
   winnerSelection: yup
     .string()
     .required("Please select a winner selection method"),
+
   distributionType: yup
     .string()
     .required("Please select a Distribution method"),
+
   distributedBy: yup.string().required("Please select a Distribution method"),
+
+  rewardPoint: yup
+    .number()
+    .typeError("Reward Amount must be a number")
+    .required("Reward Amount is required")
+    .positive("Reward Amount must be a positive number"),
 });
 
 const PointSchema = yup.object().shape({
@@ -54,11 +66,13 @@ const PointSchema = yup.object().shape({
 
 export default function Rewards() {
   const [rewardVisibility, setRewardVisibility] = useState("Token");
+  const [token, setToken] = useState("Eth");
   const [networkTypeIsOpen, setNetworkTypeIsOpen] = useState(false);
   const [tokenTypeIsOpen, setTokenTypeIsOpen] = useState(false);
-  const [token, setToken] = useState("Eth");
   const [drawWinnersIsOpen, setDrawWinnersIsOpen] = useState(false);
   const [winnerSelectionIsOpen, setWinnerSelectionIsOpen] = useState(false);
+  // const [distributedSectionisOpen, setDistributedSectionisOpen] =
+  //   useState(false);
   const [rewardDistributionIsOpen, setRewardDistributionIsOpen] =
     useState(false);
   const [distributedByisOpen, setDistributedByisOpen] = useState(false);
@@ -90,9 +104,8 @@ export default function Rewards() {
     setRewardDistributionIsOpen(!rewardDistributionIsOpen);
   };
 
-  const toogleDistributedBy = () => {
+  const toogleDistributedBy = () =>
     setDistributedByisOpen(!distributedByisOpen);
-  };
 
   const {
     control: controlToken,
@@ -106,7 +119,7 @@ export default function Rewards() {
   const onSubmitOfToken = async (data) => {
     try {
       console.log("Token\nSubmitted Data: ", JSON.stringify(data, null, 2));
-      updateFormData({ tokenReward: data });
+      await updateFormData({ tokenReward: data });
       navigate(`/camp/campaigneligibility`);
     } catch (error) {
       console.error("Error in onSubmitOfToken:", error);
@@ -157,8 +170,8 @@ export default function Rewards() {
           <div id="campaign-description" className="">
             {rewardVisibility === "Token" ? (
               <div>
-                <form onSubmit={handleSubmitOfToken(onSubmitOfToken)}>
-                  <div>
+                <form onSubmit={handleSubmitOfToken(onSubmitOfToken)}>   
+               <div>
                     <div className="dropdown-container mt-3">
                       <h6>Network</h6>
                       <div
@@ -173,13 +186,7 @@ export default function Rewards() {
                           control={controlToken}
                           defaultValue=""
                           render={({ field }) => (
-                            <div
-                              className={`dropdown mt-3 ${
-                                networkTypeIsOpen ? "open" : ""
-                              }`}
-                              tabIndex="0"
-                              onBlur={() => setNetworkTypeIsOpen(false)}
-                            >
+                            <>
                               <div
                                 className="dropdown-header"
                                 onClick={toggleNetworkSelectionOpen}
@@ -196,25 +203,15 @@ export default function Rewards() {
                                   <div
                                     className="dropdown-item"
                                     onClick={() => {
-                                      field.onChange("Ethereum");
+                                      field.onChange("Etherium");
                                       toggleNetworkSelectionOpen();
                                     }}
                                   >
-                                    Ethereum
+                                    Etherium
                                   </div>
-                                  <div
-                                    className="dropdown-item"
-                                    onClick={() => {
-                                      field.onChange("Binance Smart Chain");
-                                      toggleNetworkSelectionOpen();
-                                    }}
-                                  >
-                                    Binance Smart Chain
-                                  </div>
-                                  {/* Add or remove network types as needed */}
                                 </div>
                               )}
-                            </div>
+                            </>
                           )}
                         />
 
@@ -240,18 +237,12 @@ export default function Rewards() {
                           control={controlToken}
                           defaultValue=""
                           render={({ field }) => (
-                            <div
-                              className={`dropdown mt-3 ${
-                                tokenTypeIsOpen ? "open" : ""
-                              }`}
-                              tabIndex="0"
-                              onBlur={() => setTokenTypeIsOpen(false)}
-                            >
+                            <>
                               <div
                                 className="dropdown-header"
                                 onClick={toggleTokenSelectionOpen}
                               >
-                                {field.value || "Select Token Type"}
+                                {field.value || "Select Network Type"}
                                 <span
                                   className={`arrow mt-2 ${
                                     tokenTypeIsOpen ? "up" : "down"
@@ -263,25 +254,15 @@ export default function Rewards() {
                                   <div
                                     className="dropdown-item"
                                     onClick={() => {
-                                      field.onChange("Eth"); // Assuming 'Eth' is a correct value
+                                      field.onChange("Eth");
                                       toggleTokenSelectionOpen();
                                     }}
                                   >
                                     Eth
                                   </div>
-                                  <div
-                                    className="dropdown-item"
-                                    onClick={() => {
-                                      field.onChange("Bsc"); // Changing this to a different value
-                                      toggleTokenSelectionOpen();
-                                    }}
-                                  >
-                                    Bsc
-                                  </div>
-                                  {/* Add more token types as needed */}
                                 </div>
                               )}
-                            </div>
+                            </>
                           )}
                         />
 
@@ -294,7 +275,9 @@ export default function Rewards() {
                     </div>
 
                     <div>
-                      <h6 className="mt-3">Total Reward Amount</h6>
+                      <h6 className="mt-3">
+                        Total Reward Amount <PiWarningCircleBold />
+                      </h6>
                       <p className="fs-6">
                         *More rewards deposited, more credits you will get and
                         higher ranking the campaign will get
@@ -342,7 +325,10 @@ export default function Rewards() {
                     </div>
 
                     <div className="">
-                      <h6 className="mt-3">How to Draw Winners</h6>
+                      <h6 className="mt-3">
+                        How to Draw Winners <PiWarningCircleBold />
+                      </h6>
+
                       <div
                         className={`dropdown mt-3 ${
                           drawWinnersIsOpen ? "open" : ""
@@ -402,7 +388,9 @@ export default function Rewards() {
 
                     <div>
                       <div className="dropdown-container mt-3">
-                        <h6>Automatic Winner Selection</h6>
+                        <h6>
+                          Automatic Winner Selection <PiWarningCircleBold />
+                        </h6>
                         <div
                           className={`dropdown mt-3 ${
                             winnerSelectionIsOpen ? "open" : ""
@@ -467,7 +455,9 @@ export default function Rewards() {
 
                     <div>
                       <div className="dropdown-container mt-3">
-                        <h6>How to distribute rewards</h6>
+                        <h6>
+                          How to distribute rewards <PiWarningCircleBold />
+                        </h6>
                         <div
                           className={`dropdown mt-3 ${
                             rewardDistributionIsOpen ? "open" : ""
@@ -530,7 +520,9 @@ export default function Rewards() {
 
                     <div>
                       <div className="dropdown-container mt-3">
-                        <h6>Reward Distributed by</h6>
+                        <h6>
+                          Reward Distributed by <PiWarningCircleBold />
+                        </h6>
 
                         <div
                           className="dropdown mt-3"
@@ -589,14 +581,14 @@ export default function Rewards() {
                       </div>
                     </div>
 
-                    <div className="buttons my-4 ">
-                      <button className="save-draft text-nowrap">
-                        Save as Draft
-                      </button>
-                      <button className="save-draft ms-3">Previous</button>
-                      <button className="next" type="submit">
-                        Next
-                      </button>
+                    <div>
+                      <div className="buttons my-4 ">
+                        <button className="save-draft text-nowrap">
+                          Save as Draft
+                        </button>
+                        <button className="save-draft ms-3">Previous</button>
+                        <button className="next" type="submit">Next</button>
+                      </div>
                     </div>
                   </div>
                 </form>
@@ -647,7 +639,6 @@ export default function Rewards() {
                         </p>
                       )}
                     </div>
-
                     <div>
                       <h6 className="mt-3">
                         How to Draw Winners <PiWarningCircleBold />

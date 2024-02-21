@@ -5,7 +5,7 @@
 
 .wagmiBtn{
     background-color: black !important;
-    background: black !important;
+    background: black !important;  
     border-radius: none !important;
 }
 
@@ -14,4 +14,4 @@
     border: 1px solid var(--wui-gray-glass-010);
     border-radius: var(--wui-border-radius-m);
     gap: var(--wui-spacing-xs);
-} */
+} */     
