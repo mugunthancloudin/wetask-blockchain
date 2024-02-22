@@ -38,15 +38,14 @@ const CampaignHome = () => {
     <>
     <button onClick={handleLogBlockchainData}>View Blockchain Campaigns</button>
     <button onClick={handleFetchNextPage}>Fetch Next Blockchain Page</button>
-      <div className="container-fluid">
+      <div className="container-fluid bg-black text-white">
         <div className="container">
           <div className="row">
             {products.map((product) => (
               <div key={product.id} className="col-md-4 mb-4">
                 <div className="card h-100">
                   <div className="card-body">
-                    <h5 className="card-title">{product.title}</h5>
-                     <img src={product.image} alt='productImage' className='w-100'/>
+                    <h5 className="card-title">{product.title}</h5>                     <img src={product.image} alt='productImage' className='w-100'/>
                     <p className="card-text">Category: {product.category}</p>
                     <p className="card-text">Price: ${product.price}</p>
                     <p className="card-text">{product.description}</p>
