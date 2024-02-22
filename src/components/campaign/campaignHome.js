@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useReadCampaign } from '../../services/blockchain';
+
 
 const CampaignHome = () => {
 
   const [products, setProducts] = useState([]);
+  const { data, fetchNextPage } = useReadCampaign();
 
   useEffect(() => {
     
@@ -15,13 +18,26 @@ const CampaignHome = () => {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   }, []); 
 
+  const handleLogBlockchainData = () => {
+    console.log(data.pages);
+  };
+
+  const handleFetchNextPage = async () => {
+    if(fetchNextPage.status === 'success'){
+    console.log(data);
+    }else{console.log("No pages left")}
+  };
+
+  // const campaignDashboardData= ReadCampaign();
+  // console.log(campaignDashboardData);
 
   return (
     <>
+    <button onClick={handleLogBlockchainData}>View Blockchain Campaigns</button>
+    <button onClick={handleFetchNextPage}>Fetch Next Blockchain Page</button>
       <div className="container-fluid">
         <div className="container">
           <div className="row">

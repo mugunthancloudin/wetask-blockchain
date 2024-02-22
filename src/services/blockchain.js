@@ -1,10 +1,10 @@
-import { useContractReads, useContractWrite, parseEther  } from 'wagmi';
+import { useContractRead, useContractWrite, useContractInfiniteReads, paginatedIndexesConfig  } from 'wagmi';
 import React, { useState } from 'react';
 import { ethers, isError } from 'ethers';
-import abi from '../abis/src/contracts/Taskon.sol/Taskon.json';
+import abi from '../abis/src/contracts/Taskon.sol/CampaignContract.json';
 
 const contractDetails = {
-  address: '0xec5E5b240d64BB4Ab6F346C98cb38f91881Bc162',
+  address: '0xe60427dE063d0D30eaF388a3937d30225c51E2fe',
   abi: abi.abi,
 };
 
@@ -88,6 +88,24 @@ export function CreateCampaign(campaignData) { // Assuming default is public
     </div>
   );
  }
+
+export const useReadCampaign = () => {
+  const { data, fetchNextPage, hasNextPage } = useContractInfiniteReads({
+    ...paginatedIndexesConfig(
+      (index) => {
+        return [
+          {
+            ...contractDetails,
+            functionName: 'getCampaign',
+            args: [index],
+          },
+        ];
+      },
+      { start: 1, perPage: 10, direction: 'increment' },
+    ),
+  });
+  return { data, fetchNextPage, hasNextPage };
+};
 
 export function CreateEvent() { // Assuming default is public
 
