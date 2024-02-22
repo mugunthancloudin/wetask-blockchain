@@ -10,7 +10,6 @@ export default function Campaign() {
       <MyNavbar/>
       <CampaignHome/>
       {/* <UnderConstruction/> */}
-      
       <Footer/>
     </>
   )
