@@ -22,7 +22,20 @@ const CampaignHome = () => {
   }, []); 
 
   const handleLogBlockchainData = () => {
-    console.log(data.pages);
+    data.pages.forEach((page, pageIndex) => {
+      // Filter out only success results within each page
+      const successResults = page.filter(result => result.status === 'success');
+  
+      // Log each success result, if any
+      if (successResults.length > 0) {
+        console.log(`Page ${pageIndex + 1} - Success Results:`);
+        successResults.forEach((result, resultIndex) => {
+          console.log(`Result ${resultIndex + 1}:`, result);
+        });
+      } else {
+        console.log(`Page ${pageIndex + 1} - No Success Results`);
+      }
+    });
   };
 
   const handleFetchNextPage = async () => {
