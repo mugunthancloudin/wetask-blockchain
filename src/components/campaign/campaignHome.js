@@ -28,12 +28,12 @@ const CampaignHome = () => {
   
       // Log each success result, if any
       if (successResults.length > 0) {
-        console.log(`Page ${pageIndex + 1} - Success Results:`);
+        console.log(`Page ${pageIndex + 1} - Campaigns`);
         successResults.forEach((result, resultIndex) => {
           console.log(`Result ${resultIndex + 1}:`, result);
         });
       } else {
-        console.log(`Page ${pageIndex + 1} - No Success Results`);
+        console.log(`Page ${pageIndex + 1} - No Campaign pulished yet`);
       }
     });
   };
