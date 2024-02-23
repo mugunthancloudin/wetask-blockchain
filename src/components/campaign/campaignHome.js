@@ -5,6 +5,7 @@ import { isError } from 'ethers';
 
 const CampaignHome = () => {
   const [campaignId, setCampaignId] = useState('1');
+  const [accumulatedData, setAccumulatedData] = useState([]);
   const [products, setProducts] = useState([]);
   // const { data, fetchNextPage } = useReadCampaign();
   const {data, isSuccess} = ReadCampaign(campaignId); 
@@ -12,13 +13,14 @@ const CampaignHome = () => {
   useEffect(() => {
     if (isSuccess) {
       console.log(data[0]);
+      setAccumulatedData(currentData => [...currentData, data[0]]);
       setCampaignId(currentId => String(Number(currentId) + 1));
     } else if (isError) {
       console.log('completed fetching');
     } else {
       console.log("error");
     }
-  }, [data, isSuccess,campaignId]);
+  }, [data, isSuccess,campaignId,accumulatedData]);
 
 
   useEffect(() => {
@@ -34,6 +36,8 @@ const CampaignHome = () => {
     };
     fetchData();
   }, []); 
+
+  console.log(accumulatedData)
 
   return (
     <>
