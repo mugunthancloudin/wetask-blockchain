@@ -89,23 +89,17 @@ export function CreateCampaign(campaignData) { // Assuming default is public
   );
  }
 
-export const useReadCampaign = () => {
-  const { data, fetchNextPage, hasNextPage } = useContractInfiniteReads({
-    ...paginatedIndexesConfig(
-      (index) => {
-        return [
-          {
-            ...contractDetails,
-            functionName: 'getCampaign',
-            args: [index],
-          },
-        ];
-      },
-      { start: 1, perPage: 10, direction: 'increment' },
-    ),
-  });
-  return { data, fetchNextPage, hasNextPage };
-};
+export function ReadCampaign(campaignId) {
+  const { data, isSuccess, isError } = useContractRead({
+    ...contractDetails,
+    functionName: 'getCampaign',
+    args: campaignId,
+  })
+
+  return (
+    {data, isSuccess, isError}
+  )
+}
 
 export function CreateEvent() { // Assuming default is public
 

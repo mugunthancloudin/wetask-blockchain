@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { useReadCampaign } from '../../services/blockchain';
+import { ReadCampaign } from '../../services/blockchain';
+import { isError } from 'ethers';
 
 
 const CampaignHome = () => {
-
+  const [campaignId, setCampaignId] = useState('1');
   const [products, setProducts] = useState([]);
-  const { data, fetchNextPage } = useReadCampaign();
+  // const { data, fetchNextPage } = useReadCampaign();
+  const {data, isSuccess} = ReadCampaign(campaignId); 
+
+  useEffect(() => {
+    if (isSuccess) {
+      console.log(data[0]);
+      setCampaignId(currentId => String(Number(currentId) + 1));
+    } else if (isError) {
+      console.log('completed fetching');
+    } else {
+      console.log("error");
+    }
+  }, [data, isSuccess,campaignId]);
+
 
   useEffect(() => {
     
@@ -21,36 +35,10 @@ const CampaignHome = () => {
     fetchData();
   }, []); 
 
-  const handleLogBlockchainData = () => {
-    data.pages.forEach((page, pageIndex) => {
-      // Filter out only success results within each page
-      const successResults = page.filter(result => result.status === 'success');
-  
-      // Log each success result, if any
-      if (successResults.length > 0) {
-        console.log(`Page ${pageIndex + 1} - Campaigns`);
-        successResults.forEach((result, resultIndex) => {
-          console.log(`Result ${resultIndex + 1}:`, result);
-        });
-      } else {
-        console.log(`Page ${pageIndex + 1} - No Campaign pulished yet`);
-      }
-    });
-  };
-
-  const handleFetchNextPage = async () => {
-    if(fetchNextPage.status === 'success'){
-    console.log(data);
-    }else{console.log("No pages left")}
-  };
-
-  // const campaignDashboardData= ReadCampaign();
-  // console.log(campaignDashboardData);
-
   return (
     <>
-    <button onClick={handleLogBlockchainData}>View Blockchain Campaigns</button>
-    <button onClick={handleFetchNextPage}>Fetch Next Blockchain Page</button>
+    {/* <button onClick={handleReadData}>View Blockchain Campaigns</button> */}
+    {/* <button onClick={handleFetchNextPage}>Fetch Next Blockchain Page</button> */}
       <div className="container-fluid bg-black text-white">
         <div className="container">
           <div className="row">
