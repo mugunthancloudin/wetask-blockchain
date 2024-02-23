@@ -5,6 +5,7 @@ import banner from "../assets/campaignBanner/dragonCamp.png"
 
 
 const CampaignHome = () => {
+  const [campaignId, setCampaignId] = useState('1');
   const [products, setProducts] = useState([]);
   console.log(products);
   const { data, fetchNextPage } = useReadCampaign();
