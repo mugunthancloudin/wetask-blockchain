@@ -12,7 +12,7 @@ const CampaignHome = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(data[0]);
+      // console.log(data[0]);
       setAccumulatedData(currentData => [...currentData, data[0]]);
       setCampaignId(currentId => String(Number(currentId) + 1));
     } else if (isError) {
