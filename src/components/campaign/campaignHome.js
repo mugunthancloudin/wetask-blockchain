@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ReadCampaign } from '../../services/blockchain';
 import { isError } from 'ethers';
 import banner from "../assets/campaignBanner/dragonCamp.png"
+import CampaignJoin from './campaignJoin';
 
 
 const CampaignHome = () => {
@@ -44,6 +45,7 @@ const CampaignHome = () => {
     <>
     {/* <button onClick={handleReadData}>View Blockchain Campaigns</button> */}
     {/* <button onClick={handleFetchNextPage}>Fetch Next Blockchain Page</button> */}
+    <CampaignJoin />
       <div className="container-fluid bg-black text-white">
         <div className='row'>
           <img src={banner} alt='banner' />
