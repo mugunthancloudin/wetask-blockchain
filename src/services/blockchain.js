@@ -1,33 +1,130 @@
-import { useContractReads, useContractWrite  } from 'wagmi';
+import { useContractRead, useContractWrite, useContractInfiniteReads, paginatedIndexesConfig  } from 'wagmi';
 import React, { useState } from 'react';
-import { ethers } from 'ethers';
-import abi from '../abis/src/contracts/Taskon.sol/Taskon.json';
+import { ethers, isError } from 'ethers';
+import abi from '../abis/src/contracts/Taskon.sol/CampaignContract.json';
 
 const contractDetails = {
-  address: '0xec5E5b240d64BB4Ab6F346C98cb38f91881Bc162',
+  address: '0xe60427dE063d0D30eaF388a3937d30225c51E2fe',
   abi: abi.abi,
 };
 
-export function CreateCampaign(BasicInfo,eligibility,pointReward,submittedData) { // Assuming default is public
+export function CreateCampaign(campaignData) { // Assuming default is public
+  const campaignDatas=campaignData.campaignData;
+  // console.log(campaignDatas.BasicInfo.campaignName);
+  // console.log(campaignDatas.BasicInfo.campaignStartDate);
+  // console.log(campaignDatas.BasicInfo.campaignExpairyDate);
+  // console.log(campaignDatas.BasicInfo.coverImageIpfsCid);
+  // console.log(campaignDatas.BasicInfo.campaignDescription);
+  // console.log(campaignDatas.pointReward.totalReward);
+  // console.log(campaignDatas.pointReward.rewardPoint);
+  // console.log(ethers.parseEther(campaignDatas.eligibility.minBalance.toString()));
+  // console.log(campaignDatas.eligibility.taskOnLevel);
+  // console.log(campaignDatas.BasicInfo.visibility);
+  // console.log(campaignDatas.submittedData.cid);
 
-  const { data, isLoading, isSuccess, write } = useContractWrite({
+
+  const { data, isLoading, isSuccess,isError, write } = useContractWrite({
     ...contractDetails,
     functionName: 'createCampaign',
-    args: [
-      BasicInfo.campaignName,       // name,
-      BasicInfo.campaignStartDate,  // startTimestamp,
-      BasicInfo.campaignEndDate,    // endTimestamp,
-      BasicInfo.coverImageIpfsCid,  // imageCID,
-      BasicInfo.campaignDescription,// description : BasicInfo.description,
-      pointReward.totalReward,      // tokenReward,
-      pointReward.rewardPoint,      // points,
-      eligibility.minbalance,       // minimumLevel,
-      eligibility.taskOnLevel,      // minimumBalance,
-      pointReward.totalReward,      // numberOfWinners,
-      BasicInfo.visibility,         // visibility,
-      submittedData.cid,            // tasksCID,
-    ],
   });
+
+  let visibility;
+  let minimumBalance = ethers.parseEther(campaignDatas.eligibility.minBalance.toString());
+  let pointReward=0;
+  let tokenReward=0;
+  let numberOfWinners=0;
+
+  //visibility conversion
+  if(campaignDatas.BasicInfo.visibility==="public"){
+    visibility=true;
+  }
+  else if(campaignDatas.BasicInfo.visibility==="private"){
+    visibility=false;
+  }
+  else{
+    console.log("No visibility mentioned")
+  }
+
+  //pointreward check
+  if(!campaignDatas.pointReward){
+    tokenReward=ethers.parseEther(campaignDatas.tokenReward.rewardToken.toString());
+    numberOfWinners=campaignDatas.tokenReward.totalReward;
+  }
+  if(!campaignDatas.tokenReward){
+    pointReward=campaignDatas.pointReward.rewardPoint;
+    numberOfWinners=campaignDatas.pointReward.totalReward;
+  }
+  const handleCreateCampaignClick = () => {
+    if(!campaignData){
+      return "no data"
+    }
+    write({
+      args: [
+        campaignDatas.BasicInfo.campaignName,       // name,
+        campaignDatas.BasicInfo.campaignStartDate,  // startTimestamp,
+        campaignDatas.BasicInfo.campaignExpairyDate,// endTimestamp,
+        campaignDatas.BasicInfo.coverImageIpfsCid,  // imageCID,
+        campaignDatas.BasicInfo.campaignDescription,// description : BasicInfo.description,
+        tokenReward.toString(),                     // tokenReward,
+        pointReward,                                // points,
+        campaignDatas.eligibility.taskOnLevel,      // minimum level;,
+        minimumBalance.toString(),                  // minimum balance
+        numberOfWinners,                            // numberOfWinners,
+        campaignDatas.submittedData.cid,            // tasksCID,
+        visibility,                                 // visibility,
+      ],
+    }); 
+  };
+  return (
+    <div>
+      <button
+        disabled={isLoading || !write}
+        onClick={handleCreateCampaignClick}
+      >
+        {isLoading ? 'Processing...' : 'Create Campaign'}
+      </button>
+      {isLoading && <div>Transaction is processing. Check your wallet.</div>}
+      {isSuccess && <div>Transaction successful: {JSON.stringify(data)}</div>}
+    </div>
+  );
+ }
+
+export function ReadCampaign(campaignId) {
+  const { data, isSuccess, isError } = useContractRead({
+    ...contractDetails,
+    functionName: 'getCampaign',
+    args: campaignId,
+  })
+
+  return (
+    {data, isSuccess, isError}
+  )
+}
+
+export function Deposit() {
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    ...contractDetails,
+    functionName: 'deposit',
+  })
+ 
+  return (
+    <div>
+      <button
+        disabled={!write}
+        onClick={() =>
+          write({
+            args: [69],
+            from: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+            value: ethers.parseEther('0.01'),
+          })
+        }
+      >
+        Claim
+      </button>
+      {isLoading && <div>Check Wallet</div>}
+      {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+    </div>
+  )
 }
 
 export function CreateEvent() { // Assuming default is public

@@ -21,11 +21,9 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
   
 root.render(
-  <React.StrictMode>
     <BrowserRouter>
     <WagmiConfig config={wagmiConfig}>
     <App />
     </WagmiConfig>
     </BrowserRouter>
-  </React.StrictMode>
 )
