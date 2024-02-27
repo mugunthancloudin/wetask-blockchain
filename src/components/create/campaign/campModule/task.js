@@ -1,60 +1,15 @@
-import React, { useState, useEffect} from "react";
+import React, { useState} from "react";
 import axios from 'axios';
 import "./campaignModule.css";
 import { useFormContext } from "./formprovider";
 import twitter from "../../../assets/campaign/twitter.svg";
 import { FaPlus } from "react-icons/fa";
-import { getAuth, signInWithPopup, TwitterAuthProvider, signOut } from "firebase/auth";
-import { initializeApp } from "firebase/app";
-
+import TwitterAuth from "../../../authentication/twitterAuth";
 export default function Task() {
   const [tasks, setTasks] = useState([]);
   const [inputValues, setInputValues] = useState({});
   const [isHovered, setIsHovered] = useState(false);
   const { updateFormData } = useFormContext();
-  const [twitterConnected, setTwitterConnected] = useState(false);
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyAJDl6dWb5YcMjImrfeiLvvwf4nYxSc4Ns",
-    authDomain: "wetask-17e40.firebaseapp.com",
-    projectId: "wetask-17e40",
-    storageBucket: "wetask-17e40.appspot.com",
-    messagingSenderId: "228070378497",
-    appId: "1:228070378497:web:2341b5d5b0a6c7be888400",
-    measurementId: "G-B6XYBR5MZS"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  
-  useEffect(() => {
-    const auth = getAuth();
-    // Check if a user is already signed in (Twitter connection status)
-    if (auth.currentUser) {
-      setTwitterConnected(true);
-    }
-  }, []);
-
-  const handleTwitterAuth = () => {
-    const auth = getAuth();
-    const provider = new TwitterAuthProvider();
-    // If not connected, initiate Twitter sign in
-    if (!twitterConnected) {
-      signInWithPopup(auth, provider).then((result) => {
-        setTwitterConnected(true); // Update state to reflect Twitter connection
-        // Handle success
-      }).catch((error) => {
-        // Handle Errors
-      });
-    } else {
-      // If already connected, initiate Twitter sign out
-      signOut(auth).then(() => {
-        setTwitterConnected(false); // Update state to reflect disconnection
-        // Handle sign-out successful.
-      }).catch((error) => {
-        // Handle Errors
-      });
-    }
-  };
 
   const handleInputChange = (id, value) => {
     setInputValues((prevValues) => ({
@@ -209,8 +164,8 @@ export default function Task() {
 
         <div className="col-lg-4 taskRightSide">
           <h5>Platform</h5>
-          <button className="task-button" onClick={handleTwitterAuth}>
-            {twitterConnected ? "Disconnect Twitter" : "Connect Twitter"}
+          <button className="task-button">
+            <img src={twitter} alt="Twitter" /> Twitter
           </button>
           <hr />
           <div>

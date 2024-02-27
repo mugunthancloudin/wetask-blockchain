@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { ReadCampaign } from '../../services/blockchain';
 import { isError } from 'ethers';
 import banner from "../assets/campaignBanner/dragonCamp.png"
-
+import TwitterAuth from '../authentication/twitterAuth';
 
 const CampaignHome = () => {
   const [campaignId, setCampaignId] = useState('1');
   const [accumulatedData, setAccumulatedData] = useState([]);
   const [products, setProducts] = useState([]);
+  const [twitterConnected, setTwitterConnected] = useState(false);
   // const { data, fetchNextPage } = useReadCampaign();
   const {data, isSuccess} = ReadCampaign(campaignId); 
 
@@ -45,6 +46,7 @@ const CampaignHome = () => {
     {/* <button onClick={handleReadData}>View Blockchain Campaigns</button> */}
     {/* <button onClick={handleFetchNextPage}>Fetch Next Blockchain Page</button> */}
       <div className="container-fluid bg-black text-white">
+      <TwitterAuth twitterConnected={twitterConnected} setTwitterConnected={setTwitterConnected} />
         <div className='row'>
           <img src={banner} alt='banner' />
         </div>
