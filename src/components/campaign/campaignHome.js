@@ -50,6 +50,12 @@ const CampaignHome = () => {
     fetchData();
   }, []); 
 
+  const handleCampaignClick = (id) => {
+    // Find the clicked campaign object by id
+    const clickedCampaign = accumulatedData.find(item => item.id === id);
+    console.log('Clicked campaign details:', clickedCampaign);
+  };
+
   console.log(accumulatedData)
 
   return (
@@ -64,7 +70,7 @@ const CampaignHome = () => {
           <div className="row">
             {accumulatedData.map((accumulatedData) => (
               <div key={accumulatedData.id} className="col-md-4 mb-4">
-                <div className="card h-100">
+                <div className="card h-100" onClick={() => handleCampaignClick(accumulatedData.id)} >
                   <div className="card-body">
                     <h5 className="card-title">{accumulatedData.title}</h5>
                     <img src={accumulatedData.image} alt='productImage' className='w-100'/>
