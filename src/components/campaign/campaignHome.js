@@ -14,20 +14,31 @@ const CampaignHome = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      // console.log(data[0]);
-      setAccumulatedData(currentData => [...currentData, data[0]]);
+      const convertedData = {
+        ...data[0],
+        endTimestamp: data[0].endTimestamp.toString(),
+        id: data[0].id.toString(),
+        minimumBalance: data[0].minimumBalance.toString(),
+        minimumLevel: data[0].minimumLevel.toString(),
+        points: data[0].points.toString(),
+        numberOfWinners: data[0].numberOfWinners.toString(),
+        randomnessBlockNumber: data[0].randomnessBlockNumber.toString(),
+        startTimestamp: data[0].startTimestamp.toString(),
+        tokenReward: data[0].tokenReward.toString()
+      };
+      setAccumulatedData(currentData => [...currentData, convertedData]);
       setCampaignId(currentId => String(Number(currentId) + 1));
     } else if (isError) {
       console.log('completed fetching');
     } else {
       console.log("error");
     }
-  }, [data, isSuccess,campaignId,accumulatedData]);
+  }, [data, isSuccess, campaignId, accumulatedData]);
 
 
   useEffect(() => {
     
-    const fetchData = async () => {
+    const fetchData = async () => { 
       try {
         const response = await fetch('https://fakestoreapi.com/products');
         const data = await response.json();
