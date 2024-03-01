@@ -45,18 +45,36 @@ const CampaignHome = () => {
 
   return (
     <>
-       <div className="container-fluid bg-black text-white">
-        <div className="container">
-          <div className="row">
-            {products.map((product) => (
-              <div key={product.id} className="col-md-4 mb-4">
-                <div className="card h-100">
-                  <div className="card-body">
-                    <h5 className="card-title">{product.title}</h5>
-                     <img src={product.image} alt='productImage' className='w-100'/>
-                    <p className="card-text">Category: {product.category}</p>
-                    <p className="card-text">Price: ${product.price}</p>
-                    <p className="card-text">{product.description}</p>
+      {/* <Cam*
+      3paignJoin /> */}
+      <div className="container-fluid campaignMainBg text-white">
+        <div className="row">
+          <img src={banner} alt="banner" />
+        </div>
+        <div className="row p-5">
+          {accumulatedData.map((item) => (
+            <div key={item.id} className="col-lg-3 mb-4">
+              <Link
+                to={`/campaign/${item.id}`} // Corrected: Pass only the pathname and ID
+                state={{ accumulatedData }} // Pass accumulatedData directly
+                style={{ textDecoration: "none" }}
+              >
+                <div className="card h-100 campaignHomeCard">
+                  <div className="card-body text-white">
+                    <img
+                      src={`https://ipfs.moralis.io:2053/ipfs/${item.image}`}
+                      alt="productImage"
+                      className="w-75 h-50"
+                      style={{ objectFit: "100%" }}
+                    />
+                    <h5 className="card-title">{item.endTimestamp}</h5>
+                    <p className="card-title">{item.name}</p>
+                    <p className="card-text">Price: ${item.startTimestamp}</p>
+                    <p className="card-text">{item.description}</p>
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-left">
+                    <button className="footerButton1 me-2 pb-1">SBT</button>
+                    <button className="footerButton2 pb-1">SBT</button>
                   </div>
                 </div>
               </Link>
