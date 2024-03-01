@@ -1,40 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+// CampaignDetails.js
 
-const CampaignDetails = ({ accumulatedData }) => {
-  const { id } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [campaignDetails, setCampaignDetails] = useState(null);
+import React from "react";
+import { useLocation } from "react-router-dom";
 
-  useEffect(() => {
-    console.log("accumulatedData:", accumulatedData);
-    console.log("id:", id);
+const CampaignDetails = () => {
+  const location = useLocation();
+  const { accumulatedData } = location?.state || {};
+  
+  // Extract the campaign ID from the URL
+  const campaignId = window.location.pathname.split("/")[2];
 
-    if (accumulatedData && accumulatedData.length > 0) {
-      const foundCampaign = accumulatedData.find(item => item.id === id);
-      console.log("foundCampaign:", foundCampaign);
+  // Find the campaign details based on the ID
+  const campaignDetails = accumulatedData?.find((item) => item.id === campaignId);
 
-      if (foundCampaign) {
-        setCampaignDetails(foundCampaign);
-        setLoading(false);
-      }
-    }
-  }, [accumulatedData, id]);
+  // Logging for debugging
+  console.log("accumulatedData:", accumulatedData);
+  console.log("campaignId:", campaignId);
+  console.log("campaignDetails:", campaignDetails);
 
-  if (loading) {
-    return <div>{id} Loading...</div>;
-  }
-
-  if (!campaignDetails) {
-    return <div>Campaign not found.</div>;
-  }
-
+  // Render the campaign details
   return (
     <div>
-      <h2>{campaignDetails.name}</h2>
-      <p>Description: {campaignDetails.description}</p>
-      <p>Start Timestamp: {campaignDetails.startTimestamp}</p>
-      <p>End Timestamp: {campaignDetails.endTimestamp}</p>
+      <h2>Campaign Details</h2>
+      {campaignDetails ? (
+        <>
+          <p>ID: {campaignDetails.id}</p>
+          <p>Name: {campaignDetails.name}</p>
+          {/* Add other details as needed */}
+        </>
+      ) : (
+        <p>Campaign not found.</p>
+      )}
     </div>
   );
 };

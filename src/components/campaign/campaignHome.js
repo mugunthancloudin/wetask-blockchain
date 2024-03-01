@@ -1,17 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { ReadCampaign } from '../../services/blockchain';
-import { isError } from 'ethers';
+import React, { useState, useEffect } from "react";
+import { ReadCampaign } from "../../services/blockchain";
+import { Link } from "react-router-dom";
+import { isError } from "ethers";
 import banner from "../assets/campaignBanner/dragonCamp.png";
-import CampaignJoin from './campaignJoin';
+import CampaignJoin from "./campaignJoin";
+import "./campaign.css";
 
 const CampaignHome = () => {
   const [campaignId, setCampaignId] = useState("1");
   const [accumulatedData, setAccumulatedData] = useState([]);
   const { data, isSuccess } = ReadCampaign(campaignId);
 
-  console.log(data[0]);
-  console.log(accumulatedData);
-  
+  // Log accumulatedData for debugging
+  console.log("accumulatedData:", accumulatedData);
 
   useEffect(() => {
     if (isSuccess) {
@@ -25,59 +26,58 @@ const CampaignHome = () => {
         numberOfWinners: data[0].numberOfWinners.toString(),
         randomnessBlockNumber: data[0].randomnessBlockNumber.toString(),
         startTimestamp: data[0].startTimestamp.toString(),
-        tokenReward: data[0].tokenReward.toString()
+        tokenReward: data[0].tokenReward.toString(),
       };
-      setAccumulatedData(currentData => [...currentData, convertedData]);
-      setCampaignId(currentId => String(Number(currentId) + 1));
+      setAccumulatedData((currentData) => [...currentData, convertedData]);
+      setCampaignId((currentId) => String(Number(currentId) + 1));
     } else if (isError) {
-      console.log('completed fetching');
+      console.log("completed fetching");
     } else {
       console.log("error");
     }
   }, [data, isSuccess, campaignId, accumulatedData]);
 
-
-  useEffect(() => {
-    
-    const fetchData = async () => { 
-      try {
-        const response = await fetch('https://fakestoreapi.com/products');
-        const data = await response.json();
-        setProducts(data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-    fetchData();
-  }, []); 
-
   const handleCampaignClick = (id) => {
     // Find the clicked campaign object by id
-    const clickedCampaign = accumulatedData.find(item => item.id === id);
-    console.log('Clicked campaign details:', clickedCampaign);
+    const clickedCampaign = accumulatedData.find((item) => item.id === id);
+    console.log("Clicked campaign details:", clickedCampaign);
   };
 
-  console.log(accumulatedData)
-
-  return ( 
+  return (
     <>
-      <CampaignJoin />
-      <div className="container-fluid bg-black text-white">
-        <div className='row'>
-          <img src={banner} alt='banner' />
-        </div>
+      {/* <Cam*
+      3paignJoin /> */}
+      <div className="container-fluid campaignMainBg text-white">
         <div className="row">
-          {accumulatedData.map((product) => (
-            <div key={product.id} className="col-md-4 mb-4">
-              <div className="card h-100">
-                <div className="card-body">
-                  <h5 className="card-title">{product.title}</h5>
-                  <img src={product.image} alt='productImage' className='w-100'/>
-                  <p className="card-text">Category: {product.category}</p>
-                  <p className="card-text">Price: ${product.price}</p>
-                  <p className="card-text">{product.description}</p>
+          <img src={banner} alt="banner" />
+        </div>
+        <div className="row p-5">
+          {accumulatedData.map((item) => (
+            <div key={item.id} className="col-lg-3 mb-4">
+              <Link
+                to={`/campaign/${item.id}`} // Corrected: Pass only the pathname and ID
+                state={{ accumulatedData }} // Pass accumulatedData directly
+                style={{ textDecoration: "none" }}
+              >
+                <div className="card h-100 campaignHomeCard">
+                  <div className="card-body text-white">
+                    <img
+                      src={`https://ipfs.moralis.io:2053/ipfs/${item.image}`}
+                      alt="productImage"
+                      className="w-75 h-50"
+                      style={{ objectFit: "100%" }}
+                    />
+                    <h5 className="card-title">{item.endTimestamp}</h5>
+                    <p className="card-title">{item.name}</p>
+                    <p className="card-text">Price: ${item.startTimestamp}</p>
+                    <p className="card-text">{item.description}</p>
+                  </div>
+                  <div className="card-footer d-flex align-items-center justify-content-left">
+                    <button className="footerButton1 me-2 pb-1">SBT</button>
+                    <button className="footerButton2 pb-1">SBT</button>
+                  </div>
                 </div>
-              </div>
+              </Link>
             </div>
           ))}
         </div>
@@ -87,3 +87,4 @@ const CampaignHome = () => {
 };
 
 export default CampaignHome;
+ 
