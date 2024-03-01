@@ -1,0 +1,32 @@
+.campaignHomeCard{
+    background-color: rgb(20,17,40);
+    border-radius: 10px;
+}
+
+.campaignMainBg{
+    background-color: rgb(0,0,0);
+}
+
+.card-title{
+    font-weight: 900;
+}
+
+.footerButton1{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-size: larger;
+    width:25%;
+    border-radius: 20px;
+    /* background-color: rgb(112,57,247);  */
+    background: linear-gradient(180deg,#6239F8 0%,#8339F5 100%); 
+}
+
+.footerButton2{
+    padding-bottom: 0;
+    margin-bottom: 0;
+    font-size: larger;
+    width:25%;
+    border-radius: 10px;
+    background: linear-gradient(91.3deg,#27ABC7 5.12%,#1FAD72 83.49%);
+}
+

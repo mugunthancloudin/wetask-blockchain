@@ -1,10 +1,10 @@
-import { useContractReads, useContractWrite, parseEther  } from 'wagmi';
+import { useContractRead, useContractWrite, useContractInfiniteReads, paginatedIndexesConfig  } from 'wagmi';
 import React, { useState } from 'react';
 import { ethers, isError } from 'ethers';
-import abi from '../abis/src/contracts/Taskon.sol/Taskon.json';
+import abi from '../abis/src/contracts/Taskon.sol/CampaignContract.json';
 
 const contractDetails = {
-  address: '0xec5E5b240d64BB4Ab6F346C98cb38f91881Bc162',
+  address: '0xe60427dE063d0D30eaF388a3937d30225c51E2fe',
   abi: abi.abi,
 };
 
@@ -88,6 +88,44 @@ export function CreateCampaign(campaignData) { // Assuming default is public
     </div>
   );
  }
+
+export function ReadCampaign(campaignId) {
+  const { data, isSuccess, isError } = useContractRead({
+    ...contractDetails,
+    functionName: 'getCampaign',
+    args: campaignId,
+  })
+
+  return (
+    {data, isSuccess, isError}
+  )
+}
+
+export function Deposit() {
+  const { data, isLoading, isSuccess, write } = useContractWrite({
+    ...contractDetails,
+    functionName: 'deposit',
+  })
+ 
+  return (
+    <div>
+      <button
+        disabled={!write}
+        onClick={() =>
+          write({
+            args: [69],
+            from: '0xA0Cf798816D4b9b9866b5330EEa46a18382f251e',
+            value: ethers.parseEther('0.01'),
+          })
+        }
+      >
+        Claim
+      </button>
+      {isLoading && <div>Check Wallet</div>}
+      {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+    </div>
+  )
+}
 
 export function CreateEvent() { // Assuming default is public
 
