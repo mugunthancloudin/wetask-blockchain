@@ -34,7 +34,30 @@ const CampaignHome = () => {
     } else {
       console.log("error");
     }
-  }, [data, isSuccess, campaignId]);
+  }, [data, isSuccess, campaignId, accumulatedData]);
+
+
+  useEffect(() => {
+    
+    const fetchData = async () => { 
+      try {
+        const response = await fetch('https://fakestoreapi.com/products');
+        const data = await response.json();
+        setProducts(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+    fetchData();
+  }, []); 
+
+  const handleCampaignClick = (id) => {
+    // Find the clicked campaign object by id
+    const clickedCampaign = accumulatedData.find(item => item.id === id);
+    console.log('Clicked campaign details:', clickedCampaign);
+  };
+
+  console.log(accumulatedData)
 
   return ( 
     <>
