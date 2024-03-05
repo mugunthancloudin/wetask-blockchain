@@ -18,18 +18,18 @@ const CampaignDetails = () => {
   const [tasksData, setTasksData] = useState(null);
   const [campaignDetail, setCampaignDetail] = useState();
 
-  console.log(campaignDetail);
-  console.log(campaignDetail);
-  console.log(campaignDetail);
+  console.log(tasksData);
+
+  // console.log(campaignDetail);
+  // console.log(campaignDetail);
+  // console.log(campaignDetail);
 
   // let startTime = campaignDetail.startTimestamp;
   // let endTime = campaignDetail.endTimestamp;
-
   // console.log(startTime);
   // console.log(endTime);
-
-
   // Extract the campaign ID from the URL
+
   const campaignId = window.location.pathname.split("/")[2];
 
   useEffect(() => {
@@ -40,15 +40,11 @@ const CampaignDetails = () => {
 
     setCampaignDetail(campaignDetails);
 
-    // Check if campaignDetails is available and tasksURL is present
     if (campaignDetails && campaignDetails.tasksURL) {
-      // Introduce a delay of 5 seconds using setTimeout
       const timeoutId = setTimeout(() => {
-        // Fetch data from tasksURL after 5 seconds
         fetch(`https://ipfs.moralis.io:2053/ipfs/${campaignDetails.tasksURL}`)
           .then((response) => response.json())
           .then((data) => {
-            // Set the fetched data to the state
             setTasksData(data);
           })
           .catch((error) => {
@@ -56,7 +52,6 @@ const CampaignDetails = () => {
           });
       }, 5000);
 
-      // Cleanup the timeout if the component unmounts or if campaignDetails change
       return () => clearTimeout(timeoutId);
     }
   }, [campaignId, accumulatedData]);
@@ -83,13 +78,14 @@ const CampaignDetails = () => {
   // const formatDateRange = (startTimestamp, endTimestamp) => {
   //   const formattedStart = formatTimestamp(startTimestamp);
   //   const formattedEnd = formatTimestamp(endTimestamp);
-  
+
   //   // Add the desired timezone offset
   //   const timezoneOffset = "+05:30"; // Change this to your desired timezone offset
   //   const formattedDateRange = `${formattedStart} - ${formattedEnd} (GMT${timezoneOffset})`;
-    
+
   //   return formattedDateRange;
   // };
+
   return (
     <>
       <MyNavbar />
@@ -106,6 +102,7 @@ const CampaignDetails = () => {
                 <h1 className="mt-5">
                   Your NFT Brawlers, Earn $BLITZ! STAKE AND EARN!
                 </h1>
+                <p>2024/03/02 20:00 - 2024/03/09 20:00 (GMT+05.5:00)</p>
                 {/* {campaignDetail?.startTimestamp && (
                   <p>
                     {formatDateRange(
@@ -198,7 +195,15 @@ const CampaignDetails = () => {
                               <img src={twitter} alt="twitter" /> Bind
                             </button>
                             <button className="followTwitter">
-                              {task.taskTitle}{" "}
+                              <a
+                                href={task.value}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-white"
+                              >
+                                {task.taskTitle}
+                              </a>
+
                             </button>
                           </div>
                         </Accordion.Body>
