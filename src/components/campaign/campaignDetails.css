@@ -8,6 +8,19 @@
   /* height: 100vh; */
 }
 
+.contractAddress{
+  background-color: rgb(20, 17, 40);
+  color: rgb(137,118,255);
+  width: fit-content;
+  border-radius: 30px;
+}
+
+.contractAddressBtn{
+  background-color: rgb(20, 17, 40);
+  color: white;
+  width: fit-content;
+  border: none;
+}
 .detailsCardBg {
   background-color: bisque;
   color: rgb(114, 172, 224);
@@ -72,10 +85,19 @@
     width: 5%;
 }
 
+.socialIcon{
+  width: 25px;
+  height: 25px;
+}
+
+.acordion{
+  border-radius: 30px !important;
+}
+
 .accordion {
     padding: 0;
     border: none;
-    border-radius: 30px;
+    border-radius: 30px !important;
     --bs-accordion-color: white;
     --bs-accordion-bg: rgb(31, 27, 62);
     --bs-accordion-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out, border-radius 0.15s ease;

@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import "./campaignDetails.css";
 import { FaSquareXTwitter, FaGlobe } from "react-icons/fa6";
 import { TbBrandDiscord } from "react-icons/tb";
+import { FaCopy } from "react-icons/fa";
 import Accordion from "react-bootstrap/Accordion";
 import mainpic from "../assets/campaign/dragonballzzzz.png";
 import rewardsLogo from "../assets/campaign/rewards.png";
 import polygon from "../assets/campaign/Polygon.png";
 import campigners from "../assets/campaign/campaigners.png";
 import twitter from "../assets/campaign/twitter.svg";
+import calender from "../assets/campaign/calender.png";
 import Footer from "../navbar & footer/footer/footer";
 import MyNavbar from "../navbar & footer/navbar/navbar";
 
@@ -17,19 +19,9 @@ const CampaignDetails = () => {
   const { accumulatedData } = location?.state || {};
   const [tasksData, setTasksData] = useState(null);
   const [campaignDetail, setCampaignDetail] = useState();
+  const [isCopied, setIsCopied] = useState(false);
 
-  console.log(tasksData);
-
-  // console.log(campaignDetail);
-  // console.log(campaignDetail);
-  // console.log(campaignDetail);
-
-  // let startTime = campaignDetail.startTimestamp;
-  // let endTime = campaignDetail.endTimestamp;
-  // console.log(startTime);
-  // console.log(endTime);
-  // Extract the campaign ID from the URL
-
+  const addressRef = useRef(null);
   const campaignId = window.location.pathname.split("/")[2];
 
   useEffect(() => {
@@ -38,6 +30,7 @@ const CampaignDetails = () => {
       (item) => item.id === campaignId
     );
 
+    console.log(campaignDetails);
     setCampaignDetail(campaignDetails);
 
     if (campaignDetails && campaignDetails.tasksURL) {
@@ -56,35 +49,38 @@ const CampaignDetails = () => {
     }
   }, [campaignId, accumulatedData]);
 
-  // const formatTimestamp = (timestamp) => {
-  //   try {
-  //     const date = new Date(timestamp);
-  //     const options = {
-  //       year: "numeric",
-  //       month: "2-digit",
-  //       day: "2-digit",
-  //       hour: "2-digit",
-  //       minute: "2-digit",
-  //       timeZone: "UTC", // Set the timezone to UTC for accurate conversion
-  //     };
-  //     const formattedDate = new Intl.DateTimeFormat("en-US", options).format(date);
-  //     return formattedDate;
-  //   } catch (error) {
-  //     console.error("Error formatting timestamp:", error);
-  //     return "Invalid Date";
-  //   }
-  // };
+  let campaignStart = Number(campaignDetail?.startTimestamp);
+  let campaignEnd = Number(campaignDetail?.endTimestamp);
+  let contractAddress = campaignDetail?.creator;
 
-  // const formatDateRange = (startTimestamp, endTimestamp) => {
-  //   const formattedStart = formatTimestamp(startTimestamp);
-  //   const formattedEnd = formatTimestamp(endTimestamp);
+  const startDate = new Date(campaignStart);
+  const endDate = new Date(campaignEnd + 7 * 24 * 60 * 60 * 1000); // Adding 7 days to get the end date
 
-  //   // Add the desired timezone offset
-  //   const timezoneOffset = "+05:30"; // Change this to your desired timezone offset
-  //   const formattedDateRange = `${formattedStart} - ${formattedEnd} (GMT${timezoneOffset})`;
+  const options = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    // timeZoneName: 'short',
+  };
 
-  //   return formattedDateRange;
-  // };
+  const formattedStartDate = startDate.toLocaleString("en-US", options);
+  const formattedEndDate = endDate.toLocaleString("en-US", options);
+  const formattedDateRange = `${formattedStartDate} - ${formattedEndDate} (GMT+05:30)`;
+
+  const handleCopyClick = () => {
+    const contractAddress = campaignDetail?.creator;
+  
+    if (contractAddress) {
+      const formattedAddress = `https://polygonscan.com/address/${contractAddress}`;
+      navigator.clipboard.writeText(formattedAddress).then(() => {
+        setIsCopied(true);
+        setTimeout(() => setIsCopied(false), 2000); // Show "Copied" for 2 seconds
+      });
+    }
+  };
+  
 
   return (
     <>
@@ -102,25 +98,42 @@ const CampaignDetails = () => {
                 <h1 className="mt-5">
                   Your NFT Brawlers, Earn $BLITZ! STAKE AND EARN!
                 </h1>
-                <p>2024/03/02 20:00 - 2024/03/09 20:00 (GMT+05.5:00)</p>
-                {/* {campaignDetail?.startTimestamp && (
-                  <p>
-                    {formatDateRange(
-                      campaignDetail.startTimestamp,
-                      campaignDetail.endTimestamp
-                    )}
-                  </p>
-                )} */}
+                <p>
+                  {" "}
+                  <img
+                    src={calender}
+                    alt="calender"
+                    style={{ width: "25px", height: "25px" }}
+                    className="me-2"
+                  />
+                  {formattedDateRange}
+                </p>
               </div>
               {/* <hr></hr> */}
               <div className="row text-white">
-                <div className="col-lg-4">Campaign</div>
+                <div className="col-lg-4">
+                  <h5>Campaign</h5>
+                </div>
                 <div className="col-lg-4">&nbsp;</div>
                 <div className="col-lg-4 d-flex justify-content-around align-items-center">
-                  <FaSquareXTwitter />
-                  <TbBrandDiscord />
-                  <FaGlobe />
+                  <FaSquareXTwitter className="socialIcon" />
+                  <TbBrandDiscord className="socialIcon" />
+                  <FaGlobe className="socialIcon" />
                 </div>
+
+                <div className="contractAddress">
+                  {contractAddress && (
+                    <span>
+                      {contractAddress.slice(0, 6)}....
+                      {contractAddress.slice(-4)}
+                    </span>
+                  )}
+
+                  <button onClick={handleCopyClick} className=" ms-2 contractAddressBtn">
+                    {isCopied ? "Copied" : <FaCopy />}
+                  </button>
+                </div>
+
                 <p className="mt-2">
                   Greetings, esteemed BlitzBrawler NFT community! We bring you
                   thrilling updates on your prized NFTs, with a special nod to
@@ -139,7 +152,12 @@ const CampaignDetails = () => {
                         className="rewardsLogo"
                       />
                       <div className="d-flex justify-content-start">
-                        Reward : <span className="rewardCount"> 0</span> / 1000
+                        Reward :{" "}
+                        <span className="rewardCount">
+                          {" "}
+                          {campaignDetail?.tokenReward}
+                        </span>{" "}
+                        / {campaignDetail?.points}
                       </div>
                     </div>
                   </div>
@@ -177,7 +195,7 @@ const CampaignDetails = () => {
 
               <div className="row mb-3">
                 {tasksData && (
-                  <Accordion defaultActiveKey="0">
+                  <Accordion className="" defaultActiveKey="0">
                     {tasksData.map((task, index) => (
                       <Accordion.Item
                         className="accordionColor"
@@ -203,7 +221,6 @@ const CampaignDetails = () => {
                               >
                                 {task.taskTitle}
                               </a>
-
                             </button>
                           </div>
                         </Accordion.Body>
