@@ -145,13 +145,30 @@ export function CreateSpace() { // Assuming default is public
   });
 }
 
-export function JoinCampaign() { // Assuming default is public
+export function JoinCampaign({campaignId}) { // Assuming default is public
 
-  const { data, isLoading, isSuccess, write } = useContractWrite({
+  const { data, isLoading, isSuccess, isError, error, write } = useContractWrite({
     ...contractDetails,
-    functionName: 'createSpace',
-    args: [],
+    functionName: 'joinCampaign',
+    args: [campaignId],
   });
+
+  return (
+    <div>
+      <button
+        disabled={!write}
+        onClick={() =>
+          write({
+            args: [campaignId],
+          })
+        }
+      >
+        Join Campaign
+      </button>
+      {isError && alert(error)}
+      {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+    </div>
+  )
 }
 
 export function JoinEvent() { // Assuming default is public
