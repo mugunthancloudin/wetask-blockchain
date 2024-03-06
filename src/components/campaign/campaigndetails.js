@@ -11,6 +11,7 @@ import campigners from "../assets/campaign/campaigners.png";
 import twitter from "../assets/campaign/twitter.svg";
 import Footer from "../navbar & footer/footer/footer";
 import MyNavbar from "../navbar & footer/navbar/navbar";
+import { JoinCampaign } from "../../services/blockchain";
 
 const CampaignDetails = () => {
   const location = useLocation();
@@ -45,7 +46,21 @@ const CampaignDetails = () => {
         fetch(`https://ipfs.moralis.io:2053/ipfs/${campaignDetails.tasksURL}`)
           .then((response) => response.json())
           .then((data) => {
-            setTasksData(data);
+            // Transform tasks data
+            const transformedData = data.map(task => {
+              if (task.taskTitle === 'Post') {
+                const tweetId = task.value.match(/\/(\d+)$/)[1];
+                task.value = `https://twitter.com/intent/retweet?tweet_id=${tweetId}`;
+              } else if (task.taskTitle === 'Follow') {
+                const username = task.value.match(/\/(\w+)$/)[1];
+                task.value = `https://twitter.com/intent/follow?screen_name=${username}`;
+              } else if (task.taskTitle === 'Like') {
+                const tweetId = task.value.match(/\/(\d+)$/)[1];
+                task.value = `https://twitter.com/intent/like?tweet_id=${tweetId}`;
+              }
+              return task;
+            });
+            setTasksData(transformedData);
           })
           .catch((error) => {
             console.error("Error fetching tasks data:", error);
@@ -174,7 +189,7 @@ const CampaignDetails = () => {
                   campaigners
                 </div>
               </div>
-
+              
               <div className="row mb-3">
                 {tasksData && (
                   <Accordion defaultActiveKey="0">
@@ -211,6 +226,7 @@ const CampaignDetails = () => {
                     ))}
                   </Accordion>
                 )}
+                  <JoinCampaign campaignId={campaignId}/>
               </div>
             </div>
           </div>
