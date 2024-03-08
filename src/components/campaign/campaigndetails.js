@@ -13,7 +13,7 @@ import twitter from "../assets/campaign/twitter.svg";
 import calender from "../assets/campaign/calender.png";
 import Footer from "../navbar & footer/footer/footer";
 import MyNavbar from "../navbar & footer/navbar/navbar";
-import { JoinCampaign } from "../../services/blockchain";
+import { JoinCampaign, ViewCampaignParticipants } from "../../services/blockchain";
 
 const CampaignDetails = () => {
   const location = useLocation();
@@ -21,11 +21,13 @@ const CampaignDetails = () => {
   const [tasksData, setTasksData] = useState(null);
   const [campaignDetail, setCampaignDetail] = useState();
   const [isCopied, setIsCopied] = useState(false);
+  
 
   const addressRef = useRef(null);
   const campaignId = window.location.pathname.split("/")[2];
 
   useEffect(() => {
+    
     // Find the campaign details based on the ID
     const campaignDetails = accumulatedData?.find(
       (item) => item.id === campaignId
@@ -64,6 +66,8 @@ const CampaignDetails = () => {
     }
   }, [campaignId, accumulatedData]);
 
+  const {data} = ViewCampaignParticipants(campaignId);
+
   let campaignStart = Number(campaignDetail?.startTimestamp);
   let campaignEnd = Number(campaignDetail?.endTimestamp);
   let contractAddress = campaignDetail?.creator;
@@ -99,6 +103,7 @@ const CampaignDetails = () => {
 
   return (
     <>
+    {/* <ViewCampaignParticipants campaignId={campaignId}/> */}
       <MyNavbar />
       <div className="container-fluid detailsmainBg">
         <div className="container">
@@ -244,6 +249,14 @@ const CampaignDetails = () => {
                   </Accordion>
                 )}
                   <JoinCampaign campaignId={campaignId}/>
+                  <div className="row mb-3">
+                    <h2>Participant Addresses</h2>
+                      <div className="participant-addresses">
+                        {data && data.map((address, index) => (
+                      <div key={index}>{address}</div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
