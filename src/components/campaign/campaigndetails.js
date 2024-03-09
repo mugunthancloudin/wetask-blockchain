@@ -24,9 +24,18 @@ const CampaignDetails = () => {
 
   const addressRef = useRef(null);
   const campaignId = window.location.pathname.split("/")[2];
+  const [clickedLinks, setClickedLinks] = useState([]);
+  console.log(clickedLinks);
+
+  const handleLinkClick = (index) => {
+    setClickedLinks((prevClickedLinks) => {
+      const newClickedLinks = [...prevClickedLinks];
+      newClickedLinks[index] = !newClickedLinks[index];
+      return newClickedLinks;
+    });
+  };
 
   useEffect(() => {
-    // Find the campaign details based on the ID
     const campaignDetails = accumulatedData?.find(
       (item) => item.id === campaignId
     );
@@ -40,36 +49,39 @@ const CampaignDetails = () => {
           .then((response) => response.json())
           .then((data) => {
             // Transform tasks data
-            const transformedData = data.map(task => {
-              if (task.taskTitle === 'Post') {
+            const transformedData = data.map((task) => {
+              if (task.taskTitle === "Post") {
                 const tweetId = task.value.match(/\/(\d+)$/)[1];
                 task.value = `https://twitter.com/intent/retweet?tweet_id=${tweetId}`;
-              } else if (task.taskTitle === 'Follow') {
+              } else if (task.taskTitle === "Follow") {
                 const username = task.value.match(/\/(\w+)$/)[1];
                 task.value = `https://twitter.com/intent/follow?screen_name=${username}`;
-              } else if (task.taskTitle === 'Like') {
+              } else if (task.taskTitle === "Like") {
                 const tweetId = task.value.match(/\/(\d+)$/)[1];
                 task.value = `https://twitter.com/intent/like?tweet_id=${tweetId}`;
               }
               return task;
             });
             setTasksData(transformedData);
+  
+            // Set initial state for clickedLinks when tasksData is available
+            setClickedLinks(new Array(transformedData.length).fill(false));
           })
           .catch((error) => {
             console.error("Error fetching tasks data:", error);
           });
-      }, 5000);
-
+      }, 1000);
+  
       return () => clearTimeout(timeoutId);
     }
-  }, [campaignId, accumulatedData]);
+  }, [campaignId, accumulatedData]);  
 
   let campaignStart = Number(campaignDetail?.startTimestamp);
   let campaignEnd = Number(campaignDetail?.endTimestamp);
   let contractAddress = campaignDetail?.creator;
 
   const startDate = new Date(campaignStart);
-  const endDate = new Date(campaignEnd + 7 * 24 * 60 * 60 * 1000); // Adding 7 days to get the end date
+  const endDate = new Date(campaignEnd + 7 * 24 * 60 * 60 * 1000);
 
   const options = {
     year: "numeric",
@@ -77,7 +89,6 @@ const CampaignDetails = () => {
     day: "2-digit",
     hour: "2-digit",
     minute: "2-digit",
-    // timeZoneName: 'short',
   };
 
   const formattedStartDate = startDate.toLocaleString("en-US", options);
@@ -86,16 +97,15 @@ const CampaignDetails = () => {
 
   const handleCopyClick = () => {
     const contractAddress = campaignDetail?.creator;
-  
+
     if (contractAddress) {
       const formattedAddress = `https://polygonscan.com/address/${contractAddress}`;
       navigator.clipboard.writeText(formattedAddress).then(() => {
         setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 2000); // Show "Copied" for 2 seconds
+        setTimeout(() => setIsCopied(false), 2000);
       });
     }
   };
-  
 
   return (
     <>
@@ -114,21 +124,22 @@ const CampaignDetails = () => {
                   Your NFT Brawlers, Earn $BLITZ! STAKE AND EARN!
                 </h1>
                 <p>
-                  {" "}
                   <img
                     src={calender}
                     alt="calender"
                     style={{ width: "25px", height: "25px" }}
-                    className="me-2"
+                    className="me9-2"
                   />
                   {formattedDateRange}
                 </p>
               </div>
-              {/* <hr></hr> */}
-              <div className="row text-white">
+              <hr></hr>
+
+              <div className="row  text-white">
                 <div className="col-lg-4">
                   <h5>Campaign</h5>
                 </div>
+
                 <div className="col-lg-4">&nbsp;</div>
                 <div className="col-lg-4 d-flex justify-content-around align-items-center">
                   <FaSquareXTwitter className="socialIcon" />
@@ -136,7 +147,7 @@ const CampaignDetails = () => {
                   <FaGlobe className="socialIcon" />
                 </div>
 
-                <div className="contractAddress">
+                <div className="contractAddress mt-2">
                   {contractAddress && (
                     <span>
                       {contractAddress.slice(0, 6)}....
@@ -144,7 +155,10 @@ const CampaignDetails = () => {
                     </span>
                   )}
 
-                  <button onClick={handleCopyClick} className=" ms-2 contractAddressBtn">
+                  <button
+                    onClick={handleCopyClick}
+                    className=" ms-2 contractAddressBtn"
+                  >
                     {isCopied ? "Copied" : <FaCopy />}
                   </button>
                 </div>
@@ -187,6 +201,7 @@ const CampaignDetails = () => {
                       Polygon
                     </button>
                   </div>
+
                   <div className="row mt-3 ms-5 d-flex align-items-center justify-content-left">
                     <button className="detailbtn1 me-2">SBT</button>
                     <button className="detailbtn2 me-2">Giveaway</button>
@@ -207,9 +222,9 @@ const CampaignDetails = () => {
                   campaigners
                 </div>
               </div>
-              
+
               <div className="row mb-3">
-                {tasksData && (
+                {tasksData && tasksData.length > 0 && (
                   <Accordion className="" defaultActiveKey="0">
                     {tasksData.map((task, index) => (
                       <Accordion.Item
@@ -221,18 +236,27 @@ const CampaignDetails = () => {
                           <img src={twitter} alt="twitter" className="me-2" />
                           {`Task ${index + 1}: ${task.taskTitle}`} In Twitter
                         </Accordion.Header>
+
                         <Accordion.Body className="accordionColor">
                           <p>{task.description}</p>
                           <div className="row justify-content-end">
-                            <button className="followTwitter me-2">
+                            <button
+                              className="followTwitter me-2"
+                              // onClick={() => handleLinkClick(index)}
+                            >
                               <img src={twitter} alt="twitter" /> Bind
                             </button>
-                            <button className="followTwitter">
+                            <button
+                              className="followTwitter"
+                              onClick={() => handleLinkClick(index)}
+                            >
                               <a
                                 href={task.value}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-white"
+                                className={`text-white ${
+                                  clickedLinks[index] ? "active" : "disabled"
+                                }`}
                               >
                                 {task.taskTitle}
                               </a>
@@ -243,7 +267,12 @@ const CampaignDetails = () => {
                     ))}
                   </Accordion>
                 )}
-                  <JoinCampaign campaignId={campaignId}/>
+
+                <JoinCampaign
+                  campaignId={campaignId}
+                  disabled={!clickedLinks.every(Boolean)}
+                  className="mt-5"
+                />
               </div>
             </div>
           </div>
