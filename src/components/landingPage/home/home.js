@@ -2,13 +2,15 @@ import React from "react";
 import "./home.css";
 import token from "../../assets/home/token.svg";
 import nft from "../../assets/home/nft.svg";
+import Lottie from "lottie-react";
+import task from "../../assets/home/homeAnime.json";
 
 export default function Home() {
   return (
     <>
       <div className="container homeBg ">
         <div className="row">         
-          <div className="col-lg-6 text-white">
+          <div className="col-lg-6 order-lg-1 order-2 text-white">
             <h1 className="homeH1 ">
                 <span className="spanh1">WeTask</span> - Web3 Collaboration
               Platform
@@ -24,7 +26,7 @@ export default function Home() {
               <button className="home-btn2">Create</button>
             </div>
           </div>
-          <div className="col-lg-6 d-none d-sm-block">
+          {/* <div className="col-lg-6 d-none d-sm-block">
             <div className="position-relative">
                <div className="rewardBg mt-5 ms-5 p-4">
                 <span className="ps-5  text-center text-white">
@@ -46,6 +48,15 @@ export default function Home() {
                 <h6 className="fw-bold">* ALL TIME DISTRIBUTED</h6>
               </div>
             </div>
+          </div> */}
+          <div className="col-lg-6 order-lg-2 order-1 d-flex justify-content-center align-item-center">
+          <Lottie
+              animationData={task}
+               loop={true}
+              autoplay={true}
+              style={{ width: "100%" }}
+              className=""
+            />
           </div>
         </div>
       </div>
