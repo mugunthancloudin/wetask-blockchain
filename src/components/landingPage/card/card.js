@@ -40,7 +40,7 @@ export default function Card() {
                 </div>
               </div>
             </div>
-          </div>
+             </div>
 
           <div className="col-lg-6 mt-5 justify-content-center d-flex align-content-center ">
             <div className="card mainCard">
@@ -52,7 +52,7 @@ export default function Card() {
 
                     <div className="row mt-1">
                       <p className="d-flex">
-                        <BsFire size={25} className="me-2" /> Treanding Events
+                         <BsFire size={25} className="me-2" /> Treanding Events
                       </p>
                       <p className="d-flex">
                         <MdEmojiEvents size={25} className="me-2" /> Hot Events
@@ -75,19 +75,19 @@ export default function Card() {
                       <div className="col-lg-6">
                         <p className="ms-md-5 mt--3">With Wallet</p>
                         <FaWallet size={25} className="ms-md-5 " />
-                      </div>
+                       </div>  
                     </div>
 
                     <div className="row">
                       <div className="col-lg-6">
                         <p className="fs-6 text-nowrap">Earn Rewards</p>
-                        <div className="d-lg-flex">
+                         <div className="d-lg-flex">
                           <button className="rewardsButton">Token</button>
                           <button className="ms-md-3 mt-3 mt-md-0 rewardsButton">
                             NFT
                           </button>
                         </div>
-                      </div>
+                           </div>
                     </div>
                   </div>
                 </div>

@@ -2,15 +2,16 @@ import React from "react";
 import { HiRocketLaunch } from "react-icons/hi2";
 import { HiCurrencyDollar } from "react-icons/hi";
 import ecosys from "../../assets/ecosys/ecosys.png";
-import "./ecosystem.css"
+import "./ecosystem.css";
 
 export default function Ecosystem() {
   return (
     <>
       <div className="container ecoHome">
         <div className="row text-white">
-          <h3 className="fw-bold text-center ">
-            THE WeTask ECOSYSTEM SUPPORTS WEB3 PROJECTS AT THEIR EARLIEST STAGES.
+          <h3 className="fw-bold text-center">
+            THE WeTask ECOSYSTEM SUPPORTS WEB3 PROJECTS AT THEIR EARLIEST
+            STAGES.
           </h3>
           <div className="col-lg-7 mt-5">
             {/* <h5>COMING SOON</h5> */}
@@ -23,7 +24,7 @@ export default function Ecosystem() {
             <div className="row mt-5">
               <div className="col-lg-6 d-flex">
                 <div className="col-lg-2">
-                  <HiRocketLaunch  size={30}/>
+                  <HiRocketLaunch size={30} />
                 </div>
                 <div className="col-lg-8">
                   <h5>Launch</h5>
@@ -35,7 +36,7 @@ export default function Ecosystem() {
               </div>
               <div className="col-lg-6 d-flex">
                 <div className="col-lg-2">
-                  <HiCurrencyDollar size={30}/>
+                  <HiCurrencyDollar size={30} />
                 </div>
                 <div className="col-lg-8">
                   <h5>Raise</h5>
@@ -46,13 +47,14 @@ export default function Ecosystem() {
                 </div>
               </div>
             </div>
-<div className="text-center mt-3">
-<button className="mt-5 text-nowrap ecoButton">Get Started Today</button>
-
-</div>
+            <div className="text-center mt-3">
+              <button className="mt-5 text-nowrap ecoButton">
+                Get Started Today
+              </button>
+            </div>
           </div>
           <div className="col-lg-5 mt-5">
-            <img src={ecosys} alt="ecosys"  width="100%" height="500vh"/>
+            <img src={ecosys} alt="ecosys" width="100%" height="500vh" />
           </div>
         </div>
       </div>
