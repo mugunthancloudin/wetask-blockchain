@@ -13,7 +13,10 @@ import twitter from "../assets/campaign/twitter.svg";
 import calender from "../assets/campaign/calender.png";
 import Footer from "../navbar & footer/footer/footer";
 import MyNavbar from "../navbar & footer/navbar/navbar";
-import { JoinCampaign, ViewCampaignParticipants } from "../../services/blockchain";
+import {
+  JoinCampaign,
+  ViewCampaignParticipants,
+} from "../../services/blockchain";
 
 const CampaignDetails = () => {
   const location = useLocation();
@@ -21,7 +24,6 @@ const CampaignDetails = () => {
   const [tasksData, setTasksData] = useState(null);
   const [campaignDetail, setCampaignDetail] = useState();
   const [isCopied, setIsCopied] = useState(false);
-  
 
   const addressRef = useRef(null);
   const campaignId = window.location.pathname.split("/")[2];
@@ -64,7 +66,7 @@ const CampaignDetails = () => {
               return task;
             });
             setTasksData(transformedData);
-  
+
             // Set initial state for clickedLinks when tasksData is available
             setClickedLinks(new Array(transformedData.length).fill(false));
           })
@@ -72,12 +74,12 @@ const CampaignDetails = () => {
             console.error("Error fetching tasks data:", error);
           });
       }, 1000);
-  
+
       return () => clearTimeout(timeoutId);
     }
   }, [campaignId, accumulatedData]);
 
-  const {data} = ViewCampaignParticipants(campaignId);
+  const { data } = ViewCampaignParticipants(campaignId);
 
   let campaignStart = Number(campaignDetail?.startTimestamp);
   let campaignEnd = Number(campaignDetail?.endTimestamp);
@@ -112,7 +114,7 @@ const CampaignDetails = () => {
 
   return (
     <>
-    {/* <ViewCampaignParticipants campaignId={campaignId}/> */}
+      {/* <ViewCampaignParticipants campaignId={campaignId}/> */}
       <MyNavbar />
       <div className="container-fluid detailsmainBg">
         <div className="container">
@@ -271,13 +273,18 @@ const CampaignDetails = () => {
                     ))}
                   </Accordion>
                 )}
-                  <JoinCampaign campaignId={campaignId}/>
-                  <div className="row mb-3">
-                    <h2>Participant Addresses</h2>
-                      <div className="participant-addresses">
-                        {data && data.map((address, index) => (
-                      <div key={index}>{address}</div>
-                    ))}
+
+                <div className="mt-3">
+                <JoinCampaign campaignId={campaignId} />
+                </div>
+
+                <div className="row my-3 p-3 rewardsBg">
+                  <h2>Participant Addresses</h2>
+                  <div className="participant-addresses">
+                    {data &&
+                      data.map((address, index) => (
+                        <div key={index}>{address}</div>
+                      ))}
                   </div>
                 </div>
               </div>

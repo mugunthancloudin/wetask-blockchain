@@ -67,9 +67,10 @@ const CampaignHome = () => {
                       className="w-75 h-50"
                       style={{ objectFit: "100%" }}
                     />
-                    <h5 className="card-title">{item.endTimestamp}</h5>
-                    <p className="card-title">{item.name}</p>
-                    <p className="card-text">Price: ${item.startTimestamp}</p>
+                    {/* <h5 className="card-title">{item.endTimestamp}</h5> */}
+                    <p className="card-title mt-3">{item.name}</p>
+                    <p className="card-text">MinimumBalance: ${item.minimumBalance}</p>
+                    <p className="card-text">MinimumLevel: ${item.minimumLevel}</p>
                     <p className="card-text">{item.description}</p>
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-left">
