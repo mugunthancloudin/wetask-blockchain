@@ -45,8 +45,6 @@ const CampaignHome = () => {
 
   return (
     <>
-      {/* <Cam*
-      3paignJoin /> */}
       <div className="container-fluid campaignMainBg text-white">
         <div className="row">
           <img src={banner} alt="banner" />
@@ -55,19 +53,18 @@ const CampaignHome = () => {
           {accumulatedData.map((item) => (
             <div key={item.id} className="col-lg-3 mb-4">
               <Link
-                to={`/campaign/${item.id}`} // Corrected: Pass only the pathname and ID
-                state={{ accumulatedData }} // Pass accumulatedData directly
+                to={`/campaign/${item.id}`}
+                state={{ accumulatedData }}
                 style={{ textDecoration: "none" }}
               >
-                <div className="card h-100 campaignHomeCard">
+                <div className="card h-100 campaignHomeCard d-flex flex-column">
                   <div className="card-body text-white">
                     <img
                       src={`https://ipfs.moralis.io:2053/ipfs/${item.image}`}
                       alt="productImage"
                       className="w-75 h-50"
-                      style={{ objectFit: "100%" }}
+                      style={{ objectFit: "cover" }}
                     />
-                    {/* <h5 className="card-title">{item.endTimestamp}</h5> */}
                     <p className="card-title mt-3">{item.name}</p>
                     <p className="card-text">MinimumBalance: ${item.minimumBalance}</p>
                     <p className="card-text">MinimumLevel: ${item.minimumLevel}</p>

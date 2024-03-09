@@ -177,7 +177,7 @@ export default function Task() {
           </form>
         </div>
 
-        <div className="col-lg-4 taskRightSide">
+        <div className="col-lg-4 text-white taskRightSide">
           <h5>Platform</h5>
           <button className="task-button">
             <img src={twitter} alt="Twitter" /> Twitter
