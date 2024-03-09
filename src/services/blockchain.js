@@ -159,23 +159,34 @@
       args: [campaignId],
     });
 
-    return (
-      <div>
-        <button
-          disabled={!write}
-          onClick={() =>
-            write({
-              args: [campaignId],
-            })
-          }
-        >
-          Join Campaign
-        </button>
-        {isError && alert(error)}
-        {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
-      </div>
-    )
+  return (
+    <div>
+      <button
+  disabled={!write}
+  onClick={() =>
+    write({
+      args: [campaignId],
+    })
   }
+  style={{
+    padding: '10px 20px',
+    fontSize: '16px',
+    backgroundColor: '#4CAF50', // Green background color
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+    transition: 'background-color 0.3s ease',
+  }}
+>
+  Join Campaign
+</button>
+      {isError && alert(error)}
+      {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+    </div>
+  )
+}
 
   export function JoinEvent() { // Assuming default is public
 
