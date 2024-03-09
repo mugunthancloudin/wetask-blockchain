@@ -10,6 +10,8 @@ import Basicinfo from "../components/create/campaign/campModule/basicinfo";
 import Eligiblity from "../components/create/campaign/campModule/eligiblity";
 import Rewards from "../components/create/campaign/campModule/rewards";
 import Task from "../components/create/campaign/campModule/task";
+import CampaignDetails from "../components/campaign/campaigndetails";
+import UserDetails from "../components/campaign/UserDetails";
 
 export default function PageRoute() {
   return (
@@ -18,7 +20,10 @@ export default function PageRoute() {
         <Route path="/camp/*" element={<CampDashboard />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/campaign" element={<Campaign />} />
-        <Route path="/space" element={<Space />} />
+        {/* <Route path="/campaign/:id" render={(props) => <CampaignDetails {...props} accumulatedData={accumulatedData} />} /> */}
+        {/* <Route path="/campaign" element={<Campaign />} /> */}
+        <Route path="/campaign/:id" element={<CampaignDetails/>} />
+        <Route path="/space" element={<UserDetails />} />
         <Route path="/event" element={<Event />} />
 
         <Route path="/basicinfo" element={<Basicinfo />} />
