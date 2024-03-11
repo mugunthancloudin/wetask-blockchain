@@ -1,15 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { ReadCampaign } from '../../services/blockchain';
-import { isError } from 'ethers';
-import banner from "../assets/campaignBanner/dragonCamp.png"
-
+import React, { useState, useEffect } from "react";
+import { ReadCampaign } from "../../services/blockchain";
+import { Link } from "react-router-dom";
+import { isError } from "ethers";
+import banner from "../assets/campaignBanner/dragonCamp.png";
+import CampaignJoin from "./campaignJoin";
+import "./campaign.css";
 
 const CampaignHome = () => {
   const [campaignId, setCampaignId] = useState("1");
   const [accumulatedData, setAccumulatedData] = useState([]);
-  const [products, setProducts] = useState([]);
-  // const { data, fetchNextPage } = useReadCampaign();
-  const {data, isSuccess} = ReadCampaign(campaignId); 
+  const { data, isSuccess } = ReadCampaign(campaignId);
+
+  // Log accumulatedData for debugging
+  console.log("accumulatedData:", accumulatedData);
 
   useEffect(() => {
     if (isSuccess) {

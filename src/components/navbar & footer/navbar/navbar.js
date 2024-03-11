@@ -13,10 +13,14 @@ import { IoGiftSharp } from "react-icons/io5";
 import { UserView } from "../../../services/blockchain";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { TbEaseInOutControlPoints } from "react-icons/tb";
+import TwitterAuth from "../../authentication/twitterAuth";
+
 
 function MyNavbar() {
   const { data, isConnected } = UserView();
   const [userData, setUserData] = useState(null);
+  const [twitterConnected, setTwitterConnected] = useState(false);
+
 
   useEffect(() => {
     if (isConnected && data) {
@@ -104,7 +108,7 @@ function MyNavbar() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-
+          <TwitterAuth twitterConnected={twitterConnected} setTwitterConnected={setTwitterConnected} />
           <Nav className="">
             <Nav.Link className="d-lg-flex">
               {isConnected && userData ? (
