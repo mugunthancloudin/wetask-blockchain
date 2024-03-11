@@ -86,10 +86,10 @@ const CampaignHome = () => {
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-left">
                     <button className="footerButton1 me-2 pb-1">SBT</button>
-                    <button className="footerButton2 pb-1">SBT</button>
+                    <button className="footerButton2 pb-1">TOKEN</button>
                   </div>
                   <div>
-                    <div className={`status-bar-inner ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
+                    <div className={`status-bar-inner d-flex justify-content-center align-items-center text-center  text-white fw-bold ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
                     {getCampaignStatus(item.startTimestamp, item.endTimestamp)}
                     </div>
                   </div>
