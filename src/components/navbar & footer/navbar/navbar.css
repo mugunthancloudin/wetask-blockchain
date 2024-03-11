@@ -130,3 +130,26 @@ button.navbar-toggler {
   background-color: rgb(51,51,51) !important;
 }
 
+.modalbody{
+  background-color:rgb(33,37,41) ;
+  /* border: 2px solid gold; */
+  /* border: none; */
+  color: white;
+}
+
+.btn-close{
+  /* color: white !important; */
+  background-color: white !important;
+}
+
+.form-control {
+  background-color: rgb(110, 106, 106) !important;
+  padding: 10px 10px 10px 15px;
+  border-radius: 4px;
+  background-size: 30px;
+  width: 100%;
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  color: white;
+}

@@ -1,4 +1,4 @@
-import React, {useEffect,useState} from "react";
+import { useState,useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -10,15 +10,28 @@ import { FaUser } from "react-icons/fa";
 import { FaGlobe } from "react-icons/fa6";
 import { FaNoteSticky } from "react-icons/fa6";
 import { IoGiftSharp } from "react-icons/io5";
-import { UserView } from "../../../services/blockchain";
 import { SiLevelsdotfyi } from "react-icons/si";
 import { TbEaseInOutControlPoints } from "react-icons/tb";
-import TwitterAuth from "../../authentication/twitterAuth";
 
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import { UserView, Deposit} from "../../../services/blockchain";
 
 function MyNavbar() {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const { data, isConnected,balance } = UserView();
   const userBalance = balance.data.formatted;        //user's token balance in wallet
+  const [amount, setAmount] = useState("");
+  // console.log(balance);
+
+  const handleAmountChange = (e) => {
+    setAmount(e.target.value);
+  };
+
+  console.log(data);
+
   const [userData, setUserData] = useState(null);
   const [twitterConnected, setTwitterConnected] = useState(false);
 
@@ -109,7 +122,7 @@ function MyNavbar() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <TwitterAuth twitterConnected={twitterConnected} setTwitterConnected={setTwitterConnected} />
+          {/* <TwitterAuth twitterConnected={twitterConnected} setTwitterConnected={setTwitterConnected} /> */}
           <Nav className="">
             <Nav.Link className="d-lg-flex">
               {isConnected && userData ? (
@@ -126,17 +139,29 @@ function MyNavbar() {
                       <div>
                         <SiLevelsdotfyi size={20} className="me-3" />
                       </div>
-                      {userData.level && (
+                      {data.level && (
                         <div className="d-flex mt-1">
-                          <h6 className="navHeading me-2">Level</h6>
-                          <h6>{userData.level}</h6>
+                          <h6 className="navHeading me-2">Assets </h6>
+                          <h6>{data.assets}</h6>
                         </div>
                       )}
                     </div>
 
                     <div className="d-flex mt-4">
                       <div>
-                        <TbEaseInOutControlPoints size={25} className="me-3"/>  
+                        <SiLevelsdotfyi size={20} className="me-3" />
+                      </div>
+                      {userData.level && (
+                        <div className="d-flex mt-1">
+                          <h6 className="navHeading me-2">Level</h6>
+                          <h6> {data.level}</h6>
+                        </div>
+                      )}
+                    </div>
+
+                    <div className="d-flex mt-4">
+                      <div>
+                        <TbEaseInOutControlPoints size={25} className="me-3" />
                       </div>
                       {userData.points && (
                         <div className="d-flex mt-1">
@@ -146,7 +171,7 @@ function MyNavbar() {
                       )}
                     </div>
 
-                    <div className="d-flex mt-4">
+                    <div className="d-flex mt-4" onClick={handleShow}>
                       <div>
                         <FaNoteSticky size={25} className="me-3" />
                       </div>
@@ -155,14 +180,35 @@ function MyNavbar() {
                       </div>
                     </div>
 
-                    {/* <div className="d-flex mt-4">
-                      <div>
-                        <IoGiftSharp size={25} className="me-3" />
-                      </div>
-                      <div>
-                        <h6 className="navHeading">Referral</h6>
-                      </div>
-                    </div> */}
+                    <Modal
+                      show={show}
+                      onHide={handleClose}
+                      backdrop="static"
+                      keyboard={false}
+                      // className="text-white"
+                    >
+                      <Modal.Header className="modalbody" closeButton>
+                        <Modal.Title>Add Money To Wallet</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body className="modalbody" closeButton>
+
+                        <h4 className="mb-3">Wallet Ballance </h4>
+                        <input
+                          type="number"
+                          value={amount}
+                          onChange={handleAmountChange}
+                          placeholder="Enter amount"
+                          className="form-control "
+                        />
+                      </Modal.Body>
+                      <Modal.Footer className="modalbody">
+                        <Button variant="secondary" onClick={handleClose}>
+                          Close
+                        </Button>
+                        <Deposit amount={amount} />
+                      </Modal.Footer>
+                    </Modal>
+
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
