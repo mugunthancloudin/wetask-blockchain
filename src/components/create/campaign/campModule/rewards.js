@@ -6,6 +6,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { PiWarningCircleBold } from "react-icons/pi";
 import { useNavigate } from "react-router-dom";
+import { UserView} from "../../../../services/blockchain";
+
 
 const TokenSchema = yup.object().shape({
   networkType: yup.string().required("Please select the Network type"),
@@ -62,6 +64,9 @@ export default function Rewards() {
   const [rewardDistributionIsOpen, setRewardDistributionIsOpen] =
     useState(false);
   const [distributedByisOpen, setDistributedByisOpen] = useState(false);
+  const { data} = UserView();
+
+  console.log(data);
 
   const navigate = useNavigate();
   const { updateFormData } = useFormContext();
@@ -304,6 +309,7 @@ export default function Rewards() {
                           type="number"
                           name="rewardToken"
                           id="RewardToken"
+                          min="0.0001" max={data.assets }
                           className={`form-control ${
                             tokenErrors.rewardToken ? "is-invalid" : ""
                           }`}
@@ -311,6 +317,7 @@ export default function Rewards() {
                         />
                         <span className="token-type-badge">{token}</span>
                       </div>
+                      <small>*Min Eth Value 0.0001</small>
 
                       {tokenErrors.rewardToken && (
                         <p className="text-danger fw-bold">
