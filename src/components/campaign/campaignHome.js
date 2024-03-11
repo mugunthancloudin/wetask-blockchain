@@ -9,6 +9,8 @@ import "./campaign.css";
 const CampaignHome = () => {
   const [campaignId, setCampaignId] = useState("1");
   const [accumulatedData, setAccumulatedData] = useState([]);
+  const getCurrentTimestamp = () => Math.floor(Date.now() / 1000);
+
   const { data, isSuccess } =  ReadCampaign(campaignId);
 
   // Log accumulatedData for debugging
@@ -43,6 +45,18 @@ const CampaignHome = () => {
     console.log("Clicked campaign details:", clickedCampaign);
   };
 
+  // Function to get the status of the campaign based on timestamps
+  const getCampaignStatus = (startTimestamp, endTimestamp) => {
+    const currentTimestamp = getCurrentTimestamp();
+    if (currentTimestamp < startTimestamp) {
+      return "NotStarted";
+    } else if (currentTimestamp >= startTimestamp && currentTimestamp <= endTimestamp) {
+      return "Ongoing";
+    } else {
+      return "Completed";
+    }
+  };
+
   return (
     <>
       <div className="container-fluid campaignMainBg text-white">
@@ -73,6 +87,11 @@ const CampaignHome = () => {
                   <div className="card-footer d-flex align-items-center justify-content-left">
                     <button className="footerButton1 me-2 pb-1">SBT</button>
                     <button className="footerButton2 pb-1">SBT</button>
+                  </div>
+                  <div>
+                    <div className={`status-bar-inner ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
+                    {getCampaignStatus(item.startTimestamp, item.endTimestamp)}
+                    </div>
                   </div>
                 </div>
               </Link>

@@ -30,7 +30,7 @@ function MyNavbar() {
     setAmount(e.target.value);
   };
 
-  console.log(data);
+  // console.log(data);
 
   const [userData, setUserData] = useState(null);
   const [twitterConnected, setTwitterConnected] = useState(false);
@@ -42,7 +42,7 @@ function MyNavbar() {
       setUserBalance(balance);
     }
   }, [isConnected, data, balance]);
-  console.log(userBalance);
+  // console.log(userBalance);
   return (
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
       <Container fluid className="navBg">
