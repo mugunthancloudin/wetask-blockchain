@@ -9,7 +9,7 @@ import "./campaign.css";
 const CampaignHome = () => {
   const [campaignId, setCampaignId] = useState("1");
   const [accumulatedData, setAccumulatedData] = useState([]);
-  const { data, isSuccess } = ReadCampaign(campaignId);
+  const { data, isSuccess } =  ReadCampaign(campaignId);
 
   // Log accumulatedData for debugging
   console.log("accumulatedData:", accumulatedData);
@@ -49,7 +49,7 @@ const CampaignHome = () => {
         <div className="row">
           <img src={banner} alt="banner" />
         </div>
-        <div className="row p-5">
+        <div className="row p-5">  
           {accumulatedData.map((item) => (
             <div key={item.id} className="col-lg-3 mb-4">
               <Link
@@ -84,4 +84,4 @@ const CampaignHome = () => {
   );
 };
 
-export default CampaignHome;
+export default CampaignHome; 

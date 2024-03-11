@@ -169,7 +169,7 @@
     })
   }
   style={{
-    padding: '10px 20px',
+    padding: '5px 10px',
     fontSize: '16px',
     backgroundColor: '#4CAF50', // Green background color
     color: 'white',
