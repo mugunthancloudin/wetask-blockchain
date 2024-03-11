@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ReadCampaign } from "../../services/blockchain";
 import { Link } from "react-router-dom";
 import { isError } from "ethers";
+import { ethers } from 'ethers';
 import banner from "../assets/campaignBanner/dragonCamp.png";
 import CampaignJoin from "./campaignJoin";
 import "./campaign.css";
@@ -80,13 +81,13 @@ const CampaignHome = () => {
                       style={{ objectFit: "cover" }}
                     />
                     <p className="card-title mt-3">{item.name}</p>
-                    <p className="card-text">MinimumBalance: ${item.minimumBalance}</p>
-                    <p className="card-text">MinimumLevel: ${item.minimumLevel}</p>
+                    <p className="card-text">MinimumBalance: {ethers.formatEther(item.minimumBalance)} ETH</p>
+                    <p className="card-text">MinimumLevel: {item.minimumLevel}</p>
                     <p className="card-text">{item.description}</p>
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-left">
-                    <button className="footerButton1 me-2 pb-1">SBT</button>
-                    <button className="footerButton2 pb-1">TOKEN</button>
+                    <button className="footerButton1 me-2 pb-1">{ethers.formatEther(item.tokenReward)}</button>
+                    <button className="footerButton2 pb-1">{item.points}</button>
                   </div>
                   <div>
                     <div className={`status-bar-inner d-flex justify-content-center align-items-center text-center  text-white fw-bold ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
