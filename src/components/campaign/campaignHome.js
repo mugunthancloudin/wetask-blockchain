@@ -77,7 +77,7 @@ const CampaignHome = () => {
                     <img
                       src={`https://ipfs.moralis.io:2053/ipfs/${item.image}`}
                       alt="productImage"
-                      className="w-75 h-50"
+                      className="w-100 h-50"
                       style={{ objectFit: "cover" }}
                     />
                     <p className="card-title mt-3">{item.name}</p>
@@ -86,8 +86,8 @@ const CampaignHome = () => {
                     <p className="card-text">{item.description}</p>
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-left">
-                    <button className="footerButton1 me-2 pb-1">{ethers.formatEther(item.tokenReward)}</button>
-                    <button className="footerButton2 pb-1">{item.points}</button>
+                    <button className="footerButton1 me-2 pb-1">{ethers.formatEther(item.tokenReward)} <small>Eth</small></button>
+                    <button className="footerButton2 pb-1">{item.points} <small>pts</small></button>
                   </div>
                   <div>
                     <div className={`status-bar-inner d-flex justify-content-center align-items-center text-center  text-white fw-bold ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
