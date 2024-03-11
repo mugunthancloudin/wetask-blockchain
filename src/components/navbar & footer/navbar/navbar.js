@@ -17,7 +17,8 @@ import TwitterAuth from "../../authentication/twitterAuth";
 
 
 function MyNavbar() {
-  const { data, isConnected } = UserView();
+  const { data, isConnected,balance } = UserView();
+  const userBalance = balance.data.formatted;        //user's token balance in wallet
   const [userData, setUserData] = useState(null);
   const [twitterConnected, setTwitterConnected] = useState(false);
 
@@ -26,7 +27,7 @@ function MyNavbar() {
     if (isConnected && data) {
       setUserData(data);
     }
-  }, [isConnected, data]);
+  }, [isConnected, data, userBalance]);
 
   return (
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">

@@ -1,4 +1,4 @@
-  import { useContractRead, useContractWrite, useContractInfiniteReads, paginatedIndexesConfig, useAccount  } from 'wagmi';
+  import { useContractRead, useContractWrite, useContractInfiniteReads, paginatedIndexesConfig, useAccount, useBalance  } from 'wagmi';
   import React, { useState } from 'react';
   import { ethers, isError } from 'ethers';
   import abi from '../abis/src/contracts/Taskon.sol/CampaignContract.json';
@@ -219,6 +219,7 @@
 
   export function UserView() {
     const {address, isConnected} = useAccount(); 
+    const balance = useBalance({address: address});
     const { data, isSuccess, isError } = useContractRead({
       ...contractDetails,
       functionName: 'getUser',
@@ -245,6 +246,7 @@
     data,
     isSuccess,
     isError,
-    isConnected
+    isConnected,
+    balance
   };
 }
