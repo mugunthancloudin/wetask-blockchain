@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -30,6 +30,16 @@ function MyNavbar() {
   };
 
   console.log(data);
+
+  const [userData, setUserData] = useState(null);
+  const [twitterConnected, setTwitterConnected] = useState(false);
+
+
+  useEffect(() => {
+    if (isConnected && data) {
+      setUserData(data);
+    }
+  }, [isConnected, data]);
 
   return (
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
@@ -111,7 +121,7 @@ function MyNavbar() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-          <TwitterAuth twitterConnected={twitterConnected} setTwitterConnected={setTwitterConnected} />
+          {/* <TwitterAuth twitterConnected={twitterConnected} setTwitterConnected={setTwitterConnected} /> */}
           <Nav className="">
             <Nav.Link className="d-lg-flex">
               {isConnected && userData ? (
