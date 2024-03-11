@@ -219,7 +219,8 @@
 
   export function UserView() {
     const {address, isConnected} = useAccount(); 
-    const balance = useBalance({address: address});
+    const balanceFetch = useBalance({address: address});
+    const balance = balanceFetch.data.formatted;
     const { data, isSuccess, isError } = useContractRead({
       ...contractDetails,
       functionName: 'getUser',

@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-
+import { ethers } from 'ethers';
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./navbar.css";
 import logo from "../../assets/navbar/wetask - logo.png";
@@ -39,9 +39,9 @@ function MyNavbar() {
   useEffect(() => {
     if (isConnected && data) {
       setUserData(data);
-      setUserBalance(balance.data.formatted);
+      setUserBalance(balance);
     }
-  }, [isConnected, data, balance.data.formatted]);
+  }, [isConnected, data, balance]);
   console.log(userBalance);
   return (
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
@@ -140,10 +140,10 @@ function MyNavbar() {
                       <div>
                         <SiLevelsdotfyi size={20} className="me-3" />
                       </div>
-                      {data.level && (
+                      {userData.assets && (
                         <div className="d-flex mt-1">
                           <h6 className="navHeading me-2">Assets </h6>
-                          <h6>{data.assets}</h6>
+                          <h6>{ethers.formatEther(userData.assets)}</h6>
                         </div>
                       )}
                     </div>
@@ -155,7 +155,7 @@ function MyNavbar() {
                       {userData.level && (
                         <div className="d-flex mt-1">
                           <h6 className="navHeading me-2">Level</h6>
-                          <h6> {data.level}</h6>
+                          <h6> {userData.level}</h6>
                         </div>
                       )}
                     </div>
