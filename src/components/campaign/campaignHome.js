@@ -42,31 +42,29 @@ const CampaignHome = () => {
 
   return (
     <>
-    {/* <button onClick={handleReadData}>View Blockchain Campaigns</button> */}
-    {/* <button onClick={handleFetchNextPage}>Fetch Next Blockchain Page</button> */}
-      <div className="container-fluid bg-black text-white">
-        <div className='row'>
-          <img src={banner} alt='banner' />
+      <div className="container-fluid campaignMainBg text-white">
+        <div className="row">
+          <img src={banner} alt="banner" />
         </div>
         <div className="row p-5">
           {accumulatedData.map((item) => (
             <div key={item.id} className="col-lg-3 mb-4">
               <Link
-                to={`/campaign/${item.id}`} // Corrected: Pass only the pathname and ID
-                state={{ accumulatedData }} // Pass accumulatedData directly
+                to={`/campaign/${item.id}`}
+                state={{ accumulatedData }}
                 style={{ textDecoration: "none" }}
               >
-                <div className="card h-100 campaignHomeCard">
+                <div className="card h-100 campaignHomeCard d-flex flex-column">
                   <div className="card-body text-white">
                     <img
                       src={`https://ipfs.moralis.io:2053/ipfs/${item.image}`}
                       alt="productImage"
                       className="w-75 h-50"
-                      style={{ objectFit: "100%" }}
+                      style={{ objectFit: "cover" }}
                     />
-                    <h5 className="card-title">{item.endTimestamp}</h5>
-                    <p className="card-title">{item.name}</p>
-                    <p className="card-text">Price: ${item.startTimestamp}</p>
+                    <p className="card-title mt-3">{item.name}</p>
+                    <p className="card-text">MinimumBalance: ${item.minimumBalance}</p>
+                    <p className="card-text">MinimumLevel: ${item.minimumLevel}</p>
                     <p className="card-text">{item.description}</p>
                   </div>
                   <div className="card-footer d-flex align-items-center justify-content-left">

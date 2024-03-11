@@ -120,3 +120,13 @@ button.navbar-toggler {
 .Btn:active {
   transform: scale(0.95);
 }
+
+.userDropDown{
+  background-color: black !important;
+  width: fit-content;
+}
+
+.userDropDown:hover{
+  background-color: rgb(51,51,51) !important;
+}
+

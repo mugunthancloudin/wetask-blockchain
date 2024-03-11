@@ -6,7 +6,7 @@ import CountUp, { useCountUp } from "react-countup";
 
 export default function Data() {
   return (
-    <>
+    <> 
       <div className="container text-white">
         <div className="row pt-5">
         <div className="col-lg-7">
