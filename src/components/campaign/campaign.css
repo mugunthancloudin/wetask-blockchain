@@ -12,8 +12,7 @@
 }
 
 .footerButton1{
-    padding-bottom: 0;
-    margin-bottom: 0;
+   
     font-size: 15px;
     width:fit-content;
     font-weight: 500;
@@ -23,8 +22,7 @@
 }
 
 .footerButton2{
-    padding-bottom: 0;
-    margin-bottom: 0;
+   
     font-size: 15px;
     font-weight: 500;
     color: white;
