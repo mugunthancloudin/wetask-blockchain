@@ -21,10 +21,10 @@ function MyNavbar() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const { data, isConnected,balance } = UserView();
-  const userBalance = balance.data.formatted;        //user's token balance in wallet
+  const [userBalance, setUserBalance] = useState(0);
+  const { data, isConnected, balance } = UserView();
   const [amount, setAmount] = useState("");
-  // console.log(balance);
+  
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
@@ -39,9 +39,10 @@ function MyNavbar() {
   useEffect(() => {
     if (isConnected && data) {
       setUserData(data);
+      setUserBalance(balance.data.formatted);
     }
-  }, [isConnected, data, userBalance]);
-
+  }, [isConnected, data, balance.data.formatted]);
+  console.log(userBalance);
   return (
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
       <Container fluid className="navBg">
