@@ -111,10 +111,10 @@ function MyNavbar() {
               </NavDropdown.Item>
             </NavDropdown>
           </Nav>
-
+          <TwitterAuth twitterConnected={twitterConnected} setTwitterConnected={setTwitterConnected} />
           <Nav className="">
             <Nav.Link className="d-lg-flex">
-              {isConnected ? (
+              {isConnected && userData ? (
                 <NavDropdown
                   title={<FaUser size={20} className="me-2" />}
                   id="collapsible-nav-dropdown"
@@ -140,7 +140,7 @@ function MyNavbar() {
                       <div>
                         <SiLevelsdotfyi size={20} className="me-3" />
                       </div>
-                      {data.level && (
+                      {userData.level && (
                         <div className="d-flex mt-1">
                           <h6 className="navHeading me-2">Level</h6>
                           <h6> {data.level}</h6>
@@ -152,10 +152,10 @@ function MyNavbar() {
                       <div>
                         <TbEaseInOutControlPoints size={25} className="me-3" />
                       </div>
-                      {data.points && (
+                      {userData.points && (
                         <div className="d-flex mt-1">
                           <h6 className="navHeading me-2">Points</h6>
-                          <h6>{data.points}</h6>
+                          <h6>{userData.points}</h6>
                         </div>
                       )}
                     </div>
@@ -209,6 +209,7 @@ function MyNavbar() {
               {/* <button className="Btn"></button> */}
             </Nav.Link>
           </Nav>
+
         </Navbar.Collapse>
       </Container>
     </Navbar>
