@@ -142,7 +142,7 @@ button.navbar-toggler {
   background-color: white !important;
 }
 
-.form-control {
+.walletControl {
   background-color: rgb(110, 106, 106) !important;
   padding: 10px 10px 10px 15px;
   border-radius: 4px;
@@ -151,5 +151,5 @@ button.navbar-toggler {
   position: relative;
   background-repeat: no-repeat;
   background-position: right 10px center;
-  color: white;
+   color: white;
 }

@@ -1,8 +1,10 @@
 import React from "react";
 import "./tasks.css";
 import share from "../../assets/data/share.png";
+import MobileFalse from "../../assets/home/MobileFalse.webp";
+
 import Lottie from "lottie-react";
-import homeanime from "../../assets/home/homeAnime.json";
+import homeanime from "../../assets/data/token.json";
 
 export default function Tasks() {
   return (
@@ -11,9 +13,8 @@ export default function Tasks() {
         <div className="row">
           <div className="col-lg-6 ">
             <div className="taskDiv">
-            <img src={share} alt="share" width="100%"/>
+              <img src={share} alt="share" width="100%" />
             </div>
-
 
             {/* <Lottie
                 animationData={homeanime}
@@ -22,8 +23,7 @@ export default function Tasks() {
                 style={{ width: "100%" }}
                 className="taskLootie"
               /> */}
-
-
+              
           </div>
           <div className="col-lg-6 text-light ">
             <h3 className="fw-bold mt-5 pt-5">Web3 Login</h3>
@@ -36,11 +36,33 @@ export default function Tasks() {
               valuable earnings.
             </p>
 
-
             {/* <p className="fw-bold ">Web3 Login</p>
             <p className="fw-bold">Automatic Verification</p> */}
 
+          </div>
+        </div>
 
+        <div className="row mt-5">
+          <div className="col-lg-6 text-light ">
+            <h3 className="fw-bold mt-5 pt-5"></h3>
+            <h3 className="mt-5 ">Be the first to join WeTask community!</h3>
+            <p className="mt-3 fs-5 lh-lg fw-light">
+              ACQR is a on-chain platform that benefits both Web3 users and Web3
+              protocols by incentivizing participation. Be the first join ACQR’s
+              community of Web3 users and protocols!
+            </p>
+          </div>
+
+          <div className="col-lg-6 ">
+            <div className="taskDiv d-flex justify-content-center align-items-center">
+              <Lottie
+                animationData={homeanime}
+                loop={true}
+                autoplay={true}
+                style={{ width: "80%" }}
+                className="taskLootie"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -24,14 +24,15 @@ export default function LandingPage() {
 
           {/* <CreateCampaign/> */}
           <Home />
-         
+          <Comunity/>
           <Tasks/>
-          <Ecosystem/>
+         
           <Data/>
           
-          <Card/>
+          {/* <Card/> */}
           {/* <Referal/> */}
-          <Comunity/>
+          
+          <Ecosystem/>
           <Footer />
           {/* <Login/> */}
         </div>

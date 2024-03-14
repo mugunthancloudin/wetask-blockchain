@@ -7,7 +7,7 @@ import "./ecosystem.css";
 export default function Ecosystem() {
   return (
     <>
-      <div className="container ecoHome">
+      <div className="container mb-5 ecoHome">
         <div className="row text-white">
           <h3 className="fw-bold text-center">
             THE WeTask ECOSYSTEM SUPPORTS WEB3 PROJECTS AT THEIR EARLIEST

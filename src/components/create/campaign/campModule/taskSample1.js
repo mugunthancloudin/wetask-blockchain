@@ -10,8 +10,7 @@ export default function Task() {
   const [tasks, setTasks] = useState([]);
   const [inputValues, setInputValues] = useState({});
   const [isHovered, setIsHovered] = useState(false);
-  const [focusedField, setFocusedField] = useState(null); 
-
+  const [focusedField, setFocusedField] = useState(null);
 
   // Function to create a validation schema based on current tasks
   const createValidationSchema = (tasks) => {
@@ -33,7 +32,7 @@ export default function Task() {
             .url("Enter a valid URL")
             .required("URL is required");
           break;
-        default: 
+        default:
           break;
       }
       return acc;
@@ -47,7 +46,7 @@ export default function Task() {
   const {
     register,
     handleSubmit,
-         
+
     control,
     formState: { errors, touched },
     reset,
@@ -74,7 +73,7 @@ export default function Task() {
   };
 
   // Function to add tasks with detailed content
-  const addTask = (taskType) => { 
+  const addTask = (taskType) => {
     const taskDetails = {
       Post: {
         title: "Post a tweet with specified content",

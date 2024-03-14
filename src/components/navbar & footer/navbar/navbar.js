@@ -43,6 +43,7 @@ function MyNavbar() {
     }
   }, [isConnected, data, balance]);
   console.log(userBalance);
+
   return (
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
       <Container fluid className="navBg">
@@ -78,7 +79,7 @@ function MyNavbar() {
                   <div>
                     <h6 className="navHeading">Space</h6>
                     <p className="navText">
-                      Showcase your project, campaigns, events and engage users
+                      Showcase your project, campaigns, events <br></br> and engage users
                     </p>
                   </div>
                 </div>
@@ -87,7 +88,7 @@ function MyNavbar() {
                 <div className="d-flex text-white">
                   <div>
                     <FaGlobe size={25} className="mt-3 me-3" />
-                  </div>
+                  </div>  
                   <div>
                     <h6 className="navHeading">Campaign</h6>
                     <p className="navText">
@@ -96,7 +97,7 @@ function MyNavbar() {
                   </div>
                 </div>
               </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3" className="bg-dark">
+              <NavDropdown.Item href="/event/eventBasicInfo" className="bg-dark">
                 <div className="d-flex text-white">
                   <div>
                     <FaNoteSticky size={25} className="mt-3 me-3" />
@@ -104,7 +105,7 @@ function MyNavbar() {
                   <div>
                     <h6 className="navHeading">Event</h6>
                     <p className="navText">
-                      Aggregate multiple campaigns and expose to a wider range
+                      Aggregate multiple campaigns and expose <br></br> to a wider range
                       of users
                     </p>
                   </div>
@@ -199,7 +200,7 @@ function MyNavbar() {
                           value={amount}
                           onChange={handleAmountChange}
                           placeholder="Enter amount"
-                          className="form-control "
+                          className="form-control walletControl"
                         />
                       </Modal.Body>
                       <Modal.Footer className="modalbody">

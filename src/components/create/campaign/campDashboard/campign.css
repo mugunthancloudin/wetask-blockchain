@@ -78,7 +78,7 @@
 .SidenavButton a {
   display: flex;
   align-items: center; 
-  width: 100%; 
+  width: fit-content; 
   padding: 10px; 
   color: white; 
   text-decoration: none;
@@ -86,9 +86,10 @@
 }
 
 .SidenavButton a.active {
-  color: black; 
+  color: rgb(56, 2, 2); 
   background-color: white;
   border-radius: 30px; 
+  width:fit-content;
 }
 
 /* Add hover effect for buttons */
@@ -96,6 +97,7 @@
 .SidenavButton:hover a {
   background-color: rgb(82, 83, 83); 
   color: white; 
+  width: fit-content; 
 }
 
 .fixed-column {
