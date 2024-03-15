@@ -12,19 +12,20 @@
 }
 
 .footerButton1{
-    padding-bottom: 0;
-    margin-bottom: 0;
+   
     font-size: 15px;
     width:fit-content;
+    font-weight: 500;
+    color: white;
     border-radius: 10px;
-    /* background-color: rgb(112,57,247);  */
     background: linear-gradient(180deg,#6239F8 0%,#8339F5 100%); 
 }
 
 .footerButton2{
-    padding-bottom: 0;
-    margin-bottom: 0;
+   
     font-size: 15px;
+    font-weight: 500;
+    color: white;
     width:fit-content;
     border-radius: 10px;
     background: linear-gradient(91.3deg,#27ABC7 5.12%,#1FAD72 83.49%);

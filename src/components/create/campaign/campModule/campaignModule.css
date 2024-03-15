@@ -7,10 +7,15 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
 }
 
+.form-control{
+  border: none;
+}
+  
 .form-control::placeholder {
   color: #909090; 
   opacity: 1; 
 }
+
 .upload-box{
   border: 1px solid gray;
   border-radius: 10px;

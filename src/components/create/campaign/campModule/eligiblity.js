@@ -166,7 +166,7 @@
                               <select
                                 name="taskOnLevel"
                                 className="form-control ms-3"
-                                onChange={handleInputChange}
+                                 onChange={handleInputChange}
                                 {...register("taskOnLevel")}
                                 defaultValue=""
                               >
@@ -263,7 +263,7 @@
                           <div className="row d-flex lableField mt-3">
                             <div className="col-lg-4 lableFieldLable ">
                               Min.Balance
-                            </div>
+                          </div>
                             <div className="col-lg-8 lableFieldInput">
                               <input
                                 type="number"

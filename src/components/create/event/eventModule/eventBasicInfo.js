@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useFormContext } from "./formprovider";
+import { useFormContext } from "../../campaign/campModule/formprovider";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
@@ -16,12 +16,13 @@ import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
-import FormData from "form-data";
+import FormData from 'form-data';
 import { useNavigate } from "react-router-dom";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { IoEyeSharp } from "react-icons/io5";
-import "./campaignModule.css";
+import "../../campaign/campModule/campaignModule.css"
 import "draft-js/dist/Draft.css";
+
 
 const JWT =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U"; // Replace with your actual JWT token
@@ -58,7 +59,7 @@ const BasicInfoSchema = yup.object().shape({
   //   }),
 });
 
-export default function BasicInfo() {
+export default function EventBasicInfo() {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [campaignDescription, setCampaignDescription] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
@@ -80,35 +81,35 @@ export default function BasicInfo() {
 
       // Upload the file to IPFS
       const formData = new FormData();
-      formData.append("file", file);
+      formData.append('file', file);
 
       const pinataMetadata = JSON.stringify({
         name: `Campaign Cover Image - ${file.name}`,
       });
-      formData.append("pinataMetadata", pinataMetadata);
+      formData.append('pinataMetadata', pinataMetadata);
 
       const pinataOptions = JSON.stringify({
         cidVersion: 0,
       });
-      formData.append("pinataOptions", pinataOptions);
+      formData.append('pinataOptions', pinataOptions);
 
       try {
         const response = await axios.post(
-          "https://api.pinata.cloud/pinning/pinFileToIPFS",
+          'https://api.pinata.cloud/pinning/pinFileToIPFS',
           formData,
           {
-            maxBodyLength: "Infinity",
+            maxBodyLength: 'Infinity',
             headers: {
-              "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+              'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
               Authorization: `Bearer ${JWT}`,
             },
           }
         );
-        console.log("IPFS Upload Response:", response.data);
+        console.log('IPFS Upload Response:', response.data);
         setIpfsHash(response.data.IpfsHash);
         // Handle the response, e.g., saving the IPFS hash to state or form
       } catch (error) {
-        console.error("Error uploading file to IPFS:", error);
+        console.error('Error uploading file to IPFS:', error);
       }
     }
   };
@@ -126,7 +127,7 @@ export default function BasicInfo() {
     const charCount = plainText.length;
     setWordCount(charCount);
   };
-
+ 
   const toggleVisibility = (choice) => setVisibility(choice);
 
   const handleKeyCommand = (command, editorState) => {
@@ -149,16 +150,14 @@ export default function BasicInfo() {
     formState: { errors: campaignError },
   } = useForm({
     resolver: yupResolver(BasicInfoSchema),
-  });
+  }); 
 
   const onSubmitOfCampaignDetails = (data) => {
     try {
       // Convert campaign start and expiry dates from ISO string to epoch time (milliseconds)
       const campaignStartDateEpoch = new Date(data.campaignStartDate).getTime();
-      const campaignExpairyDateEpoch = new Date(
-        data.campaignExpairyDate
-      ).getTime();
-
+      const campaignExpairyDateEpoch = new Date(data.campaignExpairyDate).getTime();
+  
       const submittedData = {
         ...data,
         campaignDescription,
@@ -167,20 +166,21 @@ export default function BasicInfo() {
         campaignExpairyDate: campaignExpairyDateEpoch,
         coverImageIpfsCid: ipfsHash,
       };
-
+  
       // Log or handle the submitted data as needed
       alert("Submitted Data: " + JSON.stringify(submittedData, null, 2));
       console.log("onSubmitOfCampaignDetails triggered", submittedData);
-
+  
       // Assuming updateFormData is a function to update the context or perform an API call
       const newData = { BasicInfo: submittedData };
       updateFormData(newData);
-
+  
       navigate(`/camp/campaignrewards`);
     } catch (error) {
       console.error("Error in onSubmitOfCampaignDetails:", error);
     }
   };
+  
 
   useEffect(() => {
     // Perform actions after state updates
@@ -201,7 +201,7 @@ export default function BasicInfo() {
                   type="text"
                   placeholder="Enter a Campaign name"
                   className="form-control w-50 mt-3"
-                  {...register("campaignName")}
+                   {...register("campaignName")}
                 />
                 {campaignError.campaignName && (
                   <p className="text-danger fw-bold">
@@ -276,91 +276,15 @@ export default function BasicInfo() {
               </div>
             </div>
 
-            <div>
-              <h5 className="mt-3">Campaign Description</h5>
-              <div className="editor-container">
-                <div className="toolbar text-center">
-                  <p onClick={() => applyStyle("BOLD")}>
-                    <MdFormatBold />
-                  </p>
-                  <p onClick={() => applyStyle("ITALIC")}>
-                    <MdFormatItalic />
-                  </p>
-                  <p onClick={() => applyStyle("UNDERLINE")}>
-                    <MdFormatUnderlined />
-                  </p>
-                  <p onClick={() => applyStyle("STRIKETHROUGH")}>
-                    <MdFormatStrikethrough />
-                  </p>
-                  <p onClick={() => applyStyle("LEFT")}>
-                    <MdFormatAlignLeft />
-                  </p>
-                  <p onClick={() => applyStyle("CENTER")}>
-                    <MdFormatAlignCenter />
-                  </p>
-                  <p onClick={() => applyStyle("RIGHT")}>
-                    <MdFormatAlignRight />
-                  </p>
-                  <p onClick={() => applyStyle("JUSTIFY")}>
-                    <MdFormatAlignJustify />
-                  </p>
-                </div>
-                <Editor
-                  editorState={editorState}
-                  handleKeyCommand={handleKeyCommand}
-                  onChange={handleEditorChange}
-                />
-                <div className="word-count">{wordCount} words</div>
-              </div>
-
-              {campaignError.campDescription && (
-                <p className="text-danger fw-bold">
-                  {campaignError.campDescription.message}
-                </p>
-              )}
-            </div>
-
-            <div className="mt-3">
-              <h5>Who can see this Campaign</h5>
-              <div className="toggle-switches justify-content-around my-4">
-                <div
-                  className={`text-center toggle-option ${
-                    visibility === "public" ? "active" : " "
-                  }`}
-                  onClick={() => toggleVisibility("public")}
-                >
-                  <IoEyeSharp size={25} />
-                  <br />
-                  <label className="mt-2">Public</label>
-                </div>
-                <div
-                  className={`text-center toggle-option ${
-                    visibility === "private" ? "active" : ""
-                  }`}
-                  onClick={() => toggleVisibility("private")}
-                >
-                  <FaRegEyeSlash size={25} />
-                  <br />
-                  <label className="mt-2">Private</label>
-                </div>
-              </div>
-
-              <p id="campaign-mode" className="CampMode text-center">
-                {visibility === "public"
-                  ? "*This campaign will be listed on the Campaign/Space/Home page and is available to everyone"
-                  : "*This campaign will not be listed on the Campaign/Space/Home page and is available only to users who get the specified campaign link"}
-              </p>
-            </div>
-
             <div className="buttons mt-5">
               <button className="save-draft">Save as Draft</button>
               <button type="submit" className="next">
-                Next
+                 Next
               </button>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </div>    
   );
 }

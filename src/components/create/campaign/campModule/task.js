@@ -1,10 +1,12 @@
-import React, { useState} from "react";
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 import "./campaignModule.css";
 import { useFormContext } from "./formprovider";
 import twitter from "../../../assets/campaign/twitter.svg";
 import { FaPlus } from "react-icons/fa";
 import TwitterAuth from "../../../authentication/twitterAuth";
+
+
 export default function Task() {
   const [tasks, setTasks] = useState([]);
   const [inputValues, setInputValues] = useState({});
@@ -55,8 +57,9 @@ export default function Task() {
   };
 
   const removeTask = (taskId) => {
-    const updatedTasks = tasks.filter((task) => task.id !== taskId)
-                              .map((task, index) => ({ ...task, id: index + 1 }));
+    const updatedTasks = tasks
+      .filter((task) => task.id !== taskId)
+      .map((task, index) => ({ ...task, id: index + 1 }));
     setTasks(updatedTasks);
 
     const newInputValues = updatedTasks.reduce((acc, task) => {
@@ -76,31 +79,33 @@ export default function Task() {
       value: inputValues[task.id] || "",
     }));
 
-    const blob = new Blob([JSON.stringify(submittedData, null, 2)], { type: 'application/json' });
+    const blob = new Blob([JSON.stringify(submittedData, null, 2)], {
+      type: "application/json",
+    });
     const formData = new FormData();
-    formData.append('file', blob, 'tasksData.json');
+    formData.append("file", blob, "tasksData.json");
 
     try {
       const response = await axios.post(
-        'https://api.pinata.cloud/pinning/pinFileToIPFS',
+        "https://api.pinata.cloud/pinning/pinFileToIPFS",
         formData,
         {
           headers: {
-            'Authorization': `Bearer your-pinata-jwt`,
+            Authorization: `Bearer your-pinata-jwt`,
           },
         }
       );
-      console.log('File uploaded to IPFS with CID:', response.data.IpfsHash);
+      console.log("File uploaded to IPFS with CID:", response.data.IpfsHash);
 
       const submittedDataWithCid = {
         tasks: submittedData,
-        cid: response.data.IpfsHash
+        cid: response.data.IpfsHash,
       };
 
       updateFormData({ ...formData, submittedData: submittedDataWithCid });
       console.log("Form Submitted with tasks and CID", submittedDataWithCid);
     } catch (error) {
-      console.error('Error uploading to IPFS:', error);
+      console.error("Error uploading to IPFS:", error);
     }
   };
 
@@ -114,7 +119,7 @@ export default function Task() {
                 <p>No tasks added. Add a task from the platform.</p>
               </div>
             ) : (
-              tasks.map((task) => (
+               tasks.map((task) => (
                 <div key={task.id} className="task-container">
                   <div className="sub-box mt-3 col-lg-12">Task {task.id}</div>
 
@@ -181,7 +186,7 @@ export default function Task() {
             >
               Follow Twitter{" "}
               <div className="but-box">
-                < FaPlus />
+                <FaPlus />
               </div>
             </button>
             <button className="task-box1 mt-2" onClick={() => addTask("Like")}>

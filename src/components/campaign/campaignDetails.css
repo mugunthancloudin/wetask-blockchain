@@ -57,10 +57,9 @@
 }
 
 .detailbtn1 {
-  padding-bottom: 0;
-  margin-bottom: 0;
+ 
   width: fit-content;
-  border-radius: 20px;
+  border-radius: 10px;
   border: none;
   background: linear-gradient(180deg, #6239f8 0%, #8339f5 100%);
 }
@@ -73,8 +72,7 @@
 }
 
 .detailbtn3 {
-  padding-bottom: 0;
-  margin-bottom: 0;
+  
   width: fit-content;
   border-radius: 10px;
   background: linear-gradient(91.3deg, #27abc7 5.12%, #1fad72 83.49%);
