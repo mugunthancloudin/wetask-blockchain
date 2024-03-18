@@ -2,7 +2,6 @@ import React from "react";
 import "./tasks.css";
 import share from "../../assets/data/share.png";
 import MobileFalse from "../../assets/home/MobileFalse.webp";
-
 import Lottie from "lottie-react";
 import homeanime from "../../assets/data/token.json";
 
@@ -13,7 +12,7 @@ export default function Tasks() {
         <div className="row">
           <div className="col-lg-6 ">
             <div className="taskDiv">
-              <img src={share} alt="share" width="100%" />
+              <img src={share} alt="share" width="80%" className="mt-5 pt-3"/>
             </div>
 
             {/* <Lottie
@@ -55,6 +54,7 @@ export default function Tasks() {
 
           <div className="col-lg-6 ">
             <div className="taskDiv d-flex justify-content-center align-items-center">
+
               <Lottie
                 animationData={homeanime}
                 loop={true}
@@ -62,10 +62,11 @@ export default function Tasks() {
                 style={{ width: "80%" }}
                 className="taskLootie"
               />
+
             </div>
           </div>
         </div>
       </div>
     </>
   );
-}
+} 
