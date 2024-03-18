@@ -257,3 +257,14 @@
     balance
   };
 }
+
+  export function GetCampaignsByCreators(creator) {
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'getCampaignsByCreators',
+      args: creator,  
+    })
+    return (
+      {data, isSuccess, isError}
+    )
+  }
