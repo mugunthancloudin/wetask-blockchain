@@ -222,7 +222,7 @@
     const {address, isConnected} = useAccount({}); 
     const balanceFetch = useBalance({
       address: address,
-      onSuccess() {
+      if(isConnected) {
         balance = balanceFetch.data.formatted
       }
     });
