@@ -258,11 +258,12 @@
   };
 }
 
-  export function GetCampaignsByCreators(creator) {
+  export function GetCampaignsByCreator() {
+    const {address} = useAccount({});
     const { data, isSuccess, isError } = useContractRead({
       ...contractDetails,
-      functionName: 'getCampaignsByCreators',
-      args: creator,  
+      functionName: 'getCampaignsByCreator',
+      args: [address],  
     })
     return (
       {data, isSuccess, isError}
