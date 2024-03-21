@@ -7,7 +7,8 @@ export default function Event() {
   return (
     <>
       <MyNavbar/>
-      <EventCampaign />
+      <UnderConstruction/>
+      {/* <EventCampaign /> */}
       <Footer/>
     </>
   )
