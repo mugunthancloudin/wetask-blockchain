@@ -26,7 +26,7 @@ export default function EventCampaign() {
                   first
                 </div>
                 <div
-                  className=" d-flex justify-content-center"
+                  className=" d-flex justify-content-center mt-2"
                   role="button"
                   tabindex="0"
                 >
@@ -41,7 +41,7 @@ export default function EventCampaign() {
                 </div>
               </div>
               <hr className="hrLine"></hr>
-              <div className="disabled-tip  p-2">
+              <div className="9-tip  p-2">
                 <div className="disabled-tip__title">
                   To be added to an event, campaign(s) must meet the following
                   requirements
@@ -59,7 +59,7 @@ export default function EventCampaign() {
                 </div>
               </div>
             </div>
-            <div className="buttons my-4 ">
+            <div className="buttons mt-5 ">
               <button className="save-draft text-nowrap">Save as Draft</button>
               <button className="save-draft ms-3">Previous</button>
               <button className="next" type="submit">
