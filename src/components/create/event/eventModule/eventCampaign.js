@@ -1,12 +1,19 @@
-import React from "react";
+import React, {useState,useEffect} from "react";
 import { GetCampaignsByCreator, ReadCampaign } from "../../../../services/blockchain";
 import "./eventModule.css";
 import reload from "../../../assets/event/reload.png";
 
 export default function EventCampaign() {
-  const data  = GetCampaignsByCreator();
-  console.log(data.data);
-  const campaignInfo = ReadCampaign();
+  const {data} = GetCampaignsByCreator(); // output [2,3]
+  const formattedData = data.map(item => [item]);
+  console.log(formattedData); // output  [[2],[3]]
+                                           
+  const campaignData1 = ReadCampaign(formattedData[0]);
+  const campaignData2 = ReadCampaign(formattedData[1]);
+
+  console.log(campaignData1);
+  console.log(campaignData2);
+
   return (
     <>
       <div className="container">
@@ -16,6 +23,7 @@ export default function EventCampaign() {
               <div className="text-center p-3">
                 <div>You don’t have upcoming/ongoing campaigns</div>
                 <div>
+                  {/* {renderCampaigns()} */}
                   Please
                   <a
                     href="/camp/basicinfo"
