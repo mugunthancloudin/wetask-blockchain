@@ -265,6 +265,23 @@
       functionName: 'getCampaignsByCreator',
       args: [address],  
     })
+
+    // Function to recursively convert numbers to strings in an object
+  const stringifyNumbers = obj => {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        stringifyNumbers(obj[key]); // Recursively call for nested objects
+      } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+        obj[key] = Number(obj[key]); // Convert number or bigint to string
+      }
+    }
+  };
+
+  // Convert numbers to strings in the data object
+  if (data) {
+    stringifyNumbers(data);
+  }
+   
     return (
       {data, isSuccess, isError}
     )
