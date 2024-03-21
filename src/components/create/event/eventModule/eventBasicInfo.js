@@ -273,7 +273,7 @@ export default function EventBasicInfo() {
                     required
                   />
                 </div>
-              </div>
+               </div>
             </div>
 
             <div className="buttons mt-5">

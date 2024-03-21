@@ -30,7 +30,7 @@ function MyNavbar() {
     setAmount(e.target.value);
   };
 
-  console.log(data);
+  // console.log(data);
 
   const [userData, setUserData] = useState(null);
   const [twitterConnected, setTwitterConnected] = useState(false);
@@ -42,7 +42,7 @@ function MyNavbar() {
       setUserBalance(balance);
     }
   }, [isConnected, data, balance]);
-  console.log(userBalance);
+  // console.log(userBalance);
 
   return (
     <Navbar collapseOnSelect expand="lg" className="navBg py-3" sticky="top">
@@ -72,7 +72,7 @@ function MyNavbar() {
               className=" ms-3 d-none d-sm-block userDropDown"
             >
               <NavDropdown.Item href="#action/3.1" className="bg-dark ">
-                <div className="d-flex text-white">
+*                <div className="d-flex text-white">
                   <div>
                     <FaUser size={25} className="mt-3 me-3" />
                   </div>
@@ -119,7 +119,7 @@ function MyNavbar() {
                   <div>
                     <h6 className="navHeading">Referral</h6>
                     <p className="navText">Ask users to refer your campaigns</p>
-                  </div>
+741                  </div>
                 </div>
               </NavDropdown.Item>
             </NavDropdown>
@@ -160,7 +160,7 @@ function MyNavbar() {
                         </div>
                       )}
                     </div>
-
+§
                     <div className="d-flex mt-4">
                       <div>
                         <TbEaseInOutControlPoints size={25} className="me-3" />
@@ -217,7 +217,7 @@ function MyNavbar() {
                 ""
               )}
 
-              <w3m-button className="Btn" />
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <w3m-button className="Btn" />
 
               {/* <button className="Btn"></button> */}
             </Nav.Link>
