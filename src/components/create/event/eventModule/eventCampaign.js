@@ -4,15 +4,36 @@ import "./eventModule.css";
 import reload from "../../../assets/event/reload.png";
 
 export default function EventCampaign() {
-  const {data} = GetCampaignsByCreator(); // output [2,3]
-  const formattedData = data.map(item => [item]);
-  console.log(formattedData); // output  [[2],[3]]
-                                           
-  const campaignData1 = ReadCampaign(formattedData[0]);
-  const campaignData2 = ReadCampaign(formattedData[1]);
 
-  console.log(campaignData1);
-  console.log(campaignData2);
+  const {data} = GetCampaignsByCreator();
+  
+  console.log(data);
+  const data1 = ReadCampaign(String(data[0]));
+  console.log(data1)
+  // const [accumulatedData, setAccumulatedData] = useState([]);
+  // const formattedData = ['2', '3', '4', '5']; // Hardcoded array
+  // const [n, setN] = useState(formattedData[0]); // Start index from '2'
+
+  // useEffect(() => {
+  //   (async () => {
+  //     try {
+  //       if (parseInt(n) <= parseInt(formattedData[formattedData.length - 1])) {
+  //         const { data, isSuccess } = await ReadCampaign(n);
+  //         if (isSuccess) {
+  //           setAccumulatedData(prevData => [...prevData, data]);
+  //           setN(String(Number(n) + 1)); // Increment index after fetching
+  //         } else {
+  //           console.log("Error fetching data for index:", n);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   })();
+  // }, [n, formattedData]); // Include formattedData in the dependency array
+
+  // // Log accumulatedData for debugging
+  // console.log("accumulatedData:", accumulatedData);
 
   return (
     <>
