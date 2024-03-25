@@ -7,23 +7,36 @@ import { CiCirclePlus } from "react-icons/ci";
 import { TbReload } from "react-icons/tb";
 import "./eventModule.css";
 import reload from "../../../assets/event/reload.png";
+require('react-dom');
+window.React2 = require('react');
+console.log(window.React1 === window.React2);
 
 export default function EventCampaign() {
-  const { data } = GetCampaignsByCreator(); // output [2,3]
-  console.log(data);
+  const { data } = GetCampaignsByCreator();
+  const [campaignId, setCampaignId] = useState(data); // Initialize campaignId state with data array
+  const fetchCampaignDetails = ReadCampaign(String(campaignId[0])); 
+  const [campaignDetails, setCampaignDetails] = useState([]);
 
-  const formattedData = data.map((item) => [item]);
-  console.log(formattedData); // output  [[2],[3]]
+  // Effect to fetch campaign details and accumulate data
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      try {
+        if (campaignId.length > 0) {
+          setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
+          setCampaignId(prevIds => prevIds.slice(1)); // Remove the first element from campaignId array 
+        }
+      } catch (error) {
+        console.error("Error fetching campaign details:", error);
+      } 
+    };
 
-  // const campaignData1 = ReadCampaign(formattedData[0]);
-  // const campaignData2 = ReadCampaign(formattedData[1]);
+    fetchData();
+  }, [campaignId, fetchCampaignDetails]); // Dependency on campaignId array
 
-  // console.log(campaignData1);
-  // console.log(campaignData2);
-
-  const handleReload = () => {
-    window.location.reload();
-  }; 
+  // Log accumulatedData for debugging
+  console.log("campaign details:", campaignDetails);
+  
 
   return (
     <>
@@ -34,7 +47,6 @@ export default function EventCampaign() {
               <div className="text-center p-3">
                 <div>You don’t have upcoming/ongoing campaigns</div>
                 <div>
-                  {/* {renderCampaigns()} */}
                   Please
                   <a
                     href="/camp/basicinfo"
