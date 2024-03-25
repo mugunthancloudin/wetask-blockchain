@@ -2,13 +2,16 @@ import React, {useState,useEffect} from "react";
 import { GetCampaignsByCreator, ReadCampaign } from "../../../../services/blockchain";
 import "./eventModule.css";
 import reload from "../../../assets/event/reload.png";
+import { useAccount } from "wagmi";
 require('react-dom');
 window.React2 = require('react');
 console.log(window.React1 === window.React2);
 
 export default function EventCampaign() {
-  const { data } = GetCampaignsByCreator();
+  const {address} = useAccount();
+  const { data } = GetCampaignsByCreator(address);
   const [campaignId, setCampaignId] = useState(data); // Initialize campaignId state with data array
+  // console.log(campaignId,address); 
   const fetchCampaignDetails = ReadCampaign(String(campaignId[0])); 
   const [campaignDetails, setCampaignDetails] = useState([]);
 
