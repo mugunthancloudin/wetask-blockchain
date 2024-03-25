@@ -17,14 +17,14 @@ export default function EventCampaign() {
   const fetchCampaignDetails = ReadCampaign(String(campaignId[0])); 
   const [campaignDetails, setCampaignDetails] = useState([]);
 
-  // Effect to fetch campaign details and accumulate data
+ // Effect to fetch campaign details and accumulate data
   useEffect(() => {
     
     const fetchData = async () => {
       try {
         if (campaignId.length > 0) {
           setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
-          setCampaignId(prevIds => prevIds.slice(1)); // Remove the first element from campaignId array 
+          setCampaignId(prevIds => prevIds.slice(1));
         }
       } catch (error) {
         console.error("Error fetching campaign details:", error);
@@ -32,11 +32,14 @@ export default function EventCampaign() {
     };
 
     fetchData();
-  }, [campaignId, fetchCampaignDetails]); // Dependency on campaignId array
+  }, [campaignId, fetchCampaignDetails]); 
 
-  // Log accumulatedData for debugging
+
   console.log("campaign details:", campaignDetails);
   
+  const handleReload = () => {
+    window.location.reload();
+  };
 
   return (
     <>
@@ -67,7 +70,7 @@ export default function EventCampaign() {
                     src={reload}
                     alt="reload"
                     className="me-2 mt-1"
-                    width="15px" 
+                     width="15px" 
                     height="15px"
                   />
                   <div className="link-button__label">Refresh</div>
