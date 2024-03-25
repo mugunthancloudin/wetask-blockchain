@@ -30,7 +30,7 @@ export default function PageRoute() {
         <Route path="/campaign/:id" element={<CampaignDetails />} />
         <Route path="/space" element={<UserDetails />} />
         <Route path="/event" element={<Event />} />
-
+  
         {/* create campaign routes */}
         <Route path="/basicinfo" element={<Basicinfo />} />
         <Route path="/campaigneligibility" element={<Eligiblity />} />
@@ -47,3 +47,4 @@ export default function PageRoute() {
     </>
   );
 }
+ 
