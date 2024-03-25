@@ -2,38 +2,36 @@ import React, {useState,useEffect} from "react";
 import { GetCampaignsByCreator, ReadCampaign } from "../../../../services/blockchain";
 import "./eventModule.css";
 import reload from "../../../assets/event/reload.png";
+require('react-dom');
+window.React2 = require('react');
+console.log(window.React1 === window.React2);
 
 export default function EventCampaign() {
+  const { data } = GetCampaignsByCreator();
+  const [campaignId, setCampaignId] = useState(data); // Initialize campaignId state with data array
+  const fetchCampaignDetails = ReadCampaign(String(campaignId[0])); 
+  const [campaignDetails, setCampaignDetails] = useState([]);
 
-  const {data} = GetCampaignsByCreator();
+  // Effect to fetch campaign details and accumulate data
+  useEffect(() => {
+    
+    const fetchData = async () => {
+      try {
+        if (campaignId.length > 0) {
+          setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
+          setCampaignId(prevIds => prevIds.slice(1)); // Remove the first element from campaignId array 
+        }
+      } catch (error) {
+        console.error("Error fetching campaign details:", error);
+      } 
+    };
+
+    fetchData();
+  }, [campaignId, fetchCampaignDetails]); // Dependency on campaignId array
+
+  // Log accumulatedData for debugging
+  console.log("campaign details:", campaignDetails);
   
-  console.log(data);
-  const data1 = ReadCampaign(String(data[0]));
-  console.log(data1)
-  // const [accumulatedData, setAccumulatedData] = useState([]);
-  // const formattedData = ['2', '3', '4', '5']; // Hardcoded array
-  // const [n, setN] = useState(formattedData[0]); // Start index from '2'
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       if (parseInt(n) <= parseInt(formattedData[formattedData.length - 1])) {
-  //         const { data, isSuccess } = await ReadCampaign(n);
-  //         if (isSuccess) {
-  //           setAccumulatedData(prevData => [...prevData, data]);
-  //           setN(String(Number(n) + 1)); // Increment index after fetching
-  //         } else {
-  //           console.log("Error fetching data for index:", n);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching data:", error);
-  //     }
-  //   })();
-  // }, [n, formattedData]); // Include formattedData in the dependency array
-
-  // // Log accumulatedData for debugging
-  // console.log("accumulatedData:", accumulatedData);
 
   return (
     <>
@@ -44,7 +42,6 @@ export default function EventCampaign() {
               <div className="text-center p-3">
                 <div>You don’t have upcoming/ongoing campaigns</div>
                 <div>
-                  {/* {renderCampaigns()} */}
                   Please
                   <a
                     href="/camp/basicinfo"
