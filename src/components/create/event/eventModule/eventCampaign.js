@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {
-  GetCampaignsByCreator,
-  ReadCampaign,
+  useGetCampaignsByCreator,
+  useReadCampaign,
 } from "../../../../services/blockchain";
 import { CiCirclePlus } from "react-icons/ci";
 import { TbReload } from "react-icons/tb";
@@ -13,30 +13,31 @@ window.React2 = require('react');
 console.log(window.React1 === window.React2);
 
 export default function EventCampaign() {
-  const {address} = useAccount();
-  const { data } = GetCampaignsByCreator(address);
+  const { address } = useAccount();
+  const { data } = useGetCampaignsByCreator(address);
   const [campaignId, setCampaignId] = useState(data); // Initialize campaignId state with data array
-  // console.log(campaignId,address); 
-  const fetchCampaignDetails = ReadCampaign(String(campaignId[0])); 
+  console.log(campaignId, data);
+  const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
   const [campaignDetails, setCampaignDetails] = useState([]);
 
- // Effect to fetch campaign details and accumulate data
+  if (data === undefined || null) {
+    console.log("Connect wallet/No campaign available");
+  }
+
   useEffect(() => {
-    
     const fetchData = async () => {
       try {
-        if (campaignId.length > 0) {
-          setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
-          setCampaignId(prevIds => prevIds.slice(1));
-        }
+        if(fetchCampaignDetails && campaignId.length > 0 ){
+        setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
+        setCampaignId(prevIds => prevIds.slice(1));        
+        } 
       } catch (error) {
         console.error("Error fetching campaign details:", error);
       } 
     };
 
     fetchData();
-  }, [campaignId, fetchCampaignDetails]); 
-
+  }, [campaignId, fetchCampaignDetails, data, address]);
 
   console.log("campaign details:", campaignDetails);
   

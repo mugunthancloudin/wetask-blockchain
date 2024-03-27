@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ReadCampaign } from "../../services/blockchain";
+import { useReadCampaign } from "../../services/blockchain";
 import { Link } from "react-router-dom";
 import { isError } from "ethers";
 import { ethers } from 'ethers';
@@ -12,7 +12,7 @@ const CampaignHome = () => {
   const [accumulatedData, setAccumulatedData] = useState([]);
   const getCurrentTimestamp = () => Math.floor(Date.now() / 1000);
 
-  const { data, isSuccess } =  ReadCampaign(campaignId);
+  const { data, isSuccess } =  useReadCampaign(campaignId);
 
   // Log accumulatedData for debugging
   console.log("accumulatedData:", accumulatedData);
