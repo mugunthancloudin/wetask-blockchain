@@ -32,6 +32,11 @@
     background-color: rgb(37,42,44);
 }
 
+.eventBtn{
+    background-color: rgb(74,77,79);
+    color: white;
+}
+
 .hrLine{
     border: 1px solid white;
     width: 100%;
