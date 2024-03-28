@@ -89,17 +89,61 @@
     );
   }
 
-  export function ReadCampaign(campaignId) {
-    const { data, isSuccess, isError } = useContractRead({
-      ...contractDetails,
-      functionName: 'getCampaign',
-      args: campaignId,
-    })
+    export function useReadCampaign(eventId) {
+      const { data, isSuccess, isError } = useContractRead({
+        ...contractDetails,
+        functionName: 'getCampaign',
+        args: eventId,
+      })
 
-    return (
-      {data, isSuccess, isError}
-    )
-  }
+      // Function to recursively convert numbers to strings in an object
+    const stringifyNumbers = obj => {
+      for (const key in obj) {
+        if (typeof obj[key] === 'object') {
+          stringifyNumbers(obj[key]); // Recursively call for nested objects
+        } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+          obj[key] = obj[key].toString(); // Convert number or bigint to string
+        }
+      }
+    };
+
+    // Convert numbers to strings in the data object
+    if (data) {
+      stringifyNumbers(data);
+    }
+
+      return (
+        {data, isSuccess, isError}
+      )
+    }
+
+    export function ReadEvent(eventId) {
+      const { data, isSuccess, isError } = useContractRead({
+        ...contractDetails,
+        functionName: 'getEvent',
+        args: eventId,
+      })
+
+      // Function to recursively convert numbers to strings in an object
+    const stringifyNumbers = obj => {
+      for (const key in obj) {
+        if (typeof obj[key] === 'object') {
+          stringifyNumbers(obj[key]); // Recursively call for nested objects
+        } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+          obj[key] = obj[key].toString(); // Convert number or bigint to string
+        }
+      }
+    };
+
+    // Convert numbers to strings in the data object
+    if (data) {
+      stringifyNumbers(data);
+    }
+
+      return (
+        {data, isSuccess, isError}
+      )
+    }
 
   export function Deposit({ amount }) {
     const { data, isLoading, isSuccess, write } = useContractWrite({
@@ -151,12 +195,12 @@
     });
   }
 
-  export function JoinCampaign({campaignId}) { // Assuming default is public
+  export function JoinCampaign({eventId}) { // Assuming default is public
 
     const { data, isLoading, isSuccess, isError, error, write } = useContractWrite({
       ...contractDetails,
       functionName: 'joinCampaign',
-      args: [campaignId],
+      args: [eventId],
     });
 
   return (
@@ -165,7 +209,7 @@
   disabled={!write}
   onClick={() =>
     write({
-      args: [campaignId],
+      args: [eventId],
     })
   }
   style={{
@@ -206,11 +250,11 @@
     });
   }
 
-  export function ViewCampaignParticipants(campaignId) {
+  export function ViewCampaignParticipants(eventId) {
     const { data, isSuccess, isError } = useContractRead({
       ...contractDetails,
       functionName: 'getCampaignParticipants',
-      args: campaignId,  
+      args: eventId,  
     })
     return (
       {data, isSuccess, isError}
@@ -258,13 +302,29 @@
   };
 }
 
-  export function GetCampaignsByCreator() {
-    const {address} = useAccount({});
+  export function useGetCampaignsByCreator(creatorAddress) {
     const { data, isSuccess, isError } = useContractRead({
       ...contractDetails,
       functionName: 'getCampaignsByCreator',
-      args: [address],  
+      args: [creatorAddress],  
     })
+
+    // Function to recursively convert numbers to strings in an object
+  const stringifyNumbers = obj => {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        stringifyNumbers(obj[key]); // Recursively call for nested objects
+      } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+        obj[key] = Number(obj[key]); // Convert number or bigint to string
+      }
+    }
+  };
+
+  // Convert numbers to strings in the data object
+  if (data) {
+    stringifyNumbers(data);
+  }
+   
     return (
       {data, isSuccess, isError}
     )

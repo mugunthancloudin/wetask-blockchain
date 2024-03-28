@@ -18,7 +18,22 @@
     -ms-flex-align: center;
     align-items: center;
     background: #13191c;
+    border-radius: 10px; 
+    color: white;
+}
+
+.eventCards{
+    background: #13191c;
     border-radius: 10px;
+    color: white;
+}
+
+.eventInnerDiv{
+    background-color: rgb(37,42,44);
+}
+
+.eventBtn{
+    background-color: rgb(74,77,79);
     color: white;
 }
 

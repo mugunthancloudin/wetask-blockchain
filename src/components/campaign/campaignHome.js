@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ReadCampaign } from "../../services/blockchain";
+import { useReadCampaign } from "../../services/blockchain";
 import { Link } from "react-router-dom";
 import { isError } from "ethers";
 import { ethers } from 'ethers';
@@ -12,31 +12,15 @@ const CampaignHome = () => {
   const [accumulatedData, setAccumulatedData] = useState([]);
   const getCurrentTimestamp = () => Math.floor(Date.now() / 1000);
 
-  const { data, isSuccess } =  ReadCampaign(campaignId);
+  const { data, isSuccess } =  useReadCampaign(campaignId);
 
   // Log accumulatedData for debugging
   console.log("accumulatedData:", accumulatedData);
 
   useEffect(() => {
     if (isSuccess) {
-      const convertedData = {
-        ...data[0],
-        endTimestamp: data[0].endTimestamp.toString(),
-        id: data[0].id.toString(),
-        minimumBalance: data[0].minimumBalance.toString(),
-        minimumLevel: data[0].minimumLevel.toString(),
-        points: data[0].points.toString(),
-        numberOfWinners: data[0].numberOfWinners.toString(),
-        randomnessBlockNumber: data[0].randomnessBlockNumber.toString(),
-        startTimestamp: data[0].startTimestamp.toString(),
-        tokenReward: data[0].tokenReward.toString(),
-      };
-      setAccumulatedData((currentData) => [...currentData, convertedData]);
+      setAccumulatedData((currentData) => [...currentData, data[0]]);
       setCampaignId((currentId) => String(Number(currentId) + 1));
-    } else if (isError) {
-      console.log("completed fetching");
-    } else {
-      console.log("error");
     }
   }, [data, isSuccess, campaignId, accumulatedData]);
 
