@@ -89,7 +89,7 @@
     );
   }
 
-    export function ReadCampaign(eventId) {
+    export function useReadCampaign(eventId) {
       const { data, isSuccess, isError } = useContractRead({
         ...contractDetails,
         functionName: 'getCampaign',
@@ -302,7 +302,7 @@
   };
 }
 
-  export function GetCampaignsByCreator(creatorAddress) {
+  export function useGetCampaignsByCreator(creatorAddress) {
     const { data, isSuccess, isError } = useContractRead({
       ...contractDetails,
       functionName: 'getCampaignsByCreator',

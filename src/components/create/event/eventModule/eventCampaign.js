@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { GetCampaignsByCreator, ReadCampaign } from "../../../../services/blockchain";
+import {
+  useGetCampaignsByCreator,
+  useReadCampaign,
+} from "../../../../services/blockchain";
 import { CiCirclePlus } from "react-icons/ci";
 import { TbReload } from "react-icons/tb";
 import "./eventModule.css";
@@ -11,28 +14,30 @@ export default function EventCampaign() {
   const { address } = useAccount();
   const { data } = GetCampaignsByCreator(address);
   const [campaignId, setCampaignId] = useState(data); // Initialize campaignId state with data array
+  console.log(campaignId, data);
+  const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
   const [campaignDetails, setCampaignDetails] = useState([]);
   const [selectedCampaignIds, setSelectedCampaignIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  if (data === undefined || null) {
+    console.log("Connect wallet/No campaign available");
+  }
+
   useEffect(() => {
-    const fetchData = async () => {  
+    const fetchData = async () => {
       try {
-        if (campaignId.length > 0) {
-          const fetchCampaignDetails = await ReadCampaign(String(campaignId[0])); // Await for the asynchronous call to complete
-          setCampaignDetails((prevData) => [
-            ...prevData,
-            fetchCampaignDetails.data[0],
-          ]);
-          setCampaignId((prevIds) => prevIds.slice(1));
-        }
+        if(fetchCampaignDetails && campaignId.length > 0 ){
+        setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
+        setCampaignId(prevIds => prevIds.slice(1));        
+        } 
       } catch (error) {
         console.error("Error fetching campaign details:", error);
       }
     };
 
     fetchData();
-  }, [campaignId]); // Removed fetchCampaignDetails from the dependency array
+  }, [campaignId, fetchCampaignDetails, data, address]);
 
   console.log("campaign details:", campaignDetails);
 
