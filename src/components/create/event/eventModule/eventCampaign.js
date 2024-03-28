@@ -12,7 +12,7 @@ require("react-dom");
 
 export default function EventCampaign() {
   const { address } = useAccount();
-  const { data } = GetCampaignsByCreator(address);
+  const { data } = useGetCampaignsByCreator(address);
   const [campaignId, setCampaignId] = useState(data); // Initialize campaignId state with data array
   console.log(campaignId, data);
   const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
