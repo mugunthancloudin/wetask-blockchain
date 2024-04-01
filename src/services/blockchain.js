@@ -329,3 +329,85 @@
       {data, isSuccess, isError}
     )
   }
+
+
+  export function useReadEvent(eventId) {
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'events',
+      args: [eventId],
+    })
+
+  const stringifyNumbers = obj => {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        stringifyNumbers(obj[key]); // Recursively call for nested objects
+      } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+        obj[key] = obj[key].toString(); // Convert number or bigint to string
+      }
+    }
+  };
+
+  // Convert numbers to strings in the data object
+  if (data) {
+    stringifyNumbers(data);
+  }
+
+    return (
+      {data, isSuccess, isError}
+    )
+  }
+
+  export function useGetEventByCreator(creatorAddress) {
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'getEventsByHost',
+      args: [creatorAddress],  
+    })
+
+    // Function to recursively convert numbers to strings in an object
+  const stringifyNumbers = obj => {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        stringifyNumbers(obj[key]); // Recursively call for nested objects
+      } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+        obj[key] = Number(obj[key]); // Convert number or bigint to string
+      }
+    }
+  };
+
+  // Convert numbers to strings in the data object
+  if (data) {
+    stringifyNumbers(data);
+  }
+   
+    return (
+      {data, isSuccess, isError}
+    )
+  }
+
+  export function GetAllEvents(){
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'getAllEventIDs' 
+    })
+
+    const stringifyNumbers = obj => {
+      for (const key in obj) {
+        if (typeof obj[key] === 'object') {
+          stringifyNumbers(obj[key]); // Recursively call for nested objects
+        } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+          obj[key] = Number(obj[key]); // Convert number or bigint to string
+        }
+      }
+    };
+  
+    // Convert numbers to strings in the data object
+    if (data) {
+      stringifyNumbers(data);
+    }
+
+    return(
+      {data, isSuccess, isError}
+    )
+  }
