@@ -334,7 +334,7 @@
   export function useReadEvent(eventId) {
     const { data, isSuccess, isError } = useContractRead({
       ...contractDetails,
-      functionName: 'events',
+      functionName: 'getEvent',
       args: [eventId],
     })
 

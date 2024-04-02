@@ -12,10 +12,10 @@ require("react-dom");
 
 export default function EventCampaign() {
   const { address } = useAccount();
-  const { data } = useGetCampaignsByCreator(address);
-  const initialCampaignIdState = data ? data[0] : null;
+  const { data, isSuccess } = useGetCampaignsByCreator(address);
+  const initialCampaignIdState = isSuccess ? data : null;
   const [campaignId, setCampaignId] = useState(initialCampaignIdState); // Initialize campaignId state with data array
-  console.log(campaignId, data);
+  console.log(campaignId, initialCampaignIdState);
   const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
   const [campaignDetails, setCampaignDetails] = useState([]);
   const [selectedCampaignIds, setSelectedCampaignIds] = useState([]);
@@ -28,7 +28,7 @@ export default function EventCampaign() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if(fetchCampaignDetails && campaignId.length > 0 ){
+        if(initialCampaignIdState && campaignId.length > 0 ){
         setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
         setCampaignId(prevIds => prevIds.slice(1));        
         } 
@@ -38,7 +38,7 @@ export default function EventCampaign() {
     };
 
     fetchData();
-  }, [campaignId, fetchCampaignDetails, data, address]);
+  }, [campaignId, fetchCampaignDetails, data, address,initialCampaignIdState]);
 
   console.log("campaign details:", campaignDetails);
 

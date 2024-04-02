@@ -16,7 +16,7 @@ export default function EventDashboard() {
         <div className="col-lg-9 col-md-10 w-75 ">
           {/* scrollable-column */}
           <EventDocument />
-          <Event/>
+          {/* <Event/> */}
         </div>
       </div>
     </div>

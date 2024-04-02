@@ -5,7 +5,8 @@ import { useAccount } from 'wagmi';
 export default function Event() {
   const { address } = useAccount();
   const { data,isSuccess } = GetAllEvents();
-  const [eventId, setEventId] = useState(isSuccess ? data : null); // Ensure data is an appropriate initial value
+  const initialEventIdState = isSuccess ? data : null;
+  const [eventId, setEventId] = useState(initialEventIdState);
   const fetchEventDetails = useReadEvent(eventId ? String(eventId[0]) : null);
   const [eventDetails, setEventDetails] = useState([]);
 
@@ -30,5 +31,5 @@ export default function Event() {
     }
   }, [eventId, fetchEventDetails, data, address]); // Ensure all relevant variables are included in dependency array
 
-  console.log("campaign details:", eventDetails);
+  console.log("event details:", eventDetails);
 }
