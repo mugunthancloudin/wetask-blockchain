@@ -11,7 +11,7 @@ import { useAccount } from "wagmi";
 require("react-dom");
 
 export default function EventCampaign() {
-  const { address } = useAccount();
+  const { address, isConnected } = useAccount();
   const { data, isSuccess } = useGetCampaignsByCreator(address);
   const initialCampaignIdState = isSuccess ? data : null;
   const [campaignId, setCampaignId] = useState(initialCampaignIdState); // Initialize campaignId state with data array
@@ -20,10 +20,6 @@ export default function EventCampaign() {
   const [campaignDetails, setCampaignDetails] = useState([]);
   const [selectedCampaignIds, setSelectedCampaignIds] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  if (data === undefined || null) {
-    console.log("Connect wallet/No campaign available");
-  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +38,12 @@ export default function EventCampaign() {
 
   console.log("campaign details:", campaignDetails);
 
+  useEffect(() => {
+    if (data === undefined) {
+      console.log("No campaigns found");
+    }
+  }, [data]);
+
   const handleReload = () => {
     window.location.reload();
   };
@@ -53,7 +55,6 @@ export default function EventCampaign() {
         : [...prevIds, campaignId]
     );
   };
-
 
   return (
     <>
