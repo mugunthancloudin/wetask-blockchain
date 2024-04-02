@@ -156,7 +156,7 @@
         // Convert the amount to ethers format
         const amountInEth = ethers.parseEther(amount.toString());
   
-        // Call the write function with the converted amount
+        // Call the write function with the converted amount  
         write({ value: amountInEth });
       } else {
         console.log("Invalid amount");
@@ -326,6 +326,61 @@
   }
    
     return (
+      {data, isSuccess, isError}
+    )
+  }
+
+  export function useReadEvent(eventId) {
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'getEvent',
+      args: [eventId],
+    })
+
+  const stringifyNumbers = obj => {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        stringifyNumbers(obj[key]); // Recursively call for nested objects
+      } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+        obj[key] = obj[key].toString(); // Convert number or bigint to string
+      }
+    }
+  };
+
+  // Convert numbers to strings in the data object
+  if (data) {
+    stringifyNumbers(data);
+  }
+
+    return (
+      {data, isSuccess, isError}
+    )
+  }
+
+  //GetAllEvents
+
+  export function GetAllEvents(){
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'getAllEventIDs' 
+    })
+
+    const stringifyNumbers = obj => {
+      for (const key in obj) {
+        if (typeof obj[key] === 'object') {
+          stringifyNumbers(obj[key]); // Recursively call for nested objects
+        } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+          obj[key] = Number(obj[key]); // Convert number or bigint to string
+        }
+      }
+    };
+  
+    // Convert numbers to strings in the data object
+    if (data) {
+      stringifyNumbers(data);
+    }
+
+    return(
       {data, isSuccess, isError}
     )
   }

@@ -13,7 +13,8 @@ require("react-dom");
 export default function EventCampaign() {
   const { address } = useAccount();
   const { data } = useGetCampaignsByCreator(address);
-  const [campaignId, setCampaignId] = useState(data); // Initialize campaignId state with data array
+  const initialCampaignIdState = data ? data[0] : null;
+  const [campaignId, setCampaignId] = useState(initialCampaignIdState); // Initialize campaignId state with data array
   console.log(campaignId, data);
   const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
   const [campaignDetails, setCampaignDetails] = useState([]);
@@ -111,7 +112,7 @@ export default function EventCampaign() {
               </div>
             ) : (
               <div className="card eventCards mt-3">
-                <h3 className="text-center">TEest dao(1)</h3>
+                <h3 className="text-center">Campaigns(1)</h3>
 
                 {campaignDetails.map((item, index) => (
                 <div

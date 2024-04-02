@@ -2,6 +2,7 @@ import React from "react";
 import EventDocument from "./eventDocument";
 import EventSideNav from "./eventSideNav";
 import MyNavbar from "../../../navbar & footer/navbar/navbar";
+import Event from "../event";
 
 export default function EventDashboard() {
   return (
@@ -15,6 +16,7 @@ export default function EventDashboard() {
         <div className="col-lg-9 col-md-10 w-75 ">
           {/* scrollable-column */}
           <EventDocument />
+          <Event/>
         </div>
       </div>
     </div>
