@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../campaign/campModule/campaignModule.css"
-import { useFormContext } from "../../campaign/campModule/formprovider";
+import { useFormContext } from "./formprovider";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -112,7 +112,7 @@ export default function EventRewards() {
     try {
       console.log("Token\nSubmitted Data: ", JSON.stringify(data, null, 2));
       updateFormData({ tokenReward: data });
-      navigate(`/camp/campaigneligibility`);
+      // navigate(`/camp/campaigneligibility`);
     } catch (error) {
       console.error("Error in onSubmitOfToken:", error);
     }
@@ -131,7 +131,7 @@ export default function EventRewards() {
     try {
       alert("points\nSubmitted Data: " + JSON.stringify(data, null, 2));
       updateFormData({ pointReward: data });
-      navigate(`/camp/campaigneligibility`);
+      // navigate(`/camp/campaigneligibility`);
     } catch (error) {
       console.error("Error in onSubmitOfPoints:", error);
     }

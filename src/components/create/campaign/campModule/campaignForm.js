@@ -24,7 +24,7 @@
 //   };
 
 //   // Handle the final submission of the form
-//   const submitForm = () => {
+//   const submitForm = () => { 
 //     console.log('Final form data:', formData);
 //     // Here, you would typically make an API call to submit your formData
 //   };

@@ -14,7 +14,7 @@ export default function Task() {
   const [inputValues, setInputValues] = useState({});
   const [isHovered, setIsHovered] = useState(false);
   const { updateFormData } = useFormContext();
-
+  
   const handleInputChange = (id, value) => {
     setInputValues((prevValues) => ({
       ...prevValues,
@@ -24,7 +24,7 @@ export default function Task() {
 
   const addTask = (taskType) => {
     const newTaskId = tasks.length + 1;
-    const taskDetails = {
+     const taskDetails = {
       Post: {
         title: "Post a tweet with specified content",
         description: "Write your tweet content.",
@@ -134,7 +134,7 @@ export default function Task() {
                       onMouseLeave={() => setIsHovered(false)}
                     >
                       <div className=" col-lg-10 d-flex">
-                        <img
+                          <img
                           src={twitter}
                           alt="Twitter"
                           style={{ width: "30px", height: "30px" }}

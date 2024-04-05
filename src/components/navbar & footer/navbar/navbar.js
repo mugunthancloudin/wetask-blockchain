@@ -1,8 +1,8 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import { ethers } from 'ethers';
+import { ethers } from "ethers";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import "./navbar.css";
 import logo from "../../assets/navbar/wetask - logo.png";
@@ -15,7 +15,7 @@ import { TbEaseInOutControlPoints } from "react-icons/tb";
 
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { UserView, Deposit} from "../../../services/blockchain";
+import { UserView, Deposit } from "../../../services/blockchain";
 
 function MyNavbar() {
   const [show, setShow] = useState(false);
@@ -24,7 +24,6 @@ function MyNavbar() {
   const [userBalance, setUserBalance] = useState(0);
   const { data, isConnected, balance } = UserView();
   const [amount, setAmount] = useState("");
-  
 
   const handleAmountChange = (e) => {
     setAmount(e.target.value);
@@ -34,7 +33,6 @@ function MyNavbar() {
 
   const [userData, setUserData] = useState(null);
   const [twitterConnected, setTwitterConnected] = useState(false);
-
 
   useEffect(() => {
     if (isConnected && data) {
@@ -72,14 +70,16 @@ function MyNavbar() {
               className=" ms-3 d-none d-sm-block userDropDown"
             >
               <NavDropdown.Item href="#action/3.1" className="bg-dark ">
-*                <div className="d-flex text-white">
+                *{" "}
+                <div className="d-flex text-white">
                   <div>
                     <FaUser size={25} className="mt-3 me-3" />
                   </div>
                   <div>
                     <h6 className="navHeading">Space</h6>
                     <p className="navText">
-                      Showcase your project, campaigns, events <br></br> and engage users
+                      Showcase your project, campaigns, events <br></br> and
+                      engage users
                     </p>
                   </div>
                 </div>
@@ -88,7 +88,7 @@ function MyNavbar() {
                 <div className="d-flex text-white">
                   <div>
                     <FaGlobe size={25} className="mt-3 me-3" />
-                  </div>  
+                  </div>
                   <div>
                     <h6 className="navHeading">Campaign</h6>
                     <p className="navText">
@@ -97,7 +97,10 @@ function MyNavbar() {
                   </div>
                 </div>
               </NavDropdown.Item>
-              <NavDropdown.Item href="/event/eventBasicInfo" className="bg-dark">
+              <NavDropdown.Item
+                href="/event/eventBasicInfo"
+                className="bg-dark"
+              >
                 <div className="d-flex text-white">
                   <div>
                     <FaNoteSticky size={25} className="mt-3 me-3" />
@@ -105,8 +108,8 @@ function MyNavbar() {
                   <div>
                     <h6 className="navHeading">Event</h6>
                     <p className="navText">
-                      Aggregate multiple campaigns and expose <br></br> to a wider range
-                      of users
+                      Aggregate multiple campaigns and expose <br></br> to a
+                      wider range of users
                     </p>
                   </div>
                 </div>
@@ -119,7 +122,8 @@ function MyNavbar() {
                   <div>
                     <h6 className="navHeading">Referral</h6>
                     <p className="navText">Ask users to refer your campaigns</p>
-741                  </div>
+                    {" "}
+                  </div>
                 </div>
               </NavDropdown.Item>
             </NavDropdown>
@@ -148,7 +152,6 @@ function MyNavbar() {
                         </div>
                       )}
                     </div>
-
                     <div className="d-flex mt-4">
                       <div>
                         <SiLevelsdotfyi size={20} className="me-3" />
@@ -160,7 +163,7 @@ function MyNavbar() {
                         </div>
                       )}
                     </div>
-§
+                    
                     <div className="d-flex mt-4">
                       <div>
                         <TbEaseInOutControlPoints size={25} className="me-3" />
@@ -172,7 +175,6 @@ function MyNavbar() {
                         </div>
                       )}
                     </div>
-
                     <div className="d-flex mt-4" onClick={handleShow}>
                       <div>
                         <FaNoteSticky size={25} className="me-3" />
@@ -181,7 +183,6 @@ function MyNavbar() {
                         <h6 className="navHeading">Deposit</h6>
                       </div>
                     </div>
-
                     <Modal
                       show={show}
                       onHide={handleClose}
@@ -193,7 +194,6 @@ function MyNavbar() {
                         <Modal.Title>Add Money To Wallet</Modal.Title>
                       </Modal.Header>
                       <Modal.Body className="modalbody" closeButton>
-
                         <h4 className="mb-3">Wallet Ballance </h4>
                         <input
                           type="number"
@@ -210,19 +210,17 @@ function MyNavbar() {
                         <Deposit amount={amount} />
                       </Modal.Footer>
                     </Modal>
-
                   </NavDropdown.Item>
                 </NavDropdown>
               ) : (
                 ""
               )}
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <w3m-button className="Btn" />
+              <w3m-button className="Btn" />
 
               {/* <button className="Btn"></button> */}
             </Nav.Link>
           </Nav>
-
         </Navbar.Collapse>
       </Container>
     </Navbar>

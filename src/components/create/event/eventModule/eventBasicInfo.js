@@ -1,16 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useFormContext } from "../../campaign/campModule/formprovider";
+import { useFormContext } from "./formprovider";
 import { Editor, EditorState, RichUtils } from "draft-js";
 import {
   MdOutlineCloudUpload,
-  MdFormatBold,
-  MdFormatItalic,
-  MdFormatUnderlined,
-  MdFormatStrikethrough,
-  MdFormatAlignLeft,
-  MdFormatAlignCenter,
-  MdFormatAlignRight,
-  MdFormatAlignJustify,
 } from "react-icons/md";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -18,8 +10,6 @@ import * as yup from "yup";
 import axios from "axios";
 import FormData from 'form-data';
 import { useNavigate } from "react-router-dom";
-import { FaRegEyeSlash } from "react-icons/fa";
-import { IoEyeSharp } from "react-icons/io5";
 import "../../campaign/campModule/campaignModule.css"
 import "draft-js/dist/Draft.css";
 
@@ -31,10 +21,6 @@ const BasicInfoSchema = yup.object().shape({
   campaignName: yup.string().required("*Please enter your Campaign name."),
   // campaignStartDate: yup.date().required("*Please select a start date."),
   // campaignExpairyDate: yup.date().required("*Please select an expiry date."),
-  // campDescription: yup
-  //   .string()
-  //   .required("*Please enter your Campaign description."),
-
   // campaignCoverImage: yup
   //   .mixed()
   //   .required("*Please upload a campaign cover image")
@@ -60,17 +46,13 @@ const BasicInfoSchema = yup.object().shape({
 });
 
 export default function EventBasicInfo() {
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
-  const [campaignDescription, setCampaignDescription] = useState("");
   const [previewSrc, setPreviewSrc] = useState("");
-  const [ipfsHash, setIpfsHash] = useState("");
-  const [wordCount, setWordCount] = useState(0);
-  const [visibility, setVisibility] = useState("public");
-  // const [fileInputKey, setFileInputKey] = useState(Date.now());
+  const [ipfsHash, setIpfsHash] = useState("");;
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const { allFormData, updateFormData } = useFormContext();
-  // const { updateFormData } = useFormContext();
+  // const { allFormData, updateFormData } = useFormContext();
+  const { updateFormData } = useFormContext();
+  console.log(updateFormData);
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
@@ -118,31 +100,6 @@ export default function EventBasicInfo() {
     fileInputRef.current.click();
   };
 
-  const handleEditorChange = (newEditorState) => {
-    setEditorState(newEditorState);
-
-    const plainText = newEditorState.getCurrentContent().getPlainText("");
-    setCampaignDescription(plainText);
-
-    const charCount = plainText.length;
-    setWordCount(charCount);
-  };
- 
-  const toggleVisibility = (choice) => setVisibility(choice);
-
-  const handleKeyCommand = (command, editorState) => {
-    const newState = RichUtils.handleKeyCommand(editorState, command);
-    if (newState) {
-      setEditorState(newState);
-      return "handled";
-    }
-    return "not-handled";
-  };
-
-  const applyStyle = (style) => {
-    setEditorState(RichUtils.toggleInlineStyle(editorState, style));
-  };
-
   const {
     control,
     register,
@@ -160,8 +117,6 @@ export default function EventBasicInfo() {
   
       const submittedData = {
         ...data,
-        campaignDescription,
-        visibility,
         campaignStartDate: campaignStartDateEpoch,
         campaignExpairyDate: campaignExpairyDateEpoch,
         coverImageIpfsCid: ipfsHash,
@@ -174,18 +129,13 @@ export default function EventBasicInfo() {
       // Assuming updateFormData is a function to update the context or perform an API call
       const newData = { BasicInfo: submittedData };
       updateFormData(newData);
-  
-      navigate(`/camp/campaignrewards`);
+      
+  console.log("mfj");
+      navigate(`/event/eventcampaign`);
     } catch (error) {
       console.error("Error in onSubmitOfCampaignDetails:", error);
     }
   };
-  
-
-  useEffect(() => {
-    // Perform actions after state updates
-    console.log("campaignDescription updated:", campaignDescription);
-  }, [campaignDescription]);
 
   return (
     <div className="container">
@@ -230,7 +180,7 @@ export default function EventBasicInfo() {
                 <div className="col-lg-6">
                   <h6 className="">Campiagn Emd</h6>
                   <input
-                    type="datetime-local"
+                     type="datetime-local"
                     className="form-control mt-3"
                     {...register("campaignExpairyDate")}
                   />
@@ -272,10 +222,9 @@ export default function EventBasicInfo() {
                     accept=".jpg,.png,.svg,.webp,.gif"
                     required
                   />
-                </div>
+                </div>  
                </div>
             </div>
-
             <div className="buttons mt-5">
               <button className="save-draft">Save as Draft</button>
               <button type="submit" className="next">
@@ -283,7 +232,7 @@ export default function EventBasicInfo() {
               </button>
             </div>
           </form>
-        </div>
+           </div>
       </div>
     </div>    
   );

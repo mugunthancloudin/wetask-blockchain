@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Navigate } from "react-router";
-import { FormProvider } from '../../campaign/campModule/formprovider';
+import { FormProvider } from '../eventModule/formprovider';
 import EventBasicInfo from '../eventModule/eventBasicInfo';
 import EventCampaign from '../eventModule/eventCampaign';
 import EventRewards from '../eventModule/eventRewards';
