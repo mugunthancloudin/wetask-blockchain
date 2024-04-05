@@ -30,7 +30,7 @@ export default function EventCampaign() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (fetchCampaignDetails && campaignId.length > 0) {
+        if (data && data !== undefined && campaignId.length > 0) {
           setCampaignDetails((prevData) => [
             ...prevData,
             fetchCampaignDetails.data[0],

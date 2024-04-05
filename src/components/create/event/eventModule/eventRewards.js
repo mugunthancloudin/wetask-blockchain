@@ -309,7 +309,7 @@ export default function EventRewards() {
                           type="number"
                           name="rewardToken"
                           id="RewardToken"
-                          min="0.0001" max={data.assets }
+                          min="0.0001" max={data !== undefined ? data.assets : ""}
                           className={`form-control ${
                             tokenErrors.rewardToken ? "is-invalid" : ""
                           }`}

@@ -17,7 +17,7 @@ export default function Event() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (fetchEventDetails && eventId && eventId.length > 0) { // Check eventId existence and length
+        if (data && data !== undefined && fetchEventDetails && eventId && eventId.length > 0) { // Check eventId existence and length
           setEventDetails(prevData => [...prevData, fetchEventDetails.data[0]]);
           setEventId(prevIds => prevIds.slice(1));        
         } 
