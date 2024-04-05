@@ -94,7 +94,7 @@ export default function EventRewards() {
   const toggleRewardDistributionSelectionOpen = () => {
     setRewardDistributionIsOpen(!rewardDistributionIsOpen);
   };
-
+ 
   const toogleDistributedBy = () => {
     setDistributedByisOpen(!distributedByisOpen);
   };
@@ -128,12 +128,12 @@ export default function EventRewards() {
   });
 
   const onSubmitOfPoints = (data) => {
-    try {
+     try {
       alert("points\nSubmitted Data: " + JSON.stringify(data, null, 2));
       updateFormData({ pointReward: data });
       // navigate(`/camp/campaigneligibility`);
     } catch (error) {
-      console.error("Error in onSubmitOfPoints:", error);
+       console.error("Error in onSubmitOfPoints:", error);
     }
   };
 
@@ -211,7 +211,7 @@ export default function EventRewards() {
                                     className="dropdown-item"
                                     onClick={() => {
                                       field.onChange("Binance Smart Chain");
-                                      toggleNetworkSelectionOpen();
+                                       toggleNetworkSelectionOpen();
                                     }}
                                   >
                                     Binance Smart Chain
