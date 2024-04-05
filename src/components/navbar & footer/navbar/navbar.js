@@ -122,7 +122,7 @@ function MyNavbar() {
                   <div>
                     <h6 className="navHeading">Referral</h6>
                     <p className="navText">Ask users to refer your campaigns</p>
-                    741{" "}
+                    {" "}
                   </div>
                 </div>
               </NavDropdown.Item>

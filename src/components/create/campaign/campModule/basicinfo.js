@@ -68,8 +68,9 @@ export default function BasicInfo() {
   // const [fileInputKey, setFileInputKey] = useState(Date.now());
   const fileInputRef = useRef(null);
   const navigate = useNavigate();
-  const { allFormData, updateFormData } = useFormContext();
-  // const { updateFormData } = useFormContext();
+  // const { allFormData, updateFormData } = useFormContext();
+  const { updateFormData } = useFormContext();
+  console.log(updateFormData);
 
   const handleFileChange = async (event) => {
     const file = event.target.files[0];
