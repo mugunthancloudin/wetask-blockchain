@@ -19,7 +19,9 @@ export default function EventCampaign() {
   const [campaignId, setCampaignId] = useState(initialCampaignIdState); // Initialize campaignId state with data array
   console.log(campaignId, initialCampaignIdState);
   const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
+  console.log(fetchCampaignDetails);
   const [campaignDetails, setCampaignDetails] = useState([]);
+  console.log(campaignDetails);
   const [selectedCampaignIds, setSelectedCampaignIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [minCampaigns, setMinCampaigns] = useState(0); // State to hold minimum number of campaigns
@@ -28,15 +30,8 @@ export default function EventCampaign() {
   console.log(updateFormData);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async () =>  {
       try {
-        if (fetchCampaignDetails && campaignId.length > 0) {
-          setCampaignDetails((prevData) => [
-            ...prevData,
-            fetchCampaignDetails.data[0],
-          ]);
-          setCampaignId((prevIds) => prevIds.slice(1));
-        }
         if(initialCampaignIdState && campaignId.length > 0 ){
         setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
         setCampaignId(prevIds => prevIds.slice(1));        
@@ -122,7 +117,7 @@ export default function EventCampaign() {
                         height="15px"
                       />
                       <div className="link-button__label">Refresh</div>
-                    </div>
+                   </div>
                   </div>
                   <hr className="hrLine"></hr>
                   <div className="disabled-tip  p-2">
@@ -140,7 +135,7 @@ export default function EventCampaign() {
                     <div className="disabled-tip__line">
                       · with tasks rewarded with points if the event winners are
                       selected based on point ranking
-                    </div>
+                     </div>
                   </div>
                 </div>
               ) : (
