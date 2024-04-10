@@ -2,7 +2,7 @@
   import React, { useState } from 'react';
   import { ethers, isError } from 'ethers';
   import abi from '../abis/src/contracts/Taskon.sol/CampaignContract.json';
-
+  
   const contractDetails = {
     address: '0x348Cfa7DBE7A6c14775ddDc28beD7d07efa9943a',
     abi: abi.abi,
@@ -410,4 +410,52 @@
     return(
       {data, isSuccess, isError}
     )
+  }
+
+
+  export function Spacecount(){
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'spaceCount'
+    })
+
+  const stringifyNumbers = obj => {
+    for (const key in obj) {
+      if (typeof obj[key] === 'object') {
+        stringifyNumbers(obj[key]); // Recursively call for nested objects
+      } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+        obj[key] = Number(obj[key]); // Convert number or bigint to string
+      }
+    }
+  };
+
+  if(data){
+    stringifyNumbers(data)
+  }
+
+    return(
+      {data}
+    )
+  }
+
+  export function ReadSpace(count){
+    const argIds = [];
+    
+    for (let i = 1; i <= count; i++) {
+      argIds.push(i);
+    }
+    console.log(argIds)
+      const { data, fetchNextPage } = useContractInfiniteReads({
+        cacheKey: 'SpaceAttributes',
+        contracts() {
+          const contractsArray = argIds.map((param) => {
+            const args = [param] ;
+            return [
+              { ...contractDetails, functionName: 'spaces', args },
+            ];
+          });
+          return contractsArray.flat();
+        },
+      });
+  return(data)
   }

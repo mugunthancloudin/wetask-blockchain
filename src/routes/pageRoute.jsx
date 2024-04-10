@@ -28,7 +28,7 @@ export default function PageRoute() {
         {/* <Route path="/campaign/:id" render={(props) => <CampaignDetails {...props} accumulatedData={accumulatedData} />} /> */}
         {/* <Route path="/campaign" element={<Campaign />} /> */}
         <Route path="/campaign/:id" element={<CampaignDetails />} />
-        <Route path="/space" element={<UserDetails />} />
+        <Route path="/space" element={<Space />} />
         <Route path="/event" element={<Event />} />
   
         {/* create campaign routes */}
