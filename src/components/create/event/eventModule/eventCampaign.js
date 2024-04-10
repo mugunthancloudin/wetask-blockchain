@@ -15,10 +15,15 @@ require("react-dom");
 export default function EventCampaign() {
   const { address, isConnected } = useAccount();
   const { data, isSuccess } = useGetCampaignsByCreator(address);
-  const initialCampaignIdState = isSuccess ? data : null;
+  let initialCampaignIdState = null;
+  if (data){
+  console.log("No campaign available");
+  initialCampaignIdState = data;
+}
+  else{alert("No campaigns available")}
   const [campaignId, setCampaignId] = useState(initialCampaignIdState); // Initialize campaignId state with data array
   console.log(campaignId, initialCampaignIdState);
-  const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
+  const fetchCampaignDetails = useReadCampaign(data ? String(campaignId[0]) : (console.log("No campaign available")));
   console.log(fetchCampaignDetails);
   const [campaignDetails, setCampaignDetails] = useState([]);
   console.log(campaignDetails);
@@ -28,11 +33,11 @@ export default function EventCampaign() {
   const { updateFormData } = useFormContext();
   const navigate = useNavigate();
   console.log(updateFormData);
-
+  
   useEffect(() => {
     const fetchData = async () =>  {
       try {
-        if(initialCampaignIdState && campaignId.length > 0 ){
+        if(fetchCampaignDetails.data && campaignId.length > 0 ){
         setCampaignDetails(prevData => [...prevData, fetchCampaignDetails.data[0]]);
         setCampaignId(prevIds => prevIds.slice(1));        
         } 

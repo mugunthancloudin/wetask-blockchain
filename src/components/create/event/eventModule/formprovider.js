@@ -10,7 +10,7 @@ const [allFormData, setAllFormData] = useState({});
 const [isFormDataCompleted, setIsFormDataCompleted] = useState(false);
 
 useEffect(() => {
-  const completed = Object.keys(allFormData).length === 4;
+  const completed = Object.keys(allFormData).length === 3;
   setIsFormDataCompleted(completed);
 }, [allFormData]);  
 
