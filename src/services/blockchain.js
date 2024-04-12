@@ -419,24 +419,9 @@
       functionName: 'spaceCount'
     })
 
-  const stringifyNumbers = obj => {
-    for (const key in obj) {
-      if (typeof obj[key] === 'object') {
-        stringifyNumbers(obj[key]); // Recursively call for nested objects
-      } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
-        obj[key] = Number(obj[key]); // Convert number or bigint to string
-      }
-    }
-  };
-
-  if(data){
-    stringifyNumbers(data)
+     return {data};
   }
 
-    return(
-      {data}
-    )
-  }
 
   // export function ReadSpace(count){
   //   const argIds = [];
@@ -460,21 +445,31 @@
   // return(data)
   // }
 
+
   export function ReadSpace(count){
-    const { data, fetchNextPage } = useContractInfiniteReads({
-      cacheKey: 'SpaceAttributes',
-      ...paginatedIndexesConfig(
-        (index) => {
-          return [
-            {
-              ...contractDetails,
-              functionName: 'spaces',
-              args: [index] ,
-            },
-          ]
-        },
-        { start: 1, perPage: count, direction: 'increment' },
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'spaces',
+      args: [count],
+    })
+    const stringifyNumbers = obj => {
+      for (const key in obj) {
+        if (typeof obj[key] === 'object') {
+          stringifyNumbers(obj[key]); // Recursively call for nested objects
+        } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+          obj[key] = obj[key].toString(); // Convert number or bigint to string
+        }
+      }
+    };
+
+    // Convert numbers to strings in the data object
+    if (data) {
+      stringifyNumbers(data);
+    }
+
+      return (
+        {data, isSuccess, isError}
       )
-      });
-      return data;
   }
+
+
