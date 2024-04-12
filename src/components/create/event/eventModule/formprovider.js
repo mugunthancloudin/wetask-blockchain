@@ -21,7 +21,7 @@ console.log(allFormData);
   return (
     <FormContext.Provider value={{ allFormData, updateFormData }}>
       {children}
-      {isFormDataCompleted && <CreateEvent campaignData={allFormData} />}
+      {isFormDataCompleted && <CreateEvent eventData={allFormData} />}
     </FormContext.Provider>
   );
 };

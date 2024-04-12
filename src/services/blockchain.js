@@ -176,24 +176,14 @@
     let numberOfWinners=0;
 
     //pointreward check
-    if(!eventDatas.pointReward){
+    if(eventDatas.tokenReward){
       tokenReward=ethers.parseEther(eventDatas.tokenReward.rewardToken.toString());
       numberOfWinners=eventDatas.tokenReward.totalReward;
     }
-    if(!eventDatas.tokenReward){
+    if(eventDatas.pointReward){
       pointReward=eventDatas.pointReward.rewardPoint;
       numberOfWinners=eventDatas.pointReward.totalReward;
     }
-
-    console.log(eventDatas.BasicInfo.campaignName);
-    console.log(eventDatas.BasicInfo.campaignStartDate);
-    console.log(eventDatas.BasicInfo.campaignExpairyDate);
-    console.log(eventDatas.BasicInfo.coverImageIpfsCid);
-    console.log(tokenReward.toString());
-    console.log(eventDatas.minCampaigns);
-    console.log(pointReward);
-    console.log(numberOfWinners);
-    console.log(eventDatas.selectedCampaignIds);
 
     const handleCreateEventClick = () => {
       if(!eventData){
