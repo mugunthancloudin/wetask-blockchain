@@ -8,7 +8,7 @@ import { useAccount } from 'wagmi'
 export default function Space() {
   const count = Spacecount();
   const data = ReadSpace(parseInt(count.data));
-  console.log(data.pages[0]);
+  console.log(data.pages[0])
 
   return (
     <>

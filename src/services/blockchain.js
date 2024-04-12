@@ -438,24 +438,43 @@
     )
   }
 
-  export function ReadSpace(count){
-    const argIds = [];
+  // export function ReadSpace(count){
+  //   const argIds = [];
     
-    for (let i = 1; i <= count; i++) {
-      argIds.push(i);
-    }
-    console.log(argIds)
-      const { data, fetchNextPage } = useContractInfiniteReads({
-        cacheKey: 'SpaceAttributes',
-        contracts() {
-          const contractsArray = argIds.map((param) => {
-            const args = [param] ;
-            return [
-              { ...contractDetails, functionName: 'spaces', args },
-            ];
-          });
-          return contractsArray.flat();
+  //   for (let i = 1; i <= count; i++) {
+  //     argIds.push(i);
+  //   }
+  //   console.log(argIds)
+  //     const { data, fetchNextPage } = useContractInfiniteReads({
+  //       cacheKey: 'SpaceAttributes',
+  //       contracts() {
+  //         const contractsArray = argIds.map((param) => {
+  //           const args = [param] ;
+  //           return [
+  //             { ...contractDetails, functionName: 'spaces', args },
+  //           ];
+  //         });
+  //         return contractsArray.flat();
+  //       },
+  //     });
+  // return(data)
+  // }
+
+  export function ReadSpace(count){
+    const { data, fetchNextPage } = useContractInfiniteReads({
+      cacheKey: 'SpaceAttributes',
+      ...paginatedIndexesConfig(
+        (index) => {
+          return [
+            {
+              ...contractDetails,
+              functionName: 'spaces',
+              args: [index] ,
+            },
+          ]
         },
+        { start: 1, perPage: count, direction: 'increment' },
+      )
       });
-  return(data)
+      return data;
   }
