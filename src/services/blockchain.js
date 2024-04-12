@@ -10,19 +10,6 @@
 
   export function CreateCampaign(campaignData) { // Assuming default is public
     const campaignDatas=campaignData.campaignData;
-    // console.log(campaignDatas.BasicInfo.campaignName);
-    // console.log(campaignDatas.BasicInfo.campaignStartDate);
-    // console.log(campaignDatas.BasicInfo.campaignExpairyDate);
-    // console.log(campaignDatas.BasicInfo.coverImageIpfsCid);
-    // console.log(campaignDatas.BasicInfo.campaignDescription);
-    // console.log(campaignDatas.pointReward.totalReward);
-    // console.log(campaignDatas.pointReward.rewardPoint);
-    // console.log(ethers.parseEther(campaignDatas.eligibility.minBalance.toString()));
-    // console.log(campaignDatas.eligibility.taskOnLevel);
-    // console.log(campaignDatas.BasicInfo.visibility);
-    // console.log(campaignDatas.submittedData.cid);
-
-
     const { data, isLoading, isSuccess,isError, write } = useContractWrite({
       ...contractDetails,
       functionName: 'createCampaign',
@@ -177,13 +164,58 @@
     );
   }
 
-  export function CreateEvent() { // Assuming default is public
-
+  export function CreateEvent(eventData) { // Assuming default is public
+    const eventDatas=eventData.eventData;
     const { data, isLoading, isSuccess, write } = useContractWrite({
       ...contractDetails,
       functionName: 'createEvent',
-      args: [],
     });
+
+    let pointReward=0;
+    let tokenReward=0;
+    let numberOfWinners=0;
+
+    //pointreward check
+    if(eventDatas.tokenReward){
+      tokenReward=ethers.parseEther(eventDatas.tokenReward.rewardToken.toString());
+      numberOfWinners=eventDatas.tokenReward.totalReward;
+    }
+    if(eventDatas.pointReward){
+      pointReward=eventDatas.pointReward.rewardPoint;
+      numberOfWinners=eventDatas.pointReward.totalReward;
+    }
+
+    const handleCreateEventClick = () => {
+      if(!eventData){
+        return "no event";}
+      write({
+        args: [
+          eventDatas.BasicInfo.campaignName,       // name,
+          eventDatas.BasicInfo.campaignStartDate,  // startTimestamp,
+          eventDatas.BasicInfo.campaignExpairyDate,// endTimestamp,
+          eventDatas.BasicInfo.coverImageIpfsCid,  // imageCID,
+          "",                                      // description
+          // eventDatas.BasicInfo.campaignDescription,// description : BasicInfo.description,
+          tokenReward.toString(),                     // tokenReward,
+          eventDatas.minCampaigns,                    // minimumCampaigns to be complete
+          pointReward,                                // points,
+          numberOfWinners,                            // numberOfWinners,
+          eventDatas.selectedCampaignIds,             // campaignIds to add
+        ],
+      }); 
+    };
+    return (
+      <div>
+        <button
+          disabled={isLoading || !write}
+          onClick={handleCreateEventClick}
+        >
+          {isLoading ? 'Processing...' : 'Create Event'}
+        </button>
+        {isLoading && <div>Transaction is processing. Check your wallet.</div>}
+        {isSuccess && <div>Transaction successful: {JSON.stringify(data)}</div>}
+      </div>
+    );
   }
 
   export function CreateSpace() { // Assuming default is public
