@@ -17,11 +17,11 @@ export default function EventCampaign() {
   const { data, isSuccess } = useGetCampaignsByCreator(address);
   const initialCampaignIdState = isSuccess ? data : null;
   const [campaignId, setCampaignId] = useState(initialCampaignIdState); // Initialize campaignId state with data array
-  console.log(campaignId, initialCampaignIdState);
+  // console.log(campaignId, initialCampaignIdState);
   const fetchCampaignDetails = useReadCampaign(campaignId ? String(campaignId[0]) : null);
-  console.log(fetchCampaignDetails);
+  // console.log(fetchCampaignDetails);
   const [campaignDetails, setCampaignDetails] = useState([]);
-  console.log(campaignDetails);
+  // console.log(campaignDetails);
   const [selectedCampaignIds, setSelectedCampaignIds] = useState([]);
   const [loading, setLoading] = useState(true);
   const [minCampaigns, setMinCampaigns] = useState(0); // State to hold minimum number of campaigns
@@ -44,7 +44,7 @@ export default function EventCampaign() {
     fetchData();
   }, [campaignId, fetchCampaignDetails, data, address,initialCampaignIdState]);
 
-  console.log("campaign details:", campaignDetails);
+  // console.log("campaign details:", campaignDetails);
 
   useEffect(() => {
     if (data === undefined) {

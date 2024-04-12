@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { CreateCampaign } from '../../../../services/blockchain';
 
 
@@ -10,11 +10,12 @@ const [allFormData, setAllFormData] = useState({});
 const [isFormDataCompleted, setIsFormDataCompleted] = useState(false);
 
 useEffect(() => {
-  const completed = Object.keys(allFormData).length === 4;
+  const completed = Object.keys(allFormData).length === 3;
   setIsFormDataCompleted(completed);
 }, [allFormData]);  
 
 console.log(allFormData);
+
   const updateFormData = (newData) => {
     setAllFormData(prevData => ({ ...prevData, ...newData }));
   };
@@ -22,7 +23,8 @@ console.log(allFormData);
   return (
     <FormContext.Provider value={{ allFormData, updateFormData }}>
       {children}
-      {isFormDataCompleted && <CreateCampaign campaignData={allFormData} />}
-    </FormContext.Provider>
-  );
-};
+      {isFormDataCompleted}
+      {/* {isFormDat aCompleted && <CreateCampaign campaignData={allFormData} />} */}
+        </FormContext.Provider>
+    );
+};   
