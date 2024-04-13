@@ -66,7 +66,7 @@ export default function EventRewards() {
   const [distributedByisOpen, setDistributedByisOpen] = useState(false);
   const { data} = UserView();
 
-  console.log(data);
+  // console.log(data);
 
   const navigate = useNavigate();
   const { updateFormData } = useFormContext();
