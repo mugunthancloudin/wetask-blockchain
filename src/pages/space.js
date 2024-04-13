@@ -7,18 +7,18 @@ import { ReadSpace, Spacecount} from '../services/blockchain'
 import { useAccount } from 'wagmi'
 export default function Space() {
 
-  // const [spaceId, setSpaceId] = useState('1');
-  // const [accumulatedData, setAccumulatedData] = useState([]);
+  const [spaceId, setSpaceId] = useState('1');
+  const [accumulatedData, setAccumulatedData] = useState([]);
   
-  // const {data , isSuccess} = ReadSpace(spaceId)
-  // useEffect(() => {
-  //       if (isSuccess && data.length >0) {
-  //         setAccumulatedData((currentData) => [...currentData, data[0]]);
-  //         setSpaceId((currentId) => String(Number(currentId) + 1));
-  //       }
-  //     } , [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
+  const {data , isSuccess} = ReadSpace(spaceId)
+  useEffect(() => {
+        if (isSuccess && data[0].name) {
+          setAccumulatedData((currentData) => [...currentData, data[0]]);
+          setSpaceId((currentId) => String(Number(currentId) + 1));
+        }
+      } , [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
 
-  //  console.log("accumulatedData:", accumulatedData);
+    console.log("SpaceData:", accumulatedData);
 
   return (
     <>
