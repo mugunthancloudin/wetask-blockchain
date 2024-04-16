@@ -21,7 +21,8 @@ export default function Eventhome() {
         <div className="row mt-3">
           <div className="col-lg-3">
           <div className="card eventCardBg">
-            <h6>Goblin Saga</h6>
+            <img src={eventImg} alt="cardImg" />
+            <h6 className="mt-3">Goblin Saga</h6>
             <h5>Goblin Saga - Festival</h5>
             <button className="eventBtn">WL</button>
           </div>
