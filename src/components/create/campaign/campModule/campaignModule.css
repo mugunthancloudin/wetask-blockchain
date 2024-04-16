@@ -131,19 +131,21 @@
   justify-content: space-around;
 }
 
-button {
+/* button {
   border: none;
   padding: 10px 20px;
   border-radius: 8px;
-  cursor: pointer;
-  
-}
+  cursor: pointer; 
+} */
 
 .save-draft {
   background: white;
   color: black;
   width: 30%;
-  
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer; 
 }
 
 .next {
@@ -155,6 +157,10 @@ button {
   );
   color:black;
  margin-left: 3%;
+ border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer; 
 }
 
 .toggle-option {

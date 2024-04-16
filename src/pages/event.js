@@ -3,7 +3,9 @@ import MyNavbar from '../components/navbar & footer/navbar/navbar'
 import UnderConstruction from '../components/underContruction/underConstruction'
 import Footer from '../components/navbar & footer/footer/footer'
 import EventCampaign from "../components/create/event/eventModule/eventCampaign.js"
-import { useReadEvent} from "../services/blockchain.js"
+import {GetAllEvents, useReadEvent} from "../services/blockchain.js"
+import { useAccount } from 'wagmi'
+import Eventhome from '../components/event/eventhome.js'
 export default function Event() {
   const [eventId, setEventId] = useState("1");
   const [accumulatedData, setAccumulatedData] = useState([]);
@@ -22,8 +24,10 @@ export default function Event() {
 
   return (
     <>
+    
       <MyNavbar/>
-      <UnderConstruction/>
+      <Eventhome/>
+      {/* <UnderConstruction/> */}
       {/* <EventCampaign /> */}
       <Footer/>
     </>

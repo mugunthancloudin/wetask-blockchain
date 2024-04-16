@@ -1,0 +1,26 @@
+.eventMainBg{
+    background-color: black;
+}
+
+.eventButton{
+    background-color: black;
+    color: white;
+    border: none;
+    border-bottom: 2px solid green;
+    margin-left: 10px;
+    padding-bottom: 8px;
+}
+
+.eventCardBg{
+    background-color: rgb(29,33,35);
+    color: white;
+    padding: 20px;
+}
+
+.eventBtn{
+    width: fit-content;
+    border: none;
+    background-color: aliceblue;
+    color: green;
+    font-weight: 900;
+}
