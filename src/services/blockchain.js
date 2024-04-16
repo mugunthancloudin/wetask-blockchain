@@ -444,38 +444,21 @@
     )
   }
 
-
-  export function Spacecount(){
-    const { data, isSuccess, isError } = useContractRead({
-      ...contractDetails,
-      functionName: 'spaceCount'
-    })
-
-     return {data};
+  export function SpaceCampaigns(ids){
+      const { data, fetchNextPage } = useContractInfiniteReads({
+        cacheKey: 'campaignAttributes',
+        contracts() {
+          const contractsArray = ids.map((param) => {
+            const args = param ;
+            return [
+              { ...contractDetails, functionName: 'getCampaign', args },
+            ];
+          });
+          return contractsArray.flat();
+        },
+      });
+  return(data)
   }
-
-
-  // export function ReadSpace(count){
-  //   const argIds = [];
-    
-  //   for (let i = 1; i <= count; i++) {
-  //     argIds.push(i);
-  //   }
-  //   console.log(argIds)
-  //     const { data, fetchNextPage } = useContractInfiniteReads({
-  //       cacheKey: 'SpaceAttributes',
-  //       contracts() {
-  //         const contractsArray = argIds.map((param) => {
-  //           const args = [param] ;
-  //           return [
-  //             { ...contractDetails, functionName: 'spaces', args },
-  //           ];
-  //         });
-  //         return contractsArray.flat();
-  //       },
-  //     });
-  // return(data)
-  // }
 
 
   export function ReadSpace(count){
@@ -489,5 +472,22 @@
         {data, isSuccess, isError}
       )
   }
+
+
+  export function SpaceEvents(ids){
+    const { data, fetchNextPage } = useContractInfiniteReads({
+      cacheKey: 'eventAttributes',
+      contracts() {
+        const contractsArray = ids.map((param) => {
+          const args = param ;
+          return [
+            { ...contractDetails, functionName: 'getEvent', args },
+          ];
+        });
+        return contractsArray.flat();
+      },
+    });
+return(data)
+}
 
 
