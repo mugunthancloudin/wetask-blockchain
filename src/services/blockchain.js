@@ -227,12 +227,12 @@
     });
   }
 
-  export function JoinCampaign({eventId}) { // Assuming default is public
+  export function JoinCampaign({campaignId}) { // Assuming default is public
 
     const { data, isLoading, isSuccess, isError, error, write } = useContractWrite({
       ...contractDetails,
       functionName: 'joinCampaign',
-      args: [eventId],
+      args: [campaignId],
     });
 
   return (
@@ -241,7 +241,7 @@
   disabled={!write}
   onClick={() =>
     write({
-      args: [eventId],
+      args: [campaignId],
     })
   }
   style={{
