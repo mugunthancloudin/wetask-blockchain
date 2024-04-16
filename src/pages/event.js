@@ -5,6 +5,7 @@ import Footer from '../components/navbar & footer/footer/footer'
 import EventCampaign from "../components/create/event/eventModule/eventCampaign.js"
 import {GetAllEvents, useReadEvent} from "../services/blockchain.js"
 import { useAccount } from 'wagmi'
+import Eventhome from '../components/event/eventhome.js'
 export default function Event() {
   const { address } = useAccount();
   const { data } = GetAllEvents();
@@ -38,8 +39,10 @@ export default function Event() {
 
   return (
     <>
+    
       <MyNavbar/>
-      <UnderConstruction/>
+      <Eventhome/>
+      {/* <UnderConstruction/> */}
       {/* <EventCampaign /> */}
       <Footer/>
     </>
