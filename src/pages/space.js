@@ -27,10 +27,14 @@ export default function Space() {
     const {data:spaceData} = ReadSpace(sampleId)
 
     if(isSuccess&& spaceData[0]){
+      let resultCampaignData = [];
+      let resultEventData = [];
       const campaignIDs = spaceData[0].campaigns.map(bigNum => bigNum.toString())
       const eventIDs = spaceData[0].events.map(bigNum => bigNum.toString())
-      console.log("Space Campaigns :",SpaceCampaigns(campaignIDs).pages[0]);
-      console.log("Space Events :",SpaceEvents(eventIDs).pages[0]);
+      SpaceCampaigns(campaignIDs).pages[0].forEach(item => {resultCampaignData.push(item.result)})
+      SpaceEvents(eventIDs).pages[0].forEach(item => {resultEventData.push(item.result)});
+      console.log("Space Campaigns :",resultCampaignData);
+      console.log("Space Events:",resultEventData);
     }
 
   return (
