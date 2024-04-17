@@ -26,18 +26,13 @@ export default function Space() {
     const sampleId = "1"
     const {data:spaceData} = ReadSpace(sampleId)
 
-      if(isSuccess&& spaceData[0]){
-        const campaignIDs = spaceData[0].campaigns.map(bigNum => bigNum.toString())
-        const eventIDs = spaceData[0].events.map(bigNum => bigNum.toString())
-        console.log("Space Campaigns :",SpaceCampaigns(campaignIDs).pages);
-        console.log("Space Events :",SpaceEvents(eventIDs).pages);
-      }
-      
-     
+    if(isSuccess&& spaceData[0]){
+      const campaignIDs = spaceData[0].campaigns.map(bigNum => bigNum.toString())
+      const eventIDs = spaceData[0].events.map(bigNum => bigNum.toString())
+      console.log("Space Campaigns :",SpaceCampaigns(campaignIDs).pages[0]);
+      console.log("Space Events :",SpaceEvents(eventIDs).pages[0]);
+    }
 
-
-
-  
   return (
     <>
       <MyNavbar/>
