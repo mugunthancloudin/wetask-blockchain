@@ -17,7 +17,6 @@ export default function EventCampaign() {
   const { data, isSuccess } = useGetCampaignsByCreator(address);
   let initialCampaignIdState = null;
   if (data){
-  console.log("No campaign available");
   initialCampaignIdState = data;
 }
   else{alert("No campaigns available")}
@@ -49,7 +48,7 @@ export default function EventCampaign() {
     fetchData();
   }, [campaignId, fetchCampaignDetails, data, address,initialCampaignIdState]);
 
-  // console.log("campaign details:", campaignDetails);
+  console.log("campaign details:", campaignDetails);
 
   useEffect(() => {
     if (data === undefined) {
@@ -147,51 +146,63 @@ export default function EventCampaign() {
                 <div className="card eventCards mt-3">
                   <h3 className="text-center">TEest dao(1)</h3>
 
-                  {campaignDetails.map((item, index) => (
-                    <div
-                      className="eventInnerDiv p-4 d-flex justify-content-center"
-                      key={index}
-                    >
-                      <div className="col-lg-1">
-                        <input
-                          type="checkbox"
-                          checked={selectedCampaignIds.includes(item.id)}
-                          onChange={() => handleCheckboxChange(item.id)}
-                        />
-                      </div>
-                      <div className="col-lg-7 text-start">
-                        {item.name}
-                        <br />
-                        (UTC+5)
-                        {new Date(Number(item.startTimestamp)).toLocaleString(
-                          "en-US",
-                          {
+                  {campaignDetails.map((item, index) => {
+                    const currentTime = Date.now();
+                    const startTime = Number(item.startTimestamp);
+                    const endTime = Number(item.endTimestamp);
+                    let campaignStatus = "Ended";
+                    
+                    if (currentTime < startTime) {
+                      campaignStatus = "Upcoming";
+                    } else if (currentTime >= startTime && currentTime <= endTime) {
+                      campaignStatus = "Ongoing";
+                    }
+                    
+                    // Check if the campaign is ended, if so, don't render it
+                    if (campaignStatus === "Ended") {
+                      return null;
+                    }
+
+                    return (
+                      <div
+                        className="eventInnerDiv p-4 d-flex justify-content-center"
+                        key={index}
+                      >
+                        <div className="col-lg-1">
+                          <input
+                            type="checkbox"
+                            checked={selectedCampaignIds.includes(item.id)}
+                            onChange={() => handleCheckboxChange(item.id)}
+                          />
+                        </div>
+                        <div className="col-lg-7 text-start">
+                          {item.name}
+                          <br />
+                          (UTC+5)
+                          {new Date(startTime).toLocaleString("en-US", {
                             year: "numeric",
                             month: "2-digit",
                             day: "2-digit",
                             hour: "2-digit",
                             minute: "2-digit",
                             hour12: true,
-                          }
-                        )}
-                        ~
-                        {new Date(Number(item.endTimestamp)).toLocaleString(
-                          "en-US",
-                          {
+                          })}
+                          ~
+                          {new Date(endTime).toLocaleString("en-US", {
                             year: "numeric",
                             month: "2-digit",
                             day: "2-digit",
                             hour: "2-digit",
                             minute: "2-digit",
                             hour12: true,
-                          }
-                        )}
+                          })}
+                        </div>
+                        <div className="col-lg-4 text-center">
+                          <button className="fs-6">{campaignStatus}</button>
+                        </div>
                       </div>
-                      <div className="col-lg-4 text-center">
-                        <button className="fs-6">Upcoming</button>
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
 
                   <div className="mt-4 d-flex justify-content-end">
                     <div className="col-lg-6">&nbsp;</div>
