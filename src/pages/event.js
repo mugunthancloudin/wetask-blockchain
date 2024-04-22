@@ -7,6 +7,7 @@ import {GetAllEvents, useReadEvent, useReadCampaign} from "../services/blockchai
 import { useAccount } from 'wagmi'
 import Eventhome from '../components/event/eventhome.js'
 import EventHomeCampaign from '../components/event/eventHomeCampaign.js'
+import EventDetails from '../components/event/eventDetails.js'
 export default function Event() {
   const [eventId, setEventId] = useState("1");
   const [accumulatedData, setAccumulatedData] = useState([]);
@@ -66,6 +67,7 @@ export default function Event() {
       <MyNavbar/>
       <Eventhome/>
       <EventHomeCampaign/>
+      <EventDetails/>
       {/* <UnderConstruction/> */}
       {/* <EventCampaign /> */}
       <Footer/>

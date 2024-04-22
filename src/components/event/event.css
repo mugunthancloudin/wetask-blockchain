@@ -24,3 +24,27 @@
     color: green;
     font-weight: 900;
 }
+
+.eventDetails{
+    background-color: black;
+    color: white;
+}
+
+.eventSpanCode{
+     color: rgb(100, 232, 71);
+}
+
+.eventDetailsBtn{
+    background-color: white;
+    color: black;
+    font-weight: 600;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.eventDetailsTOken{
+    background-color: rgb(25,30,36);
+    border-radius: 5px;
+    padding-top: 10px;
+}

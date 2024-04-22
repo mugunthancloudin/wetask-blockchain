@@ -39,7 +39,7 @@ function CampaignJoin() {
       <button onClick={fetchTasks}>Fetch Tasks</button>
       <ul>
         {tasks.map(task => (
-          <li key={task.taskNumber}>
+           <li key={task.taskNumber}>
             <strong>Task Number:</strong> {task.taskNumber}<br />
             <strong>Task Title:</strong> {task.taskTitle}<br />
             <strong>Value:</strong> <a href={task.value} target="_blank" rel="noopener noreferrer">{task.value}</a>

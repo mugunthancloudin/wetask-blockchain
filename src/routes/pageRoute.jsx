@@ -16,6 +16,7 @@ import EventBasicInfo from "../components/create/event/eventModule/eventBasicInf
 import EventCampaign from "../components/create/event/eventModule/eventCampaign";
 import EventRewards from "../components/create/event/eventModule/eventRewards";
 import EventDashboard from "../components/create/event/eventDashboard/eventDashBoard";
+import EventDetails from "../components/event/eventDetails";
 
 export default function PageRoute() {
   return (
@@ -30,6 +31,7 @@ export default function PageRoute() {
         <Route path="/campaign/:id" element={<CampaignDetails />} />
         <Route path="/space" element={<Space />} />
         <Route path="/event" element={<Event />} />
+        <Route path="/event/:id" element={<EventDetails/>}/>
   
         {/* create campaign routes */}
         <Route path="/basicinfo" element={<Basicinfo />} />
@@ -42,7 +44,7 @@ export default function PageRoute() {
         <Route path="/eventcampaign" element={<EventCampaign />} />
         <Route path="/eventrewards" element={<EventRewards />} />
 
-
+    
       </Routes>
     </>
   );
