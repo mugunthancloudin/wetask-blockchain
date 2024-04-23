@@ -3,7 +3,7 @@ import MyNavbar from '../components/navbar & footer/navbar/navbar'
 import UnderConstruction from '../components/underContruction/underConstruction'
 import Footer from '../components/navbar & footer/footer/footer'
 import { useState,useEffect } from 'react'
-import { ReadSpace,SpaceCampaigns,SpaceEvents, useReadCampaign, useReadEvent} from '../services/blockchain'
+import { ReadSpace,SpaceCampaigns,SpaceEvents, useReadCampaign, useReadEvent, GetSpaceCampaign} from '../services/blockchain'
 import { Log } from 'ethers'
 export default function Space() {
 
@@ -23,10 +23,22 @@ export default function Space() {
       } , [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
 
       console.log("All Space Data" , accumulatedData);
+
+      const [spaceCId , setSpaceCID] = useState("")
+      const [CampaignDetails , setCampaignDetails] = useState(null)
+
+      const {data : SpaceCampaign} = GetSpaceCampaign(spaceCId);
+      useEffect (() => {
+        if(SpaceCampaign){
+          setCampaignDetails(SpaceCampaign[0])
+        }
+      })
+      
+      console.log(CampaignDetails);
+      
   
     const [spaceEId , setSpaceEID] = useState("")
     const [EventDetails , setEventDetails] = useState(null)
-    console.log(spaceEId);
 
     const {data : spaceEvent} = useReadEvent(spaceEId);
     useEffect (() => {
@@ -58,7 +70,7 @@ export default function Space() {
             <h2>Space ID: {index + 1}</h2>
             <h3>Campaigns :
             {campaignID[index] && campaignID[index].map((campaign, idx) => (
-              <button key={idx} onClick={{}}>
+              <button key={idx} onClick={()=> setSpaceCID(campaign.toString())}>
                 {campaign.toString()}
               </button>
             ))}</h3>
@@ -70,13 +82,19 @@ export default function Space() {
             ))}</h3>
           </div>
         ))}
-        {EventDetails && (
-          <div>
-            <h2>Event Details</h2>
-            <p>Event ID: {EventDetails.id}</p>
-            {/* Render other details as needed */}
-          </div>
-        )}
+        <div>
+          <h2>Space Campaign Details:</h2>
+          {CampaignDetails && (
+            <pre>{JSON.stringify(CampaignDetails,null,2)}</pre>
+          )}
+        </div>
+
+        <div>
+          <h2>Space Event Details:</h2>
+          {EventDetails && (
+            <pre>{JSON.stringify(EventDetails,null,2)}</pre>
+          )}
+        </div>
       </div>
       <Footer/>
     </>
