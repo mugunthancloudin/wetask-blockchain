@@ -8,7 +8,7 @@ import {
 import { useAccount } from "wagmi";
 import axios from "axios";
 import FormData from "form-data";
-import { CreateSpace } from "../../../services/blockchain";
+import { CreateSpace } from "../../../services/blockchain"; // Importing CreateSpace component
 
 const categories = [
   "NFT",
@@ -52,6 +52,7 @@ export default function SpaceCreate() {
   });
 
   const [imageFile, setImageFile] = useState(null); // For storing the uploaded image file
+  const [isSubmitted, setIsSubmitted] = useState(false); // State to track form submission
 
   useEffect(() => {
     const fetchData = async () => {
@@ -183,6 +184,7 @@ export default function SpaceCreate() {
     }
 
     console.log("Space create data:", spaceCreateData);
+    setIsSubmitted(true); // Set isSubmitted to true after form submission
   };
 
   const displayTimeInIST = (timestamp) => {
@@ -322,7 +324,9 @@ export default function SpaceCreate() {
         <input type="submit" value="Submit" />
       </form>
       {/* Integration of CreateSpace component */}
-      <CreateSpace spaceData={spaceCreateData} />
+      {isSubmitted && (
+        <CreateSpace spaceData={spaceCreateData} />
+      )}
     </>
   );
 }
