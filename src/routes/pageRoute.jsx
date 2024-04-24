@@ -23,7 +23,7 @@ export default function PageRoute() {
     <>
       <Routes>
         <Route path="/camp/*" element={<CampDashboard />} />
-        <Route path="/event/*" element={<EventDashboard/>} />
+        <Route path="/event/*" element={<EventDashboard />} />
         <Route path="/" element={<LandingPage />} />
         <Route path="/campaign" element={<Campaign />} />
         {/* <Route path="/campaign/:id" render={(props) => <CampaignDetails {...props} accumulatedData={accumulatedData} />} /> */}
@@ -31,8 +31,9 @@ export default function PageRoute() {
         <Route path="/campaign/:id" element={<CampaignDetails />} />
         <Route path="/space" element={<Space />} />
         <Route path="/event" element={<Event />} />
-        <Route path="/event/:id" element={<EventDetails/>}/>
-  
+        <Route path="/event/:id" element={<EventDetails />} />
+
+
         {/* create campaign routes */}
         <Route path="/basicinfo" element={<Basicinfo />} />
         <Route path="/campaigneligibility" element={<Eligiblity />} />
@@ -43,10 +44,8 @@ export default function PageRoute() {
         <Route path="/eventbasicInfo" element={<EventBasicInfo />} />
         <Route path="/eventcampaign" element={<EventCampaign />} />
         <Route path="/eventrewards" element={<EventRewards />} />
-
-    
+        
       </Routes>
     </>
   );
 }
- 
