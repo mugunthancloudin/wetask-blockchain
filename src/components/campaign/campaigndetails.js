@@ -206,7 +206,7 @@ const CampaignDetails = () => {
                       />{" "}
                       Polygon
                     </button>
-                  </div>
+                  </div> 
 
                   <div className="row mt-3 ms-5 d-flex align-items-center justify-content-left">
                     <button className="detailbtn1 me-2">SBT</button>
@@ -298,4 +298,3 @@ const CampaignDetails = () => {
 };
 
 export default CampaignDetails;
- 

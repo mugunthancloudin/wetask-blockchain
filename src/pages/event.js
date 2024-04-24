@@ -67,7 +67,7 @@ export default function Event() {
       <MyNavbar/>
       <Eventhome/>
       <EventHomeCampaign/>
-      <EventDetails/>
+      {/* <EventDetails/> */}
       {/* <UnderConstruction/> */}
       {/* <EventCampaign /> */}
       <Footer/>
