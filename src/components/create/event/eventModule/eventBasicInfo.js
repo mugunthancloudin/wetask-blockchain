@@ -194,7 +194,7 @@ export default function EventBasicInfo() {
             </div>
 
             <div>
-              <h5 className="mt-3">Campaign Cover Image</h5>
+              <h5 className="mt-3">Event Cover Image</h5>
               <div className="upload-container">
                 <div className="upload-box" onClick={openFileDialog}>
                   {previewSrc ? (
