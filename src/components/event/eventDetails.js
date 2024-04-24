@@ -171,7 +171,7 @@ console.log("Difference in days:", differenceInDays);
           </div>
         </div>
 
-        <EventHomeCampaign campaignId={campaignId} />
+        <EventHomeCampaign id={Number(campaignId)} />
       </div>
       <Footer />
 

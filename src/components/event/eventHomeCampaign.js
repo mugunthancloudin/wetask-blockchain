@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useReadEvent, useReadCampaign } from "../../services/blockchain.js";
 import { useParams } from "react-router-dom";
 
-export default function EventHomeCampaign({ campaignId }) {
-  const  eventId  = { campaignId };
+export default function EventHomeCampaign(id) {
+  const  eventId  = id.id;
   console.log(eventId);
   const { data, isSuccess } = useReadEvent(eventId);
   const [campaignDetails, setCampaignDetails] = useState([]);
@@ -31,7 +31,7 @@ export default function EventHomeCampaign({ campaignId }) {
   }, [isSuccess, data, indexToSet, campaignData]);
 
   // Log campaign details
-  // console.log(campaignDetails);
+  console.log(campaignDetails);
 
   return null; // Replace with your JSX for rendering
 }
