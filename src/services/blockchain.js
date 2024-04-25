@@ -218,13 +218,42 @@
     );
   }
 
-  export function CreateSpace() { // Assuming default is public
-
+  export function CreateSpace(spaceData) { // Assuming default is public
+    const spaceDatas=spaceData.spaceData;
     const { data, isLoading, isSuccess, write } = useContractWrite({
       ...contractDetails,
       functionName: 'createSpace',
-      args: [],
     });
+
+    const handleCreateEventClick = () => {
+      if(!spaceData){
+        return "no event";}
+      write({
+        args: [
+          spaceDatas.name,                     
+          spaceDatas.image,              //
+          spaceDatas.category,           //
+          spaceDatas.officialWebsite,  
+          spaceDatas.discordLink,                     
+          spaceDatas.telegramLink,
+          spaceDatas.description,
+          spaceDatas.campaignIds,        //
+          spaceDatas.eventIds            //
+        ],
+      }); 
+    };
+    return (
+      <div>
+        <button
+          disabled={isLoading || !write}
+          onClick={handleCreateEventClick}
+        >
+          {isLoading ? 'Processing...' : 'Create Space'}
+        </button>
+        {isLoading && <div>Transaction is processing. Check your wallet.</div>}
+        {isSuccess && <div>Transaction successful: {JSON.stringify(data)}</div>}
+      </div>
+    );
   }
 
   export function JoinCampaign({campaignId}) { // Assuming default is public
