@@ -20,6 +20,7 @@ import {
 
 const CampaignDetails = () => {
   const location = useLocation();
+  console.log(location);
   const { accumulatedData } = location?.state || {};
   const [tasksData, setTasksData] = useState(null);
   const [campaignDetail, setCampaignDetail] = useState();
