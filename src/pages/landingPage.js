@@ -21,7 +21,6 @@ export default function LandingPage() {
           <MyNavbar />
 
           {/* <w3m-button className="wagmiBtn"/> */}
-
           {/* <CreateCampaign/> */}
           <Home />
           <Comunity/>

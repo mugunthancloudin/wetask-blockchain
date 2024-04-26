@@ -9,6 +9,7 @@ import { useAccount } from "wagmi";
 import axios from "axios";
 import FormData from "form-data";
 import { CreateSpace } from "../../../services/blockchain"; // Importing CreateSpace component
+import "./space.css";
 
 const categories = [
   "NFT",
@@ -147,7 +148,7 @@ export default function SpaceCreate() {
 
     try {
       const JWT =
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U"; // Replace with your actual JWT token        
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI1NWM1YzJmNC0xZGRlLTRiNWEtYTBlMi1lYTNkNjVmNWFhMjIiLCJlbWFpbCI6ImZlYXJvZmFsbGdhbWVyQGdtYWlsLmNvbSIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImlkIjoiRlJBMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfSx7ImlkIjoiTllDMSIsImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxfV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiJkNTA0MmU2ZDllNTgzYjE5MjRhYiIsInNjb3BlZEtleVNlY3JldCI6IjQ0ODAwYjQ5YWNlZmNlNzhiM2U2MjRlZmFmNzU2YjVjZDZhODJkYTk2MGM5MzdiMjQ3YWIyODNhZmUwZjBmYTYiLCJpYXQiOjE3MDA3Mzg5OTJ9.2CI_ewpLvbwj7bgxW9Iu6QnDqC2gkjyTJHtyk6DNp4U"; // Replace with your actual JWT token
       const formData = new FormData();
       formData.append("file", imageFile);
 
@@ -200,133 +201,193 @@ export default function SpaceCreate() {
 
   return (
     <>
-      <h1>Space Create</h1>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={spaceCreateData.name}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Profile Picture (Max. 5 MB):
-          <input
-            type="file"
-            name="image"
-            accept="image/*"
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Category:
-          <br />
-          {categories.map((category, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => handleCategorySelection(index)}
-              style={{
-                background:
-                  spaceCreateData.category === index ? "lightblue" : "white",
-              }}
-            >
-              {category}
-            </button>
-          ))}
-        </label>
-        <br />
-        <label>
-          Official Website:
-          <input
-            type="text"
-            name="officialWebsite"
-            value={spaceCreateData.officialWebsite}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Discord Link:
-          <input
-            type="text"
-            name="discordLink"
-            value={spaceCreateData.discordLink}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Telegram Link:
-          <input
-            type="text"
-            name="telegramLink"
-            value={spaceCreateData.telegramLink}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Description:
-          <textarea
-            name="description"
-            value={spaceCreateData.description}
-            onChange={handleInputChange}
-          />
-        </label>
-        <br />
-        <label>
-          Campaign IDs (comma-separated):
-          <br />
-          {campaignDetails.map((campaign, index) => (
-            <div key={index}>
-              <input
-                type="checkbox"
-                id={`campaign_${index}`}
-                name={`campaignIds`}
-                value={campaign.id}
-                onChange={handleInputChange}
-              />
-              <label htmlFor={`campaign_${index}`}>
-                {`ID: ${campaign.id}, Name: ${campaign.name}, Timing: ${displayTimeInIST(
-                  campaign.startTimestamp
-                )} - ${displayTimeInIST(campaign.endTimestamp)}`}
-              </label>
-            </div>
-          ))}
-        </label>
-        <br />
-        <label>
-          Event IDs (comma-separated):
-          <br />
-          {eventDetails.map((event, index) => (
-            <div key={index}>
-              <input
-                type="checkbox"
-                id={`event_${index}`}
-                name={`eventIds`}
-                value={event.id}
-                onChange={handleInputChange}
-              />
-              <label htmlFor={`event_${index}`}>
-                {`ID: ${event.id}, Name: ${event.name}, Timing: ${displayTimeInIST(
-                  event.startTimestamp
-                )} - ${displayTimeInIST(event.endTimestamp)}`}
-              </label>
-            </div>
-          ))}
-        </label>
-        <br />
-        <input type="submit" value="Submit" />
-      </form>
-      {/* Integration of CreateSpace component */}
-      {isSubmitted && (
-        <CreateSpace spaceData={spaceCreateData} />
-      )}
+      <div className="container-fluid bg-dark text-white text-center justify-content-center">
+        <div className="container">
+          <div className="row pb-5">
+            <h1>Create My Space</h1>
+
+            <form onSubmit={handleSubmit}>
+              <div className="col-lg-10">
+                <div className="row">
+                  <div className="col-lg-4 ">Name: </div>
+                  <div className="col-lg-8">
+                    <input
+                      type="text"
+                      name="name"
+                      value={spaceCreateData.name}
+                      onChange={handleInputChange}
+                      className="form-control "
+                    />
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">
+                    <label> Official Website: </label>
+                  </div>
+                  <div className="col-lg-8">
+                    <input
+                      type="text"
+                      name="officialWebsite"
+                      value={spaceCreateData.officialWebsite}
+                      onChange={handleInputChange}
+                      className="form-control text-center"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">
+                    <label>Discord Link: </label>
+                  </div>
+                  <div className="col-lg-8">
+                    <input
+                      type="text"
+                      name="discordLink"
+                      value={spaceCreateData.discordLink}
+                      onChange={handleInputChange}
+                      className="form-control text-center"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">Profile Picture (Max. 5 MB):</div>
+                  <div className="col-lg-8">
+                    <input
+                      type="file"
+                      name="image"
+                      accept="image/*"
+                      onChange={handleInputChange}
+                      className="form-control"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">Category:</div>
+                  <div className="col-lg-8">
+                    {categories.map((category, index) => (
+                      <button
+                        key={index}
+                        type="button"
+                        onClick={() => handleCategorySelection(index)}
+                        style={{
+                          background:
+                            spaceCreateData.category === index
+                              ? "lightblue"
+                              : "white",
+                        }}
+                        className="ms-2 mt-2 border-2"
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">Telegram Link:</div>
+                  <div className="col-lg-8">
+                    <input
+                      type="text"
+                      name="telegramLink"
+                      value={spaceCreateData.telegramLink}
+                      onChange={handleInputChange}
+                      className="form-control text-center"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">Description:</div>
+                  <div className="col-lg-8">
+                    <textarea
+                      name="description"
+                      value={spaceCreateData.description}
+                      onChange={handleInputChange}
+                      className="form-control text-center"
+                    />
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">
+                    Campaign IDs (comma-separated):
+                  </div>
+                  <div className="col-lg-8">
+                    {campaignDetails.map((campaign, index) => (
+                      <div className="row mt-2" key={index}>
+                        <div className="col-lg-1">
+                          <input
+                            type="checkbox"
+                            id={`campaign_${index}`}
+                            name={`campaignIds`}
+                            value={campaign.id}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="col-lg-11 text-start">
+                          <label htmlFor={`campaign_${index}`}>
+                            {`ID: ${campaign.id}, Name: ${
+                              campaign.name
+                            }, Timing: ${displayTimeInIST(
+                              campaign.startTimestamp
+                            )} - ${displayTimeInIST(campaign.endTimestamp)}`}
+                          </label>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="row mt-3">
+                  <div className="col-lg-4">Event IDs (comma-separated):</div>
+                  <div className="col-lg-8">
+                    {eventDetails.map((event, index) => (
+                      <div className="row d-flex" key={index}>
+                        <div className="col-lg-1">
+                          <input
+                            type="checkbox"
+                            id={`event_${index}`}
+                            name={`eventIds`}
+                            value={event.id}
+                            onChange={handleInputChange}
+                          />
+                        </div>
+                        <div className="col-lg-11 text-start">
+                          <label htmlFor={`event_${index}`}>
+                            {`ID: ${event.id}, Name: ${event.name}`},{" "}
+                            {`Timing: ${displayTimeInIST(
+                              event.startTimestamp
+                            )} - ${displayTimeInIST(event.endTimestamp)}`}
+                          </label>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="row mt-5 justify-content-center">
+                  {/* <div className="col-lg-4">
+                    <input type="submit" value="Submit" />
+                  </div> */}
+
+                  <div className="col-lg-8">
+                    <button class="eventSubmitBtn" type="submit">
+                      <span class="eventSubmitBtn_lg">
+                        <span class="eventSubmitBtn_sl"></span>
+                        <span class="eventSubmitBtn_text">Submit</span>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            {isSubmitted && <CreateSpace spaceData={spaceCreateData} />}
+          </div>
+        </div>
+      </div>
     </>
   );
 }
