@@ -10,6 +10,8 @@ import axios from "axios";
 import FormData from "form-data";
 import { CreateSpace } from "../../../services/blockchain"; // Importing CreateSpace component
 import "./space.css";
+import Footer from "../../navbar & footer/footer/footer";
+import MyNavbar from "../../navbar & footer/navbar/navbar";
 
 const categories = [
   "NFT",
@@ -201,13 +203,14 @@ export default function SpaceCreate() {
 
   return (
     <>
+    <MyNavbar/>
       <div className="container-fluid bg-dark text-white text-center justify-content-center">
         <div className="container">
           <div className="row pb-5">
             <h1>Create My Space</h1>
 
             <form onSubmit={handleSubmit}>
-              <div className="col-lg-10">
+              <div className="col-lg-10 mt-2">
                 <div className="row">
                   <div className="col-lg-4 ">Name: </div>
                   <div className="col-lg-8">
@@ -273,12 +276,12 @@ export default function SpaceCreate() {
                         type="button"
                         onClick={() => handleCategorySelection(index)}
                         style={{
-                          background:
-                            spaceCreateData.category === index
-                              ? "lightblue"
+                          background: spaceCreateData.category === index
+                              ? "linear-gradient(101deg, #5c4df1 4%, #ea52f0 55%, #eb9f5c 100%)"
                               : "white",
-                        }}
-                        className="ms-2 mt-2 border-2"
+                      }}
+                      
+                        className="ms-2 mt-3 border-0 rounded"
                       >
                         {category}
                       </button>
@@ -388,6 +391,7 @@ export default function SpaceCreate() {
           </div>
         </div>
       </div>
+      <Footer/>
     </>
   );
 }

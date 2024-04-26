@@ -9,21 +9,21 @@ import SpaceCreate from '../components/create/space/space'
 import { Log } from 'ethers'
 export default function Space() {
   
-  // const [spaceId, setSpaceId] = useState('1');
-  // const [accumulatedData, setAccumulatedData] = useState([]);
-  // const [campaignID , setCampaignID] = useState([])
-  // const [eventID , setEventID] = useState([])
+  const [spaceId, setSpaceId] = useState('1');
+  const [accumulatedData, setAccumulatedData] = useState([]);
+  const [campaignID , setCampaignID] = useState([])
+  const [eventID , setEventID] = useState([])
   
-  // const {data , isSuccess} = ReadSpace(spaceId)
+  const {data , isSuccess} = ReadSpace(spaceId)
 
-  // useEffect(() => {
-  //       if (isSuccess && data[0].name) {
-  //         setAccumulatedData((currentData) => [...currentData, data[0]]);
-  //         setCampaignID((currentData) => [...currentData, data[0].campaigns]);
-  //         setEventID((currentData) => [...currentData, data[0].events]);
-  //         setSpaceId((currentId) => String(Number(currentId) + 1));
-  //       }
-  //     } , [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
+  useEffect(() => {
+        if (isSuccess && data[0].name) {
+          setAccumulatedData((currentData) => [...currentData, data[0]]);
+          setCampaignID((currentData) => [...currentData, data[0].campaigns]);
+          setEventID((currentData) => [...currentData, data[0].events]);
+          setSpaceId((currentId) => String(Number(currentId) + 1));
+        }
+      } , [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
 
       console.log("All Space Data" , accumulatedData);
 
