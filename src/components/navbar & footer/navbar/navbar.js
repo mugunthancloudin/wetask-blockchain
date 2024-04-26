@@ -69,7 +69,7 @@ function MyNavbar() {
               id="collapsible-nav-dropdown"
               className=" ms-3 d-none d-sm-block userDropDown"
             >
-              <NavDropdown.Item href="#action/3.1" className="bg-dark ">
+              <NavDropdown.Item href="/create/space" className="bg-dark ">
                 *{" "}
                 <div className="d-flex text-white">
                   <div>
