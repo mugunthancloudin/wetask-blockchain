@@ -293,14 +293,42 @@
   )
 }
 
-  export function JoinEvent() { // Assuming default is public
+export function JoinEvent({eventId}) { // Assuming default is public
 
-    const { data, isLoading, isSuccess, write } = useContractWrite({
-      ...contractDetails,
-      functionName: 'createSpace',
-      args: [],
-    });
-  }
+  const { data, isLoading, isSuccess, isError, error, write } = useContractWrite({
+    ...contractDetails,
+    functionName: 'joinEvent',
+    args: [eventId],
+  });
+
+return (
+  <div>
+    <button
+disabled={!write}
+onClick={() =>
+  write({
+    args: [eventId],
+  })
+}
+style={{
+  padding: '5px 10px',
+  fontSize: '16px',
+  backgroundColor: '#4CAF50', // Green background color
+  color: 'white',
+  border: 'none',
+  borderRadius: '8px',
+  cursor: 'pointer',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+  transition: 'background-color 0.3s ease',
+}}
+>
+Join Event
+</button>
+    {isError && alert(error)}
+    {isSuccess && <div>Transaction: {JSON.stringify(data)}</div>}
+  </div>
+)
+}
 
   export function JoinSpace() { // Assuming default is public
 

@@ -4,6 +4,7 @@ import eventImg from "../assets/event/eventbg.webp";
 import MyNavbar from "../navbar & footer/navbar/navbar.js";
 import Footer from "../navbar & footer/footer/footer.js";
 import EventHomeCampaign from "./eventHomeCampaign.js";
+import { JoinEvent } from "../../services/blockchain.js";
 
 export default function EventDetails() {
   const location = useLocation();
@@ -146,6 +147,7 @@ console.log("Difference in days:", differenceInDays);
                 <div className="col-lg-4">
                   <button className="eventDetailsBtn">+ Follow</button>
                 </div>
+                <JoinEvent eventId={campaignId}/>
               </div>
             </div>
           </div>

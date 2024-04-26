@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useReadEvent, useReadCampaign } from "../../services/blockchain.js";
+import { useReadEvent, useReadCampaign, JoinEvent } from "../../services/blockchain.js";
 import { Link } from "react-router-dom";
 
 
