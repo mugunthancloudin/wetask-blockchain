@@ -18,6 +18,7 @@ import EventRewards from "../components/create/event/eventModule/eventRewards";
 import EventDashboard from "../components/create/event/eventDashboard/eventDashBoard";
 import EventDetails from "../components/event/eventDetails";
 import SpaceCreate from "../components/create/space/space";
+import SpaceDetails from "../components/space/spaceDetails";
 
 export default function PageRoute() {
   return (
@@ -29,23 +30,22 @@ export default function PageRoute() {
         <Route path="/create/space" element={<SpaceCreate />} />
         {/* <Route path="/campaign/:id" render={(props) => <CampaignDetails {...props} accumulatedData={accumulatedData} />} /> */}
         <Route path="/campaign" element={<Campaign />} />
-        <Route path="/campaign/:id" element={<CampaignDetails />} />
+        {/* <Route path="/campaign/:id" element={<CampaignDetails />} /> */}
         <Route path="/space" element={<Space />} />
+        <Route path="/space/:id" element={<SpaceDetails />} />
         <Route path="/event" element={<Event />} />
         <Route path="/event/:id" element={<EventDetails />} />
 
-
         {/* create campaign routes */}
-        <Route path="/basicinfo" element={<Basicinfo />} />
+        {/* <Route path="/basicinfo" element={<Basicinfo />} /> */}
         <Route path="/campaigneligibility" element={<Eligiblity />} />
         <Route path="/campaignrewards" element={<Rewards />} />
         <Route path="/campaigntasks" element={<Task />} />
 
         {/* create event routes */}
-        <Route path="/eventbasicInfo" element={<EventBasicInfo />} />
-        <Route path="/eventcampaign" element={<EventCampaign />} />
-        <Route path="/eventrewards" element={<EventRewards />} />
-        
+        {/* <Route path="/eventbasicInfo" element={<EventBasicInfo />} /> */}
+        {/* <Route path="/eventcampaign" element={<EventCampaign />} />
+        <Route path="/eventrewards" element={<EventRewards />} /> */}
       </Routes>
     </>
   );

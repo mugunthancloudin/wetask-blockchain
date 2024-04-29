@@ -335,7 +335,7 @@ Join Event
     const { data, isLoading, isSuccess, write } = useContractWrite({
       ...contractDetails,
       functionName: 'createSpace',
-      args: [],
+            args: [],
     });
   }
 
@@ -507,7 +507,7 @@ Join Event
         contracts() {
           const contractsArray = ids.map((param) => {
             const args = param ;
-            return [
+             return [
               { ...contractDetails, functionName: 'getCampaign', args },
             ];
           });
