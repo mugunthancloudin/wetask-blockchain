@@ -19,6 +19,7 @@
         minBalance: yup
           .number()
           .positive("*Balance must be positive")
+          .min(0, "Minimum balance must be greater than or equal to 0")
           .required("*Minimum balance is required"),
       };
     }
@@ -34,41 +35,41 @@
     }
   
     return yup.object(schemaFields).required();
-  };  
-
-  export default function Eligiblity() {
+  };
+  
+  export default function Eligibility() {
     const [showBalanceCard, setShowBalanceCard] = useState(false);
     const [showLevelCard, setShowLevelCard] = useState(false);
     const navigate = useNavigate();
     const { updateFormData } = useFormContext();
-
+  
     // Handlers for showing cards
     const handleBalanceClick = () => {
       setShowBalanceCard(true);
     };
-
+  
     const handleLevelClick = () => {
       setShowLevelCard(true);
     };
-
+  
     // Handlers for closing cards
     const closeBalanceCard = () => {
       setShowBalanceCard(false);
     };
-
+  
     const closeLevelCard = () => {
       setShowLevelCard(false);
     };
-
+  
     const [formDetails, setFormDetails] = useState({
-      taskOnLevel: "",
+      taskOnLevel: 0,
       network: "",
       tokenList: "",
       minBalance: 0,
     });
-
+  
     const formSchema = createEligibilitySchema(showBalanceCard, showLevelCard);
-
+  
     const {
       register,
       handleSubmit,
@@ -78,23 +79,22 @@
     } = useForm({
       resolver: yupResolver(formSchema),
     });
-
+  
     // Dynamically set validation schema based on state
-    const [validationSchema, setValidationSchema] = useState(
-      createEligibilitySchema(showBalanceCard, showLevelCard)
-    );
-
-      // Update the validation schema when the state changes
-    useState(() => {
+    useEffect(() => {
       reset(); // Reset form state to trigger re-validation
-    }, [showBalanceCard, showLevelCard, reset]); useEffect(() => {
-      setValidationSchema(
-        createEligibilitySchema(showBalanceCard, showLevelCard)
-      );
-    }, [showBalanceCard, showLevelCard]);
-
+    }, [showBalanceCard, showLevelCard, reset]);
+  
     const onSubmit = async (data) => {
       try {
+        // Set default values if the card is not selected
+        if (!showBalanceCard) {
+          data.minBalance = 0;
+        }
+        if (!showLevelCard) {
+          data.taskOnLevel = 0;
+        }
+  
         console.log("Form Submitted with Data:", data);
         updateFormData({ eligibility: data });
         navigate(`/camp/campaigntasks`);
@@ -102,10 +102,10 @@
         console.error("Error during form submission:", error);
       }
     };
-
+  
     const handleInputChange = (event) => {
       const { name, value } = event.target;
-
+  
       setFormDetails((prevState) => ({
         ...prevState,
         [name]: name === "minBalance" ? parseFloat(value) : value,

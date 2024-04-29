@@ -4,7 +4,7 @@
   import abi from '../abis/src/contracts/Taskon.sol/CampaignContract.json';
   
   const contractDetails = {
-    address: '0x348Cfa7DBE7A6c14775ddDc28beD7d07efa9943a',
+    address: '0x5ac34723B5d1B94e83eAF04f728C635ab4178a3c',
     abi: abi.abi,
   };
 
