@@ -11,7 +11,7 @@ export default function EventDashboard() {
       <div className="row d-flex">
         <div className="col-lg-3 col-md-2  ">
           {/* fixed-column */}
-          <EventSideNav/>
+          <EventSideNav />
         </div>
         <div className="col-lg-9 col-md-10 w-75 ">
           {/* scrollable-column */}
@@ -21,4 +21,4 @@ export default function EventDashboard() {
       </div>
     </div>
   );
-}
+} 

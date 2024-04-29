@@ -149,7 +149,7 @@ export default function EventBasicInfo() {
               <div>
                 <input
                   type="text"
-                  placeholder="Enter a Campaign name"
+                  placeh older="Enter a Campaign name"
                   className="form-control w-50 mt-3"
                    {...register("campaignName")}
                 />
@@ -178,7 +178,7 @@ export default function EventBasicInfo() {
                   )}
                 </div>
                 <div className="col-lg-6">
-                  <h6 className="">Campiagn Emd</h6>
+                  <h6 className="">Campiagn End</h6>
                   <input
                      type="datetime-local"
                     className="form-control mt-3"

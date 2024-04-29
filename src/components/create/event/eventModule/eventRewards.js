@@ -199,7 +199,7 @@ export default function EventRewards() {
                               {networkTypeIsOpen && (
                                 <div className="dropdown-list">
                                   <div
-                                    className="dropdown-item"
+                                     className="dropdown-item"
                                     onClick={() => {
                                       field.onChange("Ethereum");
                                       toggleNetworkSelectionOpen();

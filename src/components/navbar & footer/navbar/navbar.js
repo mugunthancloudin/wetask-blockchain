@@ -98,7 +98,7 @@ function MyNavbar() {
                 </div>
               </NavDropdown.Item>
               <NavDropdown.Item
-                href="/event/eventBasicInfo"
+                href="/event/eventbasicInfo"
                 className="bg-dark"
               >
                 <div className="d-flex text-white">
@@ -121,8 +121,9 @@ function MyNavbar() {
                   </div>
                   <div>
                     <h6 className="navHeading">Referral</h6>
-                    <p className="navText">Ask users to refer your campaigns</p>
-                    {" "}
+                    <p className="navText">
+                      Ask users to refer your campaigns
+                    </p>{" "}
                   </div>
                 </div>
               </NavDropdown.Item>
@@ -163,7 +164,7 @@ function MyNavbar() {
                         </div>
                       )}
                     </div>
-                    
+
                     <div className="d-flex mt-4">
                       <div>
                         <TbEaseInOutControlPoints size={25} className="me-3" />

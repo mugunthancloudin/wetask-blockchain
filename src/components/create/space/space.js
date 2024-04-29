@@ -210,7 +210,7 @@ export default function SpaceCreate() {
             <h1>Create My Space</h1>
 
             <form onSubmit={handleSubmit}>
-              <div className="col-lg-10 mt-2">
+              <div className="col-lg-10 border-5  mt-2">
                 <div className="row">
                   <div className="col-lg-4 ">Name: </div>
                   <div className="col-lg-8">
@@ -315,7 +315,7 @@ export default function SpaceCreate() {
                 </div>
 
                 <div className="row mt-3">
-                  <div className="col-lg-4">
+                  <div className="col-lg-4 mt-2">
                     Campaign IDs (comma-separated):
                   </div>
                   <div className="col-lg-8">
@@ -345,10 +345,10 @@ export default function SpaceCreate() {
                 </div>
 
                 <div className="row mt-3">
-                  <div className="col-lg-4">Event IDs (comma-separated):</div>
-                  <div className="col-lg-8">
+                  <div className="col-lg-4 mt-2">Event IDs (comma-separated):</div>
+                  <div className="col-lg-8 ">
                     {eventDetails.map((event, index) => (
-                      <div className="row d-flex" key={index}>
+                      <div className="row d-flex mt-2" key={index}>
                         <div className="col-lg-1">
                           <input
                             type="checkbox"
