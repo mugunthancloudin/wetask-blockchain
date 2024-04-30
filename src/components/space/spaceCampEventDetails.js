@@ -40,7 +40,7 @@ export default function SpaceCampEventDetails() {
   
       // Check if campaignData is defined and has length
       if (campaignData && campaignData.length > 0) {
-        setCampaignDatas((prevDetails) => [...prevDetails, campaignData[0]]);
+        setCampaignDatas((prevDetails) => [...prevDetails, campaignData]);
       }
     }
   }, [isSuccess, spaceData, cIndex, campaignData]);
@@ -57,7 +57,7 @@ export default function SpaceCampEventDetails() {
       // Update campaignDetails with campaignData[0]
       if (spaceData[3] && spaceData[3].length > 0) {
         // setCampaignDetails((prevDetails) => [...prevDetails, campaignData[0]]);
-        setEventDatas((prevDetails) => [...prevDetails, eventData[0]]);
+        setEventDatas((prevDetails) => [...prevDetails, eventData]);
       }
     }
   }, [isSuccess, spaceData, eIndex, eventData]);
