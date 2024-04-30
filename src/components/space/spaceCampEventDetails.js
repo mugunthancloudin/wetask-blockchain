@@ -62,18 +62,9 @@ export default function SpaceCampEventDetails() {
     }
   }, [isSuccess, spaceData, eIndex, eventData]);
 
-  console.log("loop CID", campaignId);
-  console.log("loop EID", eventId);
+//   console.log("loop CID", campaignId);
+//   console.log("loop EID", eventId);
 
   console.log("Event data", eventDatas);
-
-    // useEffect(() => { 
-    //     if (isSuccess && data[0].name) {
-    //       setAllSpaceData((currentData) => [...currentData, data[0]]);
-    //       setallSpaceId((currentId) => String(Number(currentId) + 1));
-    //     }
-    //   }, [data, isSuccess, allSpaceId]); // Ensure all relevant variables are included in dependency array
-  
-    //   console.log("All Space Data", allSpaceData);
 
 }
