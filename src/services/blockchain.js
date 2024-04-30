@@ -525,6 +525,23 @@ Join Event
       args: [count],
     })
 
+    const stringifyNumbers = obj => {
+      for (const key in obj) {
+          if (typeof obj[key] === 'object') {
+              stringifyNumbers(obj[key]); // Recursively call for nested objects
+          } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+              obj[key] = obj[key].toString(); // Convert number or bigint to string
+          } else if (typeof obj[key] === 'object' && obj[key] && obj[key].toNumber) {
+              // Check if it's a BigNumber instance
+              obj[key] = obj[key].toNumber(); // Convert BigNumber to number
+          }
+      }
+  };
+
+  if (data) {
+    stringifyNumbers(data);
+  }
+
       return (
         {data, isSuccess, isError}
       )

@@ -10,60 +10,36 @@
     GetSpaceCampaign,
   } from "../../services/blockchain";
   import { Link } from "react-router-dom";
+import SpaceCampEventDetails from "./spaceCampEventDetails";
 
   export default function SpaceHome() {
-    const [spaceId, setSpaceId] = useState("1");
-    const [accumulatedData, setAccumulatedData] = useState([]);
-    const [campaignID, setCampaignID] = useState([]);
-    const [eventID, setEventID] = useState([]);
+    const [allSpaceId, setallSpaceId] = useState("1");
+    const [allSpaceData, setAllSpaceData] = useState([]);
+    // const [campaignID, setCampaignID] = useState([]);
+    // const [eventID, setEventID] = useState([]);
 
-    const { data, isSuccess } = ReadSpace(spaceId);
-    // console.log(data[0]);
+    const { data, isSuccess } = ReadSpace(allSpaceId);
+    // console.log(data);
 
     useEffect(() => {
       if (isSuccess && data[0].name) {
-        setAccumulatedData((currentData) => [...currentData, data[0]]);
-        setCampaignID((currentData) => [...currentData, data[0].campaigns.toString()]);
-        setEventID((currentData) => [...currentData, data[0].events.toString()]);
-        setSpaceId((currentId) => String(Number(currentId) + 1));
+        setAllSpaceData((currentData) => [...currentData, data[0]]);
+        setallSpaceId((currentId) => String(Number(currentId) + 1));
       }
-    }, [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
+    }, [data, isSuccess, allSpaceId]); // Ensure all relevant variables are included in dependency array
 
-    console.log("All Space Data", accumulatedData);
-
-    const [CampaignDetails, setCampaignDetails] = useState(null);
-
-    const { data: SpaceCampaign } = GetSpaceCampaign(campaignID);
-    console.log(SpaceCampaign);
-    useEffect(() => {
-      if (SpaceCampaign) {
-        setCampaignDetails(SpaceCampaign[0]);
-      }
-    },[SpaceCampaign]);
-
-    console.log(CampaignDetails);
-
-    const [EventDetails, setEventDetails] = useState(null);
-
-    const { data: spaceEvent } = useReadEvent(eventID);
-    useEffect(() => {
-      if (spaceEvent) {
-        setEventDetails(spaceEvent[0]);
-      }
-    },[spaceEvent]);
-
-    console.log(EventDetails);
+    console.log("All Space Data", allSpaceData);
 
     return (
       <>
         <div className="container-fluid campaignMainBg">
           <div className="container">
             <div className="row pt-2">
-              {accumulatedData.map((item, index) => (
+              {allSpaceData.map((item, index) => (
                 <div className="col-lg-4">
                   <Link
                     to={`/space/${index}`}
-                    state={{ accumulatedData }}
+                    state={{ allSpaceData }}
                     style={{ textDecoration: "none" }}
                   >
                     <div className="card campaignHomeCard text-white" key={index}>
@@ -80,6 +56,7 @@
                   </Link>
                 </div>
               ))}
+              <SpaceCampEventDetails />
             </div>
           </div>
         </div>
