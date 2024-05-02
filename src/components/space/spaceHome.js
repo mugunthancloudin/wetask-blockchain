@@ -32,6 +32,7 @@
 
     console.log("All Space Data", accumulatedData);
     
+    
     const spaceidsample = 3;
     let SpaceCampaignIds;
     if (campaignID && campaignID.length > 0) {
@@ -45,7 +46,7 @@
       if (SpaceCampaignIds && SpaceCampaignIds.length >0) {
         for (const id of SpaceCampaignIds) {
           const data =  GetSpaceCampaign([id]);
-          campaignDataArray.push(data);
+          campaignDataArray.push(data.data);
         }
       }
       console.log(campaignDataArray);
@@ -67,8 +68,9 @@
         }
       }
       console.log(eventDataArray);
-      
-      
+
+  
+
 
     return (
       <>

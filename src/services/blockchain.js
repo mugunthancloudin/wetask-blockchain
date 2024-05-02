@@ -585,6 +585,6 @@ if (data) {
 }
 
   return (
-    {data, isSuccess, isError}
+    {data}
   )
 }
