@@ -5,3 +5,11 @@
     margin-top:5%;
     margin-bottom: 5%;
   }
+
+  .spaceDetailBtn{
+    width: auto;
+    border: none;
+    padding: 0 40px;
+    border-radius: 10px;
+    font-weight: bold
+  }
