@@ -8,6 +8,7 @@
     useReadCampaign,
     useReadEvent,
     GetSpaceCampaign,
+    GetSpaceEvents,
   } from "../../services/blockchain";
   import { Link } from "react-router-dom";
 
@@ -30,29 +31,44 @@
     }, [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
 
     console.log("All Space Data", accumulatedData);
-
-    const [CampaignDetails, setCampaignDetails] = useState(null);
-
-    const { data: SpaceCampaign } = GetSpaceCampaign(campaignID);
-    console.log(SpaceCampaign);
-    useEffect(() => {
-      if (SpaceCampaign) {
-        setCampaignDetails(SpaceCampaign[0]);
+    
+    const spaceidsample = 3;
+    let SpaceCampaignIds;
+    if (campaignID && campaignID.length > 0) {
+      // Check if spaceidsample is a valid index
+      if (spaceidsample >= 1 && spaceidsample <= campaignID.length) {
+          SpaceCampaignIds = campaignID[spaceidsample - 1].split(',');
       }
-    },[SpaceCampaign]);
+    }
 
-    console.log(CampaignDetails);
-
-    const [EventDetails, setEventDetails] = useState(null);
-
-    const { data: spaceEvent } = useReadEvent(eventID);
-    useEffect(() => {
-      if (spaceEvent) {
-        setEventDetails(spaceEvent[0]);
+      const campaignDataArray = [];
+      if (SpaceCampaignIds && SpaceCampaignIds.length >0) {
+        for (const id of SpaceCampaignIds) {
+          const data =  GetSpaceCampaign([id]);
+          campaignDataArray.push(data);
+        }
       }
-    },[spaceEvent]);
+      console.log(campaignDataArray);
+      
 
-    console.log(EventDetails);
+      let SpaceEventIds;
+    if (eventID && eventID.length > 0) {
+      // Check if spaceidsample is a valid index
+      if (spaceidsample >= 1 && spaceidsample <= eventID.length) {
+        SpaceEventIds = eventID[spaceidsample - 1].split(',');
+      }
+    }
+
+      const eventDataArray = [];
+      if (SpaceEventIds && SpaceEventIds.length >0) {
+        for (const id of SpaceEventIds) {
+          const data =  GetSpaceEvents([id]);
+          eventDataArray.push(data);
+        }
+      }
+      console.log(eventDataArray);
+      
+      
 
     return (
       <>

@@ -502,19 +502,19 @@ Join Event
   }
 
   export function SpaceCampaigns(ids){
-      const { data, fetchNextPage } = useContractInfiniteReads({
-        cacheKey: 'campaignAttributes',
-        contracts() {
-          const contractsArray = ids.map((param) => {
-            const args = param ;
-             return [
-              { ...contractDetails, functionName: 'getCampaign', args },
-            ];
-          });
-          return contractsArray.flat();
-        },
-      });
-  return(data)
+    const { data, fetchNextPage } = useContractInfiniteReads({
+      cacheKey: 'eventAttributes',
+      contracts() {
+        const contractsArray = ids.map((param) => {
+          const args = param ;
+          return [
+            { ...contractDetails, functionName: 'getCampaign', args },
+          ];
+        });
+        return contractsArray.flat();
+      },
+    });
+return(data)
   }
 
 
@@ -531,27 +531,40 @@ Join Event
   }
 
 
-  export function SpaceEvents(ids){
-    const { data, fetchNextPage } = useContractInfiniteReads({
-      cacheKey: 'eventAttributes',
-      contracts() {
-        const contractsArray = ids.map((param) => {
-          const args = param ;
-          return [
-            { ...contractDetails, functionName: 'getEvent', args },
-          ];
-        });
-        return contractsArray.flat();
-      },
-    });
-return(data)
-}
+  export function GetSpaceEvents(id){
+    const { data, isSuccess, isError } = useContractRead({
+      ...contractDetails,
+      functionName: 'events',
+      args: id,
+    })
+  
+    const stringifyNumbers = obj => {
+      for (const key in obj) {
+          if (typeof obj[key] === 'object') {
+              stringifyNumbers(obj[key]); // Recursively call for nested objects
+          } else if (typeof obj[key] === 'bigint' || typeof obj[key] === 'number') {
+              obj[key] = obj[key].toString(); // Convert number or bigint to string
+          } else if (typeof obj[key] === 'object' && obj[key] && obj[key].toNumber) {
+              // Check if it's a BigNumber instance
+              obj[key] = obj[key].toNumber(); // Convert BigNumber to number
+          }
+      }
+  };
+  
+  if (data) {
+    stringifyNumbers(data);
+  }
+  
+    return (
+      {data, isSuccess, isError}
+    )
+  }
 
 export function GetSpaceCampaign(id){
   const { data, isSuccess, isError } = useContractRead({
     ...contractDetails,
-    functionName: 'getCampaign',
-    args: [id],
+    functionName: 'campaigns',
+    args: id,
   })
 
   const stringifyNumbers = obj => {
