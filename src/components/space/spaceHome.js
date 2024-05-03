@@ -42,32 +42,56 @@
       }
     }
 
-      const campaignDataArray = [];
-      if (SpaceCampaignIds && SpaceCampaignIds.length >0) {
-        for (const id of SpaceCampaignIds) {
-          const data =  GetSpaceCampaign([id]);
-          campaignDataArray.push(data.data);
+      const [campaignDataArray, setcampaignDataArray] =useState([]);
+      const [dataids,setdataids] = useState("1")
+      useEffect(()=>{
+        if (SpaceCampaignIds && SpaceCampaignIds.length >0) {
+        for (let i=0; i < SpaceCampaignIds.length; i++ ) {
+          setdataids((currentData) => [...currentData,SpaceCampaignIds[i]]);
+          setcampaignDataArray((currentData) => [...currentData,SpaceCampaigns]);
         }
       }
+      })
+
+      const {data:SpaceCampaigns} =  GetSpaceCampaign([dataids]);
       console.log(campaignDataArray);
+
+      // useEffect(() => {
+      //   if (SpaceCampaignIds && SpaceCampaignIds.length > 0) {
+      //     const tempCampaignDataArray = []; // Temporary array to accumulate data
+      //     SpaceCampaignIds.forEach((id) => {
+      //       GetSpaceCampaign([id]).then(({ data: SpaceCampaign }) => {
+      //         tempCampaignDataArray.push(SpaceCampaign); // Accumulate fetched data
+      //         // Check if this is the last iteration before setting the state
+      //         if (tempCampaignDataArray.length === SpaceCampaignIds.length) {
+      //           setcampaignDataArray(tempCampaignDataArray); // Set the accumulated data
+      //         }
+      //       });
+      //     });
+      //   }
+      // }, [SpaceCampaignIds]); // Add SpaceCampaignIds as a dependency to useEffect
+      
+      // console.log(campaignDataArray);
+
+  
       
 
-      let SpaceEventIds;
-    if (eventID && eventID.length > 0) {
-      // Check if spaceidsample is a valid index
-      if (spaceidsample >= 1 && spaceidsample <= eventID.length) {
-        SpaceEventIds = eventID[spaceidsample - 1].split(',');
-      }
-    }
+    //   let SpaceEventIds;
+    // if (eventID && eventID.length > 0) {
+    //   // Check if spaceidsample is a valid index
+    //   if (spaceidsample >= 1 && spaceidsample <= eventID.length) {
+    //     SpaceEventIds = eventID[spaceidsample - 1].split(',');
+    //   }
+    // }
 
-      const eventDataArray = [];
-      if (SpaceEventIds && SpaceEventIds.length >0) {
-        for (const id of SpaceEventIds) {
-          const data =  GetSpaceEvents([id]);
-          eventDataArray.push(data);
-        }
-      }
-      console.log(eventDataArray);
+    //   const eventDataArray = [];
+    //   if (SpaceEventIds && SpaceEventIds.length >0) {
+    //     for (const id of SpaceEventIds) {
+    //       const data =  GetSpaceEvents([id]);
+    //       eventDataArray.push(data);
+    //     }
+    //   }
+    //   console.log(eventDataArray);
 
   
 
