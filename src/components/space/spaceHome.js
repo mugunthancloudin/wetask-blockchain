@@ -63,8 +63,8 @@
           SpaceEventIds = eventID[spaceidsample - 1].split(',');
       }
     }
-    
-    const fetchedEventCampaign  =  SpaceEvents(SpaceCampaignIds)
+
+    const fetchedEventCampaign  =  SpaceEvents(SpaceEventIds)
     if(fetchedEventCampaign && fetchedEventCampaign.pages) {
       console.log("Space Events : ",fetchedEventCampaign.pages[0]);
     }
