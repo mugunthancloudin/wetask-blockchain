@@ -13,27 +13,31 @@
   import { Link } from "react-router-dom";
 
   export default function SpaceHome() {
-    const [spaceId, setSpaceId] = useState("1");
-    const [accumulatedData, setAccumulatedData] = useState([]);
-    const [campaignID, setCampaignID] = useState([]);
-    const [eventID, setEventID] = useState([]);
-
-    const { data, isSuccess } = ReadSpace(spaceId);
-    // console.log(data[0]);
-
-    useEffect(() => {
-      if (isSuccess && data[0].name) {
-        setAccumulatedData((currentData) => [...currentData, data[0]]);
-        setCampaignID((currentData) => [...currentData, data[0].campaigns.toString()]);
-        setEventID((currentData) => [...currentData, data[0].events.toString()]);
-        setSpaceId((currentId) => String(Number(currentId) + 1));
-      }
-    }, [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
-
-    console.log("All Space Data", accumulatedData);
     
-    
+  const [spaceId, setSpaceId] = useState('1');
+  const [accumulatedData, setAccumulatedData] = useState([]);
+  const [campaignID , setCampaignID] = useState([])
+  const [eventID , setEventID] = useState([])
+  
+  const {data , isSuccess} = ReadSpace(spaceId)
+  useEffect(() => {
+        if (isSuccess && data[0].name) {
+          setAccumulatedData((currentData) => [...currentData, data[0]]);
+          setCampaignID((currentData) => [...currentData, data[0].campaigns.toString()]);
+          setEventID((currentData) => [...currentData, data[0].events.toString()]);
+          setSpaceId((currentId) => String(Number(currentId) + 1));
+        }
+      } , [data, isSuccess, spaceId, accumulatedData]); // Ensure all relevant variables are included in dependency array
+
+      console.log("All Space Data" , accumulatedData);
+  
+    const sampleId = 1 ;
+    const {data:spaceData} = ReadSpace(sampleId);
+
     const spaceidsample = 3;
+
+    //Space Campaigns
+
     let SpaceCampaignIds;
     if (campaignID && campaignID.length > 0) {
       // Check if spaceidsample is a valid index
@@ -42,59 +46,29 @@
       }
     }
 
-      const [campaignDataArray, setcampaignDataArray] =useState([]);
-      const [dataids,setdataids] = useState("1")
-      useEffect(()=>{
-        if (SpaceCampaignIds && SpaceCampaignIds.length >0) {
-        for (let i=0; i < SpaceCampaignIds.length; i++ ) {
-          setdataids((currentData) => [...currentData,SpaceCampaignIds[i]]);
-          setcampaignDataArray((currentData) => [...currentData,SpaceCampaigns]);
-        }
+    console.log(SpaceCampaignIds);
+
+    const fetchedSpaceCampaign  = SpaceCampaigns(SpaceCampaignIds)
+    if(fetchedSpaceCampaign && fetchedSpaceCampaign.pages) {
+      console.log("Space Campaigns : ",fetchedSpaceCampaign.pages[0]);
+    }
+
+
+    //Space Events 
+
+    let SpaceEventIds;
+    if (eventID && eventID.length > 0) {
+      // Check if spaceidsample is a valid index
+      if (spaceidsample >= 1 && spaceidsample <= eventID.length) {
+          SpaceEventIds = eventID[spaceidsample - 1].split(',');
       }
-      })
-
-      const {data:SpaceCampaigns} =  GetSpaceCampaign([dataids]);
-      console.log(campaignDataArray);
-
-      // useEffect(() => {
-      //   if (SpaceCampaignIds && SpaceCampaignIds.length > 0) {
-      //     const tempCampaignDataArray = []; // Temporary array to accumulate data
-      //     SpaceCampaignIds.forEach((id) => {
-      //       GetSpaceCampaign([id]).then(({ data: SpaceCampaign }) => {
-      //         tempCampaignDataArray.push(SpaceCampaign); // Accumulate fetched data
-      //         // Check if this is the last iteration before setting the state
-      //         if (tempCampaignDataArray.length === SpaceCampaignIds.length) {
-      //           setcampaignDataArray(tempCampaignDataArray); // Set the accumulated data
-      //         }
-      //       });
-      //     });
-      //   }
-      // }, [SpaceCampaignIds]); // Add SpaceCampaignIds as a dependency to useEffect
-      
-      // console.log(campaignDataArray);
-
-  
-      
-
-    //   let SpaceEventIds;
-    // if (eventID && eventID.length > 0) {
-    //   // Check if spaceidsample is a valid index
-    //   if (spaceidsample >= 1 && spaceidsample <= eventID.length) {
-    //     SpaceEventIds = eventID[spaceidsample - 1].split(',');
-    //   }
-    // }
-
-    //   const eventDataArray = [];
-    //   if (SpaceEventIds && SpaceEventIds.length >0) {
-    //     for (const id of SpaceEventIds) {
-    //       const data =  GetSpaceEvents([id]);
-    //       eventDataArray.push(data);
-    //     }
-    //   }
-    //   console.log(eventDataArray);
-
-  
-
+    }
+    
+    const fetchedEventCampaign  =  SpaceEvents(SpaceCampaignIds)
+    if(fetchedEventCampaign && fetchedEventCampaign.pages) {
+      console.log("Space Events : ",fetchedEventCampaign.pages[0]);
+    }
+   
 
     return (
       <>

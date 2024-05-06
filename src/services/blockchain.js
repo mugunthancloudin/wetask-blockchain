@@ -503,7 +503,7 @@ Join Event
 
   export function SpaceCampaigns(ids){
     const { data, fetchNextPage } = useContractInfiniteReads({
-      cacheKey: 'eventAttributes',
+      cacheKey: 'campaignAttributes',
       contracts() {
         const contractsArray = ids.map((param) => {
           const args = param ;
@@ -515,7 +515,7 @@ Join Event
       },
     });
 return(data)
-  }
+}
 
 
   export function ReadSpace(count){
@@ -587,4 +587,20 @@ if (data) {
   return (
     {data}
   )
+}
+
+export function SpaceEvents(ids){
+  const { data, fetchNextPage } = useContractInfiniteReads({
+    cacheKey: 'eventAttributes',
+    contracts() {
+      const contractsArray = ids.map((param) => {
+        const args = param ;
+        return [
+          { ...contractDetails, functionName: 'getEvent', args },
+        ];
+      });
+      return contractsArray.flat();
+    },
+  });
+return(data)
 }
