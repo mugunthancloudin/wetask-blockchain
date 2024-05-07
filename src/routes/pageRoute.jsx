@@ -30,7 +30,7 @@ export default function PageRoute() {
         <Route path="/create/space" element={<SpaceCreate />} />
         {/* <Route path="/campaign/:id" render={(props) => <CampaignDetails {...props} accumulatedData={accumulatedData} />} /> */}
         <Route path="/campaign" element={<Campaign />} />
-        {/* <Route path="/campaign/:id" element={<CampaignDetails />} /> */}
+        <Route path="/campaign/:id" element={<CampaignDetails />} />
         <Route path="/space" element={<Space />} />
         <Route path="/space/:id" element={<SpaceDetails />} />
         <Route path="/event" element={<Event />} />

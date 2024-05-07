@@ -72,9 +72,9 @@ const CampaignHome = () => {
                   <div class Name="card-footer d-flex align-items-center justify-content-left">
                     <button className="footerButton1 me-2 pb-1">{ethers.formatEther(item.tokenReward)} <small>Eth</small></button>
                     <button className="footerButton2 pb-1">{item.points} <small>pts</small></button>
-                   </div>``
+                   </div>
                   <div>
-                    <div className={`status-bar-inner d-flex justify-content-center align-items-center text-center  text-white fw-bold ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
+                    <div className={`status-bar-inner d-flex justify-content-center mt-2 align-items-center text-center  text-white fw-bold ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
                     {getCampaignStatus(item.startTimestamp, item.endTimestamp)}
                     </div>
                   </div>
