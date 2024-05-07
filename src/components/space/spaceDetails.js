@@ -48,7 +48,7 @@ const camaignId =
             {eventDetail && (
               <>
                 <h3>{eventDetail.name}</h3>
-                <p>   z``
+                <p>
                   The first video game that merges console gaming with blockchain
                   technology, developed by Galaxy Games. Featured on PlayStation,
                   Xbox, IGN, and Steam platforms, and incubated by Seedify Fund.
@@ -91,6 +91,44 @@ const camaignId =
               </div>
             </div>
           </div>
+
+          {/* <div className="row">
+          <div className="row p-5">  
+          {accumulatedData.map((item) => (
+            <div key={item.id} className="col-lg-3 mb-4">
+              <Link
+                to={`/campaign/${item.id}`}
+                state={{ accumulatedData }}
+                style={{ textDecoration: "none" }}
+              >
+                <div className="card h-100 campaignHomeCard d-flex flex-column">
+                  <div className="card-body text-white">
+                    <img
+                      src={`https://ipfs.moralis.io:2053/ipfs/${item.image}`}
+                      alt="productImage"
+                      className="w-100 h-50"
+                      style={{ objectFit: "cover" }}
+                    />
+                    <p className="card-title mt-3">{item.name}</p>
+                    <p className="card-text">MinimumBalance: {ethers.formatEther(item.minimumBalance)} ETH</p>
+                    <p className="card-text">MinimumLevel: {item.minimumLevel}</p>
+                    <p className="card-text">{item.description}</p>
+                  </div>
+                  <div class Name="card-footer d-flex align-items-center justify-content-left">
+                    <button className="footerButton1 me-2 pb-1">{ethers.formatEther(item.tokenReward)} <small>Eth</small></button>
+                    <button className="footerButton2 pb-1">{item.points} <small>pts</small></button>
+                   </div>``
+                  <div>
+                    <div className={`status-bar-inner d-flex justify-content-center align-items-center text-center  text-white fw-bold ${getCampaignStatus(item.startTimestamp, item.endTimestamp)}`}>
+                    {getCampaignStatus(item.startTimestamp, item.endTimestamp)}
+                    </div>
+                  </div>
+                </div>
+              </Link> 
+            </div>
+          ))}
+        </div>
+          </div> */}
         </div>
       </div>
       <Footer />

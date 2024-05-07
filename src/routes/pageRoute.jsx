@@ -37,10 +37,12 @@ export default function PageRoute() {
         <Route path="/event/:id" element={<EventDetails />} />
 
         {/* create campaign routes */}
-        {/* <Route path="/basicinfo" element={<Basicinfo />} /> */}
+        <Route path="/basicinfo" element={<Basicinfo />} />
         <Route path="/campaigneligibility" element={<Eligiblity />} />
         <Route path="/campaignrewards" element={<Rewards />} />
         <Route path="/campaigntasks" element={<Task />} />
+
+
 
         {/* create event routes */}
         {/* <Route path="/eventbasicInfo" element={<EventBasicInfo />} /> */}
