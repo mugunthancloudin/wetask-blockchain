@@ -31,8 +31,7 @@
 
       console.log("All Space Data" , accumulatedData);
   
-    const sampleId = 1 ;
-    const {data:spaceData} = ReadSpace(sampleId);
+  
 
     const spaceidsample = 3;
 
@@ -53,7 +52,7 @@
       console.log("Space Campaigns : ",fetchedSpaceCampaign.pages[0]);
     }
 
-
+    // New
     //Space Events 
 
     let SpaceEventIds;
