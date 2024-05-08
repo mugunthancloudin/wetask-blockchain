@@ -20,10 +20,11 @@ import {
 
 const CampaignDetails = () => {
   const location = useLocation();
-  console.log(location);
   const { accumulatedData } = location?.state || {};
+  console.log(accumulatedData);
   const [tasksData, setTasksData] = useState(null);
-  const [campaignDetail, setCampaignDetail] = useState();
+  const [campaignDetail, setCampaignDetail] = useState("");
+  console.log(campaignDetail);
   const [isCopied, setIsCopied] = useState(false);
 
   const addressRef = useRef(null);
@@ -40,10 +41,7 @@ const CampaignDetails = () => {
   };
 
   useEffect(() => {
-    const campaignDetails = accumulatedData?.find(
-      (item) => item.id === campaignId
-    );
-
+    const campaignDetails = accumulatedData
     console.log(campaignDetails);
     setCampaignDetail(campaignDetails);
 
@@ -83,7 +81,9 @@ const CampaignDetails = () => {
   const { data } = ViewCampaignParticipants(campaignId);
 
   let campaignStart = Number(campaignDetail?.startTimestamp);
+  console.log(campaignStart);
   let campaignEnd = Number(campaignDetail?.endTimestamp);
+  console.log(campaignEnd);
   let contractAddress = campaignDetail?.creator;
 
   const startDate = new Date(campaignStart);
@@ -100,6 +100,7 @@ const CampaignDetails = () => {
   const formattedStartDate = startDate.toLocaleString("en-US", options);
   const formattedEndDate = endDate.toLocaleString("en-US", options);
   const formattedDateRange = `${formattedStartDate} - ${formattedEndDate} (GMT+05:30)`;
+  console.log(formattedDateRange);
 
   const handleCopyClick = () => {
     const contractAddress = campaignDetail?.creator;
@@ -122,7 +123,12 @@ const CampaignDetails = () => {
           <div className="row">
             <div className="col-lg-5">
               <div className="card detailsCardBg">
-                <img src={mainpic} alt="mainpic" className="w-100" />
+                <img
+                  src={`https://ipfs.moralis.io:2053/ipfs/${campaignDetail.image}`}
+                  alt="productImage"
+                  className="w-100 justify-content-center"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
             </div>
             <div className="col-lg-7 text-white">
@@ -144,7 +150,7 @@ const CampaignDetails = () => {
 
               <div className="row  text-white">
                 <div className="col-lg-4">
-                  <h5>Campaign</h5>
+                  <h5>{campaignDetail.name}</h5>
                 </div>
 
                 <div className="col-lg-4">&nbsp;</div>
@@ -207,7 +213,7 @@ const CampaignDetails = () => {
                       />{" "}
                       Polygon
                     </button>
-                  </div> 
+                  </div>
 
                   <div className="row mt-3 ms-5 d-flex align-items-center justify-content-left">
                     <button className="detailbtn1 me-2">SBT</button>
@@ -276,7 +282,7 @@ const CampaignDetails = () => {
                 )}
 
                 <div className="mt-3">
-                <JoinCampaign campaignId={campaignId} />
+                  <JoinCampaign campaignId={campaignId} />
                 </div>
 
                 <div className="row my-3 p-3 rewardsBg">
