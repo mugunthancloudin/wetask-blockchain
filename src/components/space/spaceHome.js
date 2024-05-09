@@ -16,6 +16,7 @@ export default function SpaceHome() {
   
 const [spaceId, setSpaceId] = useState('1');
 const [accumulatedData, setAccumulatedData] = useState([]);
+console.log(accumulatedData);
 const [campaignID , setCampaignID] = useState([])
 const [eventID , setEventID] = useState([])
 
@@ -34,7 +35,7 @@ useEffect(() => {
 
 
   const spaceidsample = 3;
-
+ 
   //Space Campaigns
 
   let SpaceCampaignIds;
@@ -95,7 +96,7 @@ useEffect(() => {
                 </Link>
               </div>
             ))}
-          </div>
+          </div> 
         </div>
       </div>
     </>

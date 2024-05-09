@@ -8,20 +8,21 @@ import { JoinEvent } from "../../services/blockchain.js";
 
 export default function EventDetails() {
   const location = useLocation();
+  console.log(location);
   const { accumulatedData } = location?.state || {};
+  console.log(accumulatedData);
   const [eventDetail, setEventDetail] = useState("");
+  console.log(eventDetail);
   const campaignId = window.location.pathname.split("/")[2];
   
 
   useEffect(() => {
-    const campaignDetails = accumulatedData?.find(
-      (item) => item.id === campaignId
-    );
+    const campaignDetails = accumulatedData
+    console.log(campaignDetails);
     setEventDetail(campaignDetails || []);
   }, [campaignId, accumulatedData]);
 
 
-  console.log(eventDetail);
   // console.log(eventDetail.campaignIds.length );
 
   //   const ipfsBaseUrl = "https://ipfs.io/ipfs/";
@@ -94,9 +95,9 @@ console.log("Difference in days:", differenceInDays);
                 </h6>
               </div>
 
-              <div className="row">
+               <div className="row">
                 <h3>Lucky Draw</h3>
-                <div className="card">
+                {/* <div className="card">
                   <div className="row eventDetailsTOken">
                     <div className="col-lg-6">
                       <h3>Token</h3>
@@ -108,7 +109,7 @@ console.log("Difference in days:", differenceInDays);
                       <h6>50 Winners</h6>
                     </div>
                   </div>
-                </div>
+                </div> */}
 
                 {/* <div className="card mt-3"> */}
                 <div className="row eventDetailsTOken mt-3">
@@ -137,7 +138,7 @@ console.log("Difference in days:", differenceInDays);
                         <span className="eventSpanCode">400</span> Points/winner
                       </h4>
                     </div>
-                  </div>
+                  </div> 
                 </div>
               </div>
 
